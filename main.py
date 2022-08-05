@@ -8,11 +8,11 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 pygame.display.set_caption("Python Game")
 
-start_background = pygame.image.load("C:/Users/jho/Desktop/pythonGameContest/PythonGame/img/start.png")
-background = pygame.image.load("C:/Users/jho/Desktop/pythonGameContest/PythonGame/img/background.png")
+start_background = pygame.image.load("img/start.png")
+background = pygame.image.load("img/background.png")
 
 #캐릭터 불러오기
-character = pygame.image.load("C:/Users/jho/Desktop/pythonGameContest/PythonGame/img/dot.png")
+character = pygame.image.load("img/dot.png")
 character_size = character.get_rect().size #캐릭터 이미지 사이즈 구하기
 character_width = character_size[0] #캐릭터 가로 크기
 character_height = character_size[1] #캐릭터 세로 크기
