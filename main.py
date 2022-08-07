@@ -1,4 +1,5 @@
 import pygame
+import menu
 pygame.init()
 
 # 초기 변수 설정
@@ -61,6 +62,8 @@ while running:
                     print("게임시작")
                 if event.key == pygame.K_2:
                     print("패치노트")
+            if event.type == pygame.MOUSEMOTION:
+                print(pygame.mouse.get_pos())
 
         elif stage == 1: # 첫 번째 stage 이벤트
             if event.type == pygame.KEYDOWN:
@@ -80,7 +83,8 @@ while running:
 
     # 각 스테이지별 따로 설졍해줘야 하는 요소들
     if stage == 0:
-        screen.blit(start_background, (0, 0))
+        #screen.blit(start_background, (0, 0))
+        menu.render()
     elif stage == 1:
         if not(is_rendered):
             stage1_rendering()
