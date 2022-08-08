@@ -1,25 +1,7 @@
 import pygame
+import menu
+from setting import *
 pygame.init()
-
-# 초기 변수 설정
-screen_width = 480
-screen_height = 640
-screen = pygame.display.set_mode((screen_width, screen_height))
-
-pygame.display.set_caption("Python Game")
-
-start_background = pygame.image.load("img/start.png")
-background = pygame.image.load("img/background.png")
-
-#캐릭터 불러오기
-character = pygame.image.load("img/dot.png")
-character_size = character.get_rect().size #캐릭터 이미지 사이즈 구하기
-character_width = character_size[0] #캐릭터 가로 크기
-character_height = character_size[1] #캐릭터 세로 크기
-#캐릭터의 기준 좌표를 캐릭터의 왼쪽 상단으로 둔다.
-character_x_pos = (screen_width / 2) - (character_width / 2) #화면 가로 절반의 중간에 위치. 좌우로 움직이는 변수
-character_y_pos = screen_height - character_height #이미지가 화면 세로의 가장 아래 위치
-
 
 def stage1_rendering():
     print("최초 1회만 렌더링 되는 요소들")
@@ -54,13 +36,7 @@ while running:
 
         # 스테이지별 이벤트
         if stage == 0: # 시작 화면일때
-            if event.type == pygame.KEYDOWN: #키보드의 키가 눌러졌을 경우
-                # 아래는 예시입니다.
-                if event.key == pygame.K_1:
-                    stage = 1
-                    print("게임시작")
-                if event.key == pygame.K_2:
-                    print("패치노트")
+            menu.event_process(event= event)
 
         elif stage == 1: # 첫 번째 stage 이벤트
             if event.type == pygame.KEYDOWN:
@@ -80,7 +56,8 @@ while running:
 
     # 각 스테이지별 따로 설졍해줘야 하는 요소들
     if stage == 0:
-        screen.blit(start_background, (0, 0))
+        #screen.blit(start_background, (0, 0))
+        menu.render()
     elif stage == 1:
         if not(is_rendered):
             stage1_rendering()
