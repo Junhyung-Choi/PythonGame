@@ -28,4 +28,6 @@ git config commit.template .gitmessage.txt
 
 ```bash
 git checkout develop
+git branch develop
+git checkout feature/{scenename}
 ```
