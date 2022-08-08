@@ -1,16 +1,21 @@
+from curses import meta
 import pygame
 import menu
 from setting import *
+import story
+import meeting
+#############################################
+#                                            
+#    stage  0 : 메뉴 씬                      
+#    stage  1 : 스토리 씬                    
+#    stage  2 : 소개팅 씬                    
+#    stage -1 : 오버레이 화면                
+#                                            
+#############################################
+
+
+# 파이게임 
 pygame.init()
-
-def stage1_rendering():
-    print("최초 1회만 렌더링 되는 요소들")
-
-
-# 이벤트 루프 변수
-running = True
-stage = 0
-is_rendered = False
 
 # 게임 전체 루프
 while running:
@@ -36,38 +41,23 @@ while running:
 
         # 스테이지별 이벤트
         if stage == 0: # 시작 화면일때
-            menu.event_process(event= event)
+            menu.process_event(event=event)
 
         elif stage == 1: # 첫 번째 stage 이벤트
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_1:
-                    print("stage1 에서 1번키 눌림")
-                if event.key == pygame.K_2:
-                    print("stage1 에서 2번키 눌림")
+            story.process_event(event=event)
 
         elif stage == 2: # 두 번째 stage 이벤트
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_1:
-                    print("stage2 에서 1번키 눌림")
-                if event.key == pygame.K_2:
-                    print("stage2 에서 2번키 눌림")
+            meeting.process_event(event=event)
 
         ####################################################
 
     # 각 스테이지별 따로 설졍해줘야 하는 요소들
     if stage == 0:
-        #screen.blit(start_background, (0, 0))
         menu.render()
     elif stage == 1:
-        if not(is_rendered):
-            stage1_rendering()
-            is_rendered = True
-        pass
-        # if 스테이지 클리어 조건 == True:
-        #   stage = 2
-        #   is_rendered = False
+        story.render()
     elif stage == 2:
-        pass
+        meeting.render()
 
     if stage != 0:
         screen.blit(background, (0, 0))
