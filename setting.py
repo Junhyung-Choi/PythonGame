@@ -25,7 +25,6 @@ character_y_pos = screen_height - character_height #이미지가 화면 세로�
 # 이벤트 루프 변수
 running = True
 stage = 0
-is_rendered = False
 
 ######################### 스토리 씬 세팅
 LEFT = 1

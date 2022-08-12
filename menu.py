@@ -1,5 +1,5 @@
 import pygame
-from setting import *
+import setting
 
 def remap(old_val, old_min, old_max, new_min, new_max):
     return (new_max - new_min)*(old_val - old_min) / (old_max - old_min) + new_min
@@ -16,10 +16,10 @@ def process_event(event):
         print(pygame.mouse.get_pos())
 
 def render():
-    screen.blit(start_background, (0, 0))
+    setting.screen.blit(setting.start_background, (0, 0))
     frame_number = 24
-    maxHeight = screen.get_height()
-    maxWidth = screen.get_width()
+    maxHeight = setting.screen.get_height()
+    maxWidth = setting.screen.get_width()
     
     mouseX, mouseY = pygame.mouse.get_pos()
     if(mouseY < maxHeight / 2):
