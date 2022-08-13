@@ -1,6 +1,20 @@
 import pygame
 import setting
 
+LEFT = 1
+RIGHT = 3
+# 아직 씬이 나오지 않았으므로, 임시 씬 이미지
+story_img = pygame.image.load("img/background.png")
+skip_img = pygame.image.load("img/skip.png")
+
+story_img_x_pos = 0
+story_img_y_pos = 0
+skip_x_pos_start = 0
+skip_y_pos_start = 0
+skip_x_pos_end = 0
+skip_y_pos_end = 0
+
+
 def process_event(event):
     if event.type == pygame.QUIT:
         setting.running = False
