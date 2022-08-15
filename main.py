@@ -14,37 +14,37 @@ import meeting
 #############################################
 
 def loop():
-    # 이벤트 처리
-    event()
-    # 각 스테이지 렌더링
-    render()
+    while setting.running:
+        # 이벤트 처리
+        event()
+        # 각 스테이지 렌더링
+        render()
 
 
 def event():
-    while setting.running:
-        # 이벤트 처리
-        for event in pygame.event.get():
-            # 모든 스테이지에서 공통적으로 사용되는 이벤트
-            if event.type == pygame.QUIT:
-                setting.running = False
-            if event.type == pygame.KEYDOWN: #키보드의 키가 눌러졌을 경우
-                # 개발자 테스트용 스테이지 이동 키
-                if event.key == pygame.K_MINUS: 
-                    setting.stage -= 1
-                    print("현재 스테이지 : " + str(setting.stage))
-                if event.key == pygame.K_EQUALS:
-                    setting.stage += 1
-                    print("현재 스테이지 : " + str(setting.stage))
+    # 이벤트 처리
+    for event in pygame.event.get():
+        # 모든 스테이지에서 공통적으로 사용되는 이벤트
+        if event.type == pygame.QUIT:
+            setting.running = False
+        if event.type == pygame.KEYDOWN: #키보드의 키가 눌러졌을 경우
+            # 개발자 테스트용 스테이지 이동 키
+            if event.key == pygame.K_MINUS: 
+                setting.stage -= 1
+                print("현재 스테이지 : " + str(setting.stage))
+            if event.key == pygame.K_EQUALS:
+                setting.stage += 1
+                print("현재 스테이지 : " + str(setting.stage))
 
-            # 스테이지별 이벤트
-            if setting.stage == 0: # 시작 화면일때
-                menu.process_event(event=event)
+        # 스테이지별 이벤트
+        if setting.stage == 0: # 시작 화면일때
+            menu.process_event(event=event)
 
-            elif setting.stage == 1: # 첫 번째 stage 이벤트
-                story.process_event(event=event)
+        elif setting.stage == 1: # 첫 번째 stage 이벤트
+            story.process_event(event=event)
 
-            elif setting.stage == 2: # 두 번째 stage 이벤트
-                meeting.process_event(event=event)
+        elif setting.stage == 2: # 두 번째 stage 이벤트
+            meeting.process_event(event=event)
 
 def render():
     if setting.stage == 0:
