@@ -1,5 +1,8 @@
 import pygame
 
+LEFT = 1
+RIGHT = 3
+
 # 스크린 사이즈 설정
 screen_width = 480
 screen_height = 640

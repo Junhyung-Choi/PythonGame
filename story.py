@@ -11,8 +11,8 @@ story_img_x_pos = 0
 story_img_y_pos = 0
 skip_x_pos_start = 0
 skip_y_pos_start = 0
-skip_x_pos_end = 0
-skip_y_pos_end = 0
+skip_x_pos_end = 50
+skip_y_pos_end = 50
 
 
 def process_event(event):
