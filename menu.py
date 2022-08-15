@@ -26,5 +26,5 @@ def render():
         print("Normal Image")
         print(mouseX,mouseY)
     else:
-        print("Frame : " + str(remap(mouseX,0,maxHeight,0,frame_number)))
+        print("Frame : " + str(remap(mouseX,0,maxWidth,0,frame_number)))
         print(mouseX,mouseY)
