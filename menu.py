@@ -1,3 +1,4 @@
+from turtle import Screen
 import pygame
 import setting
 
@@ -16,15 +17,21 @@ def process_event(event):
         print(pygame.mouse.get_pos())
 
 def render():
-    setting.screen.blit(setting.start_background, (0, 0))
-    frame_number = 24
+    setting.screen.blit(setting.main_background, (0, 0))
+    frame_number = 36
     maxHeight = setting.screen.get_height()
     maxWidth = setting.screen.get_width()
     
     mouseX, mouseY = pygame.mouse.get_pos()
+    setting.screen.blit(setting.eyeBall,(mouseX,mouseY))
+    
     if(mouseY < maxHeight / 2):
-        print("Normal Image")
-        print(mouseX,mouseY)
+        setting.screen.blit(setting.eyes[17],(0,0))
     else:
-        print("Frame : " + str(remap(mouseX,0,maxWidth,0,frame_number)))
-        print(mouseX,mouseY)
+        fidx = int(remap(mouseX,0,maxWidth,0,frame_number))
+        setting.screen.blit(setting.eyes[fidx],(0,0))
+    
+    setting.screen.blit(setting.main_title, (0,0))
+    setting.screen.blit(setting.main_table, (0,0))
+    setting.screen.blit(setting.menu_button,(0,0))
+    setting.screen.blit(setting.menu_button,(100,0))
