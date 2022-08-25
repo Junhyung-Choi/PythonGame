@@ -1,28 +1,29 @@
 import pygame
 from setting import *
 from button import *
+from interface import *
 
-def interface(event):
-    button_heart = Button(10, 10, 50, 'heart')
-    button_skip = Button(70, 10, 50, 'skip')
+def time_check(run=True):
+    if run:
+        screen.blit(img_meeting_watch_clock, (WATCH_CLOCK_X, WATCH_CLOCK_Y))
+    return 'time_check'
+def propose(run=True):
+    if run:
+        print("호감")
+    return 'propose'
 
-    button_heart.click_event(event)
-    button_skip.click_event(event)
-
-    button_heart.show()
-    button_skip.show()
-
-    pygame.display.update()
+def button_1():
+    print("버튼1")
+def button_2():
+    print("버튼2")
+def button_3():
+    print("버튼3")
+def button_4():
+    print("버튼4")
 
 def process_event(event):
-    if event.type == pygame.KEYDOWN: #키보드의 키가 눌러졌을 경우
-        # 아래는 예시입니다.
-        if event.key == pygame.K_1:
-            print("1번키 눌림")
-        if event.key == pygame.K_2:
-            print("2번키 눌림")
-
-    interface(event)
+    interface(event, time_check, propose, button_1, button_2, button_3, button_4)
 
 def render():
     pass
+
