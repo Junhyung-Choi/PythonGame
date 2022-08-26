@@ -57,7 +57,8 @@ def render():
         story.render()
     elif setting.stage == 2:
         meeting.render()
-        
+    
+    pygame.time.Clock().tick(setting.FPS)
     pygame.display.update()
 
 

@@ -5,6 +5,9 @@ pygame.font.init()
 LEFT = 1
 RIGHT = 3
 
+# 프레임
+FPS = 60
+
 # 스크린 사이즈 설정
 screen_width = 800
 screen_height = 600
@@ -53,6 +56,7 @@ WINDOW_H = 185
 WINDOW_X = 28
 WINDOW_Y = 169
 
+FONT_SIZE = 12
 # 미팅 이미지 파일
 img_speech_bubble = pygame.image.load("img/meeting/Meeting_QuestionBox.png")
 img_speech_bubble = pygame.transform.scale(img_speech_bubble, (SPEECH_BUBBLE_W, SPEECH_BUBBLE_H))
@@ -67,7 +71,7 @@ img_meeting_watch_clock = pygame.transform.scale(img_meeting_watch_clock, (WATCH
 img_meeting_window = pygame.image.load("img/meeting/Meeting_Window.png")
 img_meeting_window = pygame.transform.scale(img_meeting_window, (WINDOW_W, WINDOW_H))
 
-font = pygame.font.Font("font/DungGeunMo.ttf", 15)
+font = pygame.font.Font("font/DungGeunMo.ttf", FONT_SIZE)
 
 is_init_interface = False
 
