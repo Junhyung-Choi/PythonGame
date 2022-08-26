@@ -27,6 +27,8 @@ class Button:
             screen.blit(img_pause, (self.x_pos, self.y_pos))
         elif self.btn_type == 'speech_bubble':
             screen.blit(img_speech_bubble, (self.x_pos, self.y_pos))
+            text = font.render("테스트", True, (0, 0, 0))
+            screen.blit(text, (self.x_pos + 20, self.y_pos + 11))
         elif self.btn_type == 'propose':
             screen.blit(img_meeting_propose, (self.x_pos, self.y_pos))
         elif self.btn_type == 'time_check':

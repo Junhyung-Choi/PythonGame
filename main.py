@@ -47,6 +47,9 @@ def event():
             meeting.process_event(event=event)
 
 def render():
+    if setting.stage != 0:
+        setting.screen.blit(setting.background, (0, 0))
+
     if setting.stage == 0:
         menu.render()
         pygame.display.update()
@@ -55,11 +58,7 @@ def render():
     elif setting.stage == 2:
         meeting.render()
 
-    if setting.stage != 0:
-        setting.screen.blit(setting.background, (0, 0))
-
-
-    # pygame.display.update()
+    pygame.display.update()
 
 
 # 파이게임 초기화

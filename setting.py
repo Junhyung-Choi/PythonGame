@@ -1,5 +1,7 @@
 import pygame
 
+pygame.font.init()
+
 LEFT = 1
 RIGHT = 3
 
@@ -40,11 +42,15 @@ SPEECH_BUBBLE_W = 158 # 말풍선
 SPEECH_BUBBLE_H = 52
 SPEECH_BUBBLE_Y = Q_BOX_Y + 26
 
-WATCH_CLOCK_W = 491
+WATCH_CLOCK_W = 491 # 시계 볼때 팔
 WATCH_CLOCK_H = 261
 WATCH_CLOCK_X = 0
 WATCH_CLOCK_Y = 286
 
+WINDOW_W = 196
+WINDOW_H = 185
+WINDOW_X = 28
+WINDOW_Y = 169
 
 # 미팅 이미지 파일
 img_speech_bubble = pygame.image.load("img/meeting/Meeting_QuestionBox.png")
@@ -57,3 +63,10 @@ img_meeting_time_check = pygame.image.load("img/meeting/Meeting_Timecheck.png")
 img_meeting_time_check = pygame.transform.scale(img_meeting_time_check, (CIRCLE_BTN_SIZE, CIRCLE_BTN_SIZE))
 img_meeting_watch_clock = pygame.image.load("img/meeting/Meeting_checkTime.png")
 img_meeting_watch_clock = pygame.transform.scale(img_meeting_watch_clock, (WATCH_CLOCK_W, WATCH_CLOCK_H))
+img_meeting_window = pygame.image.load("img/meeting/Meeting_Window.png")
+img_meeting_window = pygame.transform.scale(img_meeting_window, (WINDOW_W, WINDOW_H))
+
+
+font = pygame.font.Font("font/DungGeunMo.ttf", 15)
+
+is_init_interface = False
