@@ -40,10 +40,10 @@ def event():
         if setting.stage == 0: # 시작 화면일때
             menu.process_event(event=event)
 
-        elif setting.stage == 1: # 첫 번째 stage 이벤트
+        if setting.stage == 1: # 첫 번째 stage 이벤트
             story.process_event(event=event)
 
-        elif setting.stage == 2: # 두 번째 stage 이벤트
+        if setting.stage == 2: # 두 번째 stage 이벤트
             meeting.process_event(event=event)
 
 def render():
