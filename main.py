@@ -47,17 +47,17 @@ def event():
             meeting.process_event(event=event)
 
 def render():
+    if setting.stage != 0:
+        setting.screen.blit(setting.background, (0, 0))
+
     if setting.stage == 0:
         menu.render()
+        pygame.display.update()
     elif setting.stage == 1:
         story.render()
     elif setting.stage == 2:
         meeting.render()
-
-    if setting.stage != 0:
-        setting.screen.blit(setting.background, (0, 0))
-        # setting.screen.blit(setting.character, (setting.character_x_pos, setting.character_y_pos)) #배경에 캐릭터 그려주기
-
+        
     pygame.display.update()
 
 
