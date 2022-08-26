@@ -1,4 +1,3 @@
-from lib2to3.pygram import python_grammar
 import pygame
 
 pygame.font.init()
@@ -68,7 +67,6 @@ img_meeting_watch_clock = pygame.transform.scale(img_meeting_watch_clock, (WATCH
 img_meeting_window = pygame.image.load("img/meeting/Meeting_Window.png")
 img_meeting_window = pygame.transform.scale(img_meeting_window, (WINDOW_W, WINDOW_H))
 
-
 font = pygame.font.Font("font/DungGeunMo.ttf", 15)
 
 is_init_interface = False
@@ -78,6 +76,7 @@ t = 0
 first = True
 
 
+# 메뉴 씬
 eyes = []
 for idx in range(36):
     eyes.append(pygame.image.load("img/eye_" + str(idx) + ".png"))
@@ -92,14 +91,11 @@ main_table = pygame.transform.scale(main_table,(1681/2,312/2))
 main_title = pygame.image.load("img/Main_Title.png")
 main_title = pygame.transform.scale(main_title,(1249/2,404/2))
 
-
 main_background = pygame.image.load("img/MainBG.png")
 main_background = pygame.transform.scale(main_background,(main_background.get_width()/2,main_background.get_height()/2))
 
-
 menu_button_click = pygame.image.load("img/Button_click.png")
 menu_button_click = pygame.transform.scale(menu_button_click,(136/2,118/2))
-
 
 menu_button = pygame.image.load("img/Button_normal.png")
 menu_button = pygame.transform.scale(menu_button,(136/2,118/2))

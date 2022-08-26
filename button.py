@@ -9,6 +9,7 @@ class Button:
         self.height = size[1]
         self.btn_type = btn_type
         self.run = run
+        self.is_clicked = False
 
     def click(self):
         if self.run != 'none':
@@ -32,6 +33,9 @@ class Button:
         elif self.btn_type == 'propose':
             screen.blit(img_meeting_propose, (self.x_pos, self.y_pos))
         elif self.btn_type == 'time_check':
-            screen.blit(img_meeting_time_check, (self.x_pos, self.y_pos))
+            if(self.is_clicked):
+                screen.blit(img_meeting_watch_clock,(WATCH_CLOCK_X,WATCH_CLOCK_Y))
+            else:
+                screen.blit(img_meeting_time_check, (self.x_pos, self.y_pos))
         else:
             pygame.draw.rect(screen, (0, 0, 0), [self.x_pos, self.y_pos, self.width, self.height])
