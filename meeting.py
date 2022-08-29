@@ -5,22 +5,30 @@ from animation import *
 
 buttons = []
 animations = []
+global current_ani
 
 def process_event(event):
     process_event_btn(event)
 
 def render():
+    global current_ani
     if not(setting.is_init_interface):
         init_btn()
         init_ani()
         setting.is_init_interface = True
+        current_ani = -1
     
     index = 0
     while(index < 5):
         if buttons[index].is_clicked == True:
+            if index != current_ani:
+                if current_ani != -1:
+                    buttons[current_ani].is_clicked = False
+                current_ani = index
             screen.blit(animations[index].now_img, (0, 0))
             animations[index].update()
         index += 1
+
 
     screen.blit(setting.img_meeting_window, (WINDOW_X, WINDOW_Y))
     show_btn()
@@ -30,16 +38,13 @@ def process_event_btn(event):
         i.click_event(event)
 
 def init_ani():
-    girl_watchphone = GirlWatchPhone()
-    girl_smile = GirlSmile()
-    girl_eyebrowup = GirlEyebrowUp()
-    girl_armup = GirlArmUp()
-    girl_armdown = GirlArmDown()
+    girl_watchphone = Animation("img/meeting/Girl_WatchPhone/girl_watchPhone__",60)
+    girl_smile = Animation("img/meeting/Girl_Smile/girl_smile_", 39)
+    girl_eyebrowup = Animation("img/meeting/Girl_EyebrowUp/girl_eyebrowUp_", 20)
+    girl_armup = Animation("img/meeting/Girl_armUp/girl_armUp_", 60)
+    girl_armdown = Animation("img/meeting/Girl_armDown/girl_armDown_", 60)
 
     animations.extend((girl_watchphone, girl_smile, girl_eyebrowup, girl_armup, girl_armdown))
-
-    for i in animations:
-        i.call_imgs()
 
 def init_btn():
     btn_spch_bble_1 = SpeechBubbleButton(47, SPEECH_BUBBLE_Y, [SPEECH_BUBBLE_W, SPEECH_BUBBLE_H], '폰 확인해보세요.')
