@@ -76,8 +76,32 @@ font = pygame.font.Font("font/DungGeunMo.ttf", FONT_SIZE)
 is_init_interface = False
 
 # 스토리 씬
-t = 0
+start_t = 0
 first = True
+skip = False
+
+STORY_NUMBERS = 3
+currnet_scene_number = 0
+
+STORY_W = 300
+STORY_H = 400
+
+SKIP_W = 30
+SKIP_H = 20
+
+skip_img = pygame.image.load("img/story/skip.png")
+skip_img = pygame.transform.scale(skip_img, (SKIP_W, SKIP_H))
+
+story_imgs = []
+for i in range(0, STORY_NUMBERS):
+    story_img = pygame.image.load("img/story/story_img_{numbers}.png".format(numbers = i))
+    story_img = pygame.transform.scale(story_img, (STORY_W, STORY_H))
+    story_imgs.append(story_img)
+
+story_texts = []
+story_font = pygame.font.Font("font/DungGeunMo.ttf", 35)
+for i in range(0, STORY_NUMBERS):
+    pass
 
 
 # 메뉴 씬
