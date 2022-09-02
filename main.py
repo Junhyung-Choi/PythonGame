@@ -52,12 +52,14 @@ def render():
 
     if setting.stage == 0:
         menu.render()
-        pygame.display.update()
+        #pygame.display.update()
     elif setting.stage == 1:
         story.render()
+        #pygame.display.update()
     elif setting.stage == 2:
         meeting.render()
         
+    pygame.time.Clock().tick(setting.FPS)
     pygame.display.update()
 
 
