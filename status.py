@@ -14,17 +14,22 @@ class GameStatus:
             questions.append(Question("New Question_" + str(_)))
 
         return questions
-    
+
+class QuestionBundle:
+    def __init__(self, parent, child=None, questions):
+        self.parent = parent
+        self.child = child
+        self.questions = questions
+
 class Question:
-    def __init__(self, sentence):
+    def __init__(self, sentence, child=None, bundle):
         self.sentence = sentence
-        self.answer = self.__make_random_answer__()
-    
-    def __make_random_answer__(self):
-        answer_point_list = []
-        for _ in range(4):
-            answer_point_list.append(random.randint(-3,3))
-        return answer_point_list
+        self.score = random.randint(-3, 3)
+        self.child = child
+        self.bundle = bundle
+
+    def select(self):
+        gs = self.child        
 
 
 if __name__ == "__main__":
