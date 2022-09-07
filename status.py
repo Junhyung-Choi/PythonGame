@@ -8,12 +8,26 @@ class GameStatus:
         self.left_time = 1
         self.current_questions = []
         self.current_question = []
-        self.__root_question__ = self.__make_questions__()
-        self.point = 0
+        self.__root_question_chapter1__ = self.__make_questions__(1)
+        self.__root_question_chapter2__ = self.__make_questions__(2)
     
-    def __make_questions__(self):
+    def __make_questions__(self, index):
         with open('./data.json', 'r', encoding='UTF8') as f:
             json_data = json.load(f)
+        root_question = Question("root")
+        if(index == 1):
+            for first in json_data["혹시 취미가"]:
+                for fq in first.keys():
+                    first_question = Question(fq)
+                    for second_dict in first.values():
+                        for key,val in second_dict:
+                            second_question = Question(key)
+                            first_question.child_questions.append(second_question)
+                            print(sq)
+                    root_question.child_questions.append(first_question)
+        elif(index == 2):
+            pass
+            
     
     def etc_button_clicked(self, button_type):
         if(button_type == "pause"):
@@ -34,12 +48,13 @@ class GameStatus:
             pass
 
 class Question:
-    def __init__(self):
+    def __init__(self, sentence):
         self.point = 0
-        self.sentence = "Question Sentence"
+        self.sentence = sentence
         self.index = 0
         self.child_questions = []
 
 
 if __name__ == "__main__":
-    print("status.py called")
+    gs = GameStatus("meeting")
+
