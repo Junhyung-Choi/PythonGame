@@ -1,4 +1,5 @@
 import random
+import json
 
 class GameStatus:
     def __init__(self, scene_name):
@@ -7,18 +8,12 @@ class GameStatus:
         self.left_time = 1
         self.current_questions = []
         self.current_question = []
-        self.__root_question__ = []
+        self.__root_question__ = self.__make_questions__()
         self.point = 0
-        self.questions = self.__make_questions__()
     
     def __make_questions__(self):
-        questions = []
-        
-        ## 질문 리스트 추가하는 과정
-        for _ in range(10):
-            questions.append(Question("New Question_" + str(_)))
-
-        return questions
+        with open('./data.json', 'r', encoding='UTF8') as f:
+            json_data = json.load(f)
     
     def etc_button_clicked(self, button_type):
         if(button_type == "pause"):

@@ -2,9 +2,11 @@ import pygame
 import setting
 from button import *
 from animation import *
+from status import *
 
 buttons = []
 animations = []
+gamestatus = GameStatus("meeting")
 global current_ani
 
 def process_event(event):
@@ -13,6 +15,7 @@ def process_event(event):
 def render():
     global current_ani
     if not(setting.is_init_interface):
+        init_status()
         init_btn()
         init_ani()
         setting.is_init_interface = True
@@ -57,6 +60,10 @@ def init_btn():
    
     buttons.extend((btn_spch_bble_1, btn_spch_bble_2, btn_spch_bble_3, btn_spch_bble_4))
     buttons.extend((btn_pause, btn_timecheck, btn_propose))
+
+def init_status():
+    if gamestatus == None:
+        gamestatus = GameStatus("meeting")
 
 def show_btn():
     screen.blit(img_meeting_question_box, (Q_BOX_X, Q_BOX_Y))
