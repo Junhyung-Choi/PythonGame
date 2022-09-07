@@ -1,3 +1,4 @@
+from operator import itemgetter
 import random
 import json
 
@@ -17,16 +18,19 @@ class GameStatus:
         root_question = Question("root")
         if(index == 1):
             for first in json_data["혹시 취미가"]:
-                for fq in first.keys():
-                    first_question = Question(fq)
-                    for second_dict in first.values():
-                        for key,val in second_dict:
-                            second_question = Question(key)
-                            first_question.child_questions.append(second_question)
-                            print(sq)
-                    root_question.child_questions.append(first_question)
+                for fk,fv in first.items():
+                    first_question = Question(fk)
+                    for second in fv:
+                        for sk,sv in second.items():
+                            second_question = Question(sk)
+                            for third in sv:
+                                third_question = Question(third)
+                            second_question.child_questions.append(third_question)
+                        first_question.child_questions.append(second_question)
+                root_question.child_questions.append(first_question)
         elif(index == 2):
             pass
+        return root_question
             
     
     def etc_button_clicked(self, button_type):
@@ -57,4 +61,7 @@ class Question:
 
 if __name__ == "__main__":
     gs = GameStatus("meeting")
+    print(gs.__root_question_chapter1__.sentence)
+    for q in gs.__root_question_chapter1__.child_questions:
+        print(q.sentence)
 
