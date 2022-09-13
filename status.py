@@ -1,17 +1,26 @@
-from operator import itemgetter
-import random
 import json
 
+MODE_CHOICE = 0
+MODE_CHECK = 1
+
 class GameStatus:
-    def __init__(self, scene_name):
+    def __init__(self, scene_name, button1, button2, button3, button4):
+        self.score = 0
         self.scene_name = scene_name
         self.mode = 1
         self.left_time = 1
         self.current_questions = []
-        self.current_question = []
+        self.current_question : Question = None
         self.__root_question_chapter1__ = self.__make_questions__(1)
         self.__root_question_chapter2__ = self.__make_questions__(2)
+        self.button1 = button1
+        self.button2 = button2
+        self.button3 = button3
+        self.button4 = button4
     
+    def __str__(self):
+        return (self.scene_name + "'s Game Status Instance")
+
     def __make_questions__(self, index):
         with open('./data.json', 'r', encoding='UTF8') as f:
             json_data = json.load(f)
@@ -41,15 +50,56 @@ class GameStatus:
         elif (button_type == "goback"):
             pass
     
-    def speech_button_clicked(self, index):
-        if(index == 1):
-            pass
-        elif (index == 2):
-            pass
-        elif (index == 3):
-            pass
-        elif (index == 4):
-            pass
+    # 각 버튼마다 동작을 다르게 해줘야함 (1,2,3,4)
+    # 각 상황마다 동작을 다르게 해줘야함 (MODE_CHOICE, MODE_CHECK)
+    def speech_button_clicked(self, index: int):
+        # MODE_CHOICE : 4개중에 선택하는 단계
+        if self.mode == MODE_CHOICE:
+            # 자식 질문이 없을 때 
+            if (not (self.current_question.child_questions)):
+                return None
+            
+            # 자식 질문이 있을때
+            self.mode = MODE_CHECK
+            self.current_question = self.current_questions[index]
+
+            # 굳이 나눌 필요가...?
+            if(index == 0):
+                pass
+            elif (index == 1):
+                pass
+            elif (index == 2):
+                pass
+            elif (index == 3):
+                pass
+
+        # MODE_CHECK : 3개(자신, 자식, 형재자매) 중에 선택하는 단계
+        elif self.mode == MODE_CHECK:
+            self.mode == MODE_CHOICE
+
+            # 현재 질문 포인트에 대한 동작 애니메이션 재생시키기 
+            if(index == 0):
+                # play_current_animation()
+                pass
+            elif (index == 1):
+            # 현재 질문을 확정하고, 그에 대한 포인틀르 얻고, 이에 대한 자식 질문들을 갱신함
+                self.score += self.current_question.point
+                self.current_questions = self.current_question.child_questions
+
+                # 현재 질문에 대한 반응을 get 하고 그 다음 질문들을 만들어야 하므로 button들을 갱신
+                self.button1.text = self.current_questions[0].sentence
+                self.button2.text = self.current_questions[1].sentence
+                self.button3.text = self.current_questions[2].sentence
+                self.button4.text = self.current_questions[3].sentence
+
+                pass
+
+            # 현재 질문을 취소하고, 본인 부모로 올라가 다시 고르는것
+            elif (index == 2):
+                # 모드가 이미 바뀌었으므로 아무것도 하지 않아도 사용 가능함
+                pass
+            elif (index == 3):
+                pass
 
 class Question:
     def __init__(self, sentence):
@@ -57,11 +107,19 @@ class Question:
         self.sentence = sentence
         self.index = 0
         self.child_questions = []
+    
+    def __str__(self):
+        return self.sentence
 
 
 if __name__ == "__main__":
-    gs = GameStatus("meeting")
-    print(gs.__root_question_chapter1__.sentence)
-    for q in gs.__root_question_chapter1__.child_questions:
-        print(q.sentence)
+    # gs = GameStatus("meeting")
+    # print(gs)
+    # print(gs.__root_question_chapter1__.sentence)
+    # for q in gs.__root_question_chapter1__.child_questions:
+    #     print(q)
+    #     print("child---------------")
+    #     for i in q.child_questions:
+    #         print(i)
+    pass
 
