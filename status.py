@@ -7,12 +7,12 @@ class GameStatus:
     def __init__(self, scene_name, button1, button2, button3, button4):
         self.score = 0
         self.scene_name = scene_name
-        self.mode = 1
+        self.mode = MODE_CHOICE
         self.left_time = 1
-        self.current_questions = []
-        self.current_question : Question = None
         self.__root_question_chapter1__ = self.__make_questions__(1)
         self.__root_question_chapter2__ = self.__make_questions__(2)
+        self.current_question : Question = self.__root_question_chapter1__
+        self.current_questions = self.current_question.child_questions
         self.button1 = button1
         self.button2 = button2
         self.button3 = button3
