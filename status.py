@@ -17,6 +17,10 @@ class GameStatus:
         self.button2 = button2
         self.button3 = button3
         self.button4 = button4
+        self.button1.text = self.current_questions[0].sentence
+        self.button2.text = self.current_questions[1].sentence
+        self.button3.text = self.current_questions[2].sentence
+        self.button4.text = self.current_questions[3].sentence
     
     def __str__(self):
         return (self.scene_name + "'s Game Status Instance")
@@ -53,6 +57,8 @@ class GameStatus:
     # 각 버튼마다 동작을 다르게 해줘야함 (1,2,3,4)
     # 각 상황마다 동작을 다르게 해줘야함 (MODE_CHOICE, MODE_CHECK)
     def speech_button_clicked(self, index: int):
+        print("MODE : " + str(self.mode) + " / Q: " + self.current_question.sentence)
+        print(self.current_questions[0].sentence)
         # MODE_CHOICE : 4개중에 선택하는 단계
         if self.mode == MODE_CHOICE:
             # 자식 질문이 없을 때 
@@ -75,7 +81,7 @@ class GameStatus:
 
         # MODE_CHECK : 3개(자신, 자식, 형재자매) 중에 선택하는 단계
         elif self.mode == MODE_CHECK:
-            self.mode == MODE_CHOICE
+            self.mode = MODE_CHOICE
 
             # 현재 질문 포인트에 대한 동작 애니메이션 재생시키기 
             if(index == 0):
