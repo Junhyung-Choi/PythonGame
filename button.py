@@ -1,5 +1,6 @@
 import pygame
 from setting import *
+from status import GameStatus
 
 class Button:
     def __init__(self, x1, y1, size):
@@ -12,10 +13,10 @@ class Button:
     def click(self):
         print('클릭됨')
 
-    def click_event(self, event):
+    def click_event(self, event, gs : GameStatus):
         if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
             if self.x_pos <= event.pos[0] <= self.x_pos + self.width and self.y_pos <= event.pos[1] <= self.y_pos + self.height:
-                self.click()
+                self.click(gs)
 
     def show(self):
         pygame.draw.rect(screen, (0, 0, 0), [self.x_pos, self.y_pos, self.width, self.height])
@@ -29,8 +30,9 @@ class PauseButton(Button):
         print('일시정지')
 
 class SpeechBubbleButton(Button):
-    def __init__(self, x1, y1, size, text='테스트'):
+    def __init__(self, x1, y1, size,index, text='테스트'):
         super().__init__(x1, y1, size)
+        self.index = index
         self.text = text
 
     def show(self):
@@ -38,7 +40,8 @@ class SpeechBubbleButton(Button):
         text = font.render(self.text, True, (0, 0, 0))
         screen.blit(text, (self.x_pos + 17, self.y_pos + (SPEECH_BUBBLE_H / 2) - FONT_SIZE))
 
-    def click(self):
+    def click(self, gs : GameStatus):
+        gs.speech_button_clicked(self.index)
         print(self.text + ' 클릭됨')
         self.is_clicked = not(self.is_clicked)
         
