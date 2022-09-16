@@ -75,7 +75,7 @@ class GameStatus:
 
         # MODE_CHECK : 3개(자신, 자식, 형재자매) 중에 선택하는 단계
         elif self.mode == MODE_CHECK:
-            self.mode == MODE_CHOICE
+            self.mode = MODE_CHOICE
 
             # 현재 질문 포인트에 대한 동작 애니메이션 재생시키기 
             if(index == 0):
