@@ -77,16 +77,6 @@ class GameStatus:
             self.button3.text = "다른 질문 고르기"
             self.button4.text = ""
 
-            # 굳이 나눌 필요가...?
-            if(index == 0):
-                pass
-            elif (index == 1):
-                pass
-            elif (index == 2):
-                pass
-            elif (index == 3):
-                pass
-
         # MODE_CHECK : 3개(자신, 자식, 형재자매) 중에 선택하는 단계
         elif self.mode == MODE_CHECK:
 
