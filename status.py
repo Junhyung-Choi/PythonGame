@@ -57,16 +57,28 @@ class GameStatus:
     # 각 버튼마다 동작을 다르게 해줘야함 (1,2,3,4)
     # 각 상황마다 동작을 다르게 해줘야함 (MODE_CHOICE, MODE_CHECK)
     def speech_button_clicked(self, index: int):
-        print("MODE : " + str(self.mode) + " / Q: " + self.current_question.sentence)
+        sen = ""
+
+        if(self.mode == MODE_CHECK):
+            sen += "MODE_CHECK"
+        else:
+            sen += "MODE_CHOICE"
+        
+        print("Clicked: " + sen +  " / Q: " + self.current_question.sentence)
         # MODE_CHOICE : 4개중에 선택하는 단계
         if self.mode == MODE_CHOICE:
+            self.current_question = self.current_questions[index]
             # 자식 질문이 없을 때 
-            if (not (self.current_question.child_questions)):
+            if not (self.current_question.child_questions):
+                print("end")
                 return None
-            
+            else:
+                print("HAVE!!!!")
+                for q in self.current_question.child_questions:
+                    print(q.sentence)
+
             # 자식 질문이 있을때
             self.mode = MODE_CHECK
-            self.current_question = self.current_questions[index]
             
             # 현재 질문분야를 갱신하고, 텍스트 또한 갱신
             self.button1.text = "짧게 던지기"
@@ -86,19 +98,20 @@ class GameStatus:
 
         # MODE_CHECK : 3개(자신, 자식, 형재자매) 중에 선택하는 단계
         elif self.mode == MODE_CHECK:
-            self.mode = MODE_CHOICE
 
-            self.mode
             # 현재 질문 포인트에 대한 동작 애니메이션 재생시키기 
             if(index == 0):
+                print("Play Current Animation")
                 # play_current_animation()
                 pass
             elif (index == 1):
-            # 현재 질문을 확정하고, 그에 대한 포인틀르 얻고, 이에 대한 자식 질문들을 갱신함
+               
+                self.mode = MODE_CHOICE
+                
+                # 현재 질문을 확정하고, 그에 대한 포인틀르 얻고, 이에 대한 자식 질문들을 갱신함
                 self.score += self.current_question.point
+            
                 self.current_questions = self.current_question.child_questions
-                for q in self.current_questions:
-                    print(q.sentence)
                 # 현재 질문에 대한 반응을 get 하고 그 다음 질문들을 만들어야 하므로 button들을 갱신
                 self.button1.text = self.current_questions[0].sentence
                 self.button2.text = self.current_questions[1].sentence
@@ -109,6 +122,7 @@ class GameStatus:
 
             # 현재 질문을 취소하고, 본인 부모로 올라가 다시 고르는것
             elif (index == 2):
+                self.mode = MODE_CHOICE
                 # 모드가 이미 바뀌었으므로 아무것도 하지 않아도 사용 가능함
                 pass
             elif (index == 3):
