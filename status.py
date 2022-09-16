@@ -68,15 +68,6 @@ class GameStatus:
         # MODE_CHOICE : 4개중에 선택하는 단계
         if self.mode == MODE_CHOICE:
             self.current_question = self.current_questions[index]
-            # 자식 질문이 없을 때 
-            if not (self.current_question.child_questions):
-                print("end")
-                return None
-            else:
-                print("HAVE!!!!")
-                for q in self.current_question.child_questions:
-                    print(q.sentence)
-
             # 자식 질문이 있을때
             self.mode = MODE_CHECK
             
@@ -105,6 +96,9 @@ class GameStatus:
                 # play_current_animation()
                 pass
             elif (index == 1):
+                if not (self.current_question.child_questions):
+                    print("끝남")
+                    return
                
                 self.mode = MODE_CHOICE
                 
@@ -124,6 +118,10 @@ class GameStatus:
             elif (index == 2):
                 self.mode = MODE_CHOICE
                 # 모드가 이미 바뀌었으므로 아무것도 하지 않아도 사용 가능함
+                self.button1.text = self.current_questions[0].sentence
+                self.button2.text = self.current_questions[1].sentence
+                self.button3.text = self.current_questions[2].sentence
+                self.button4.text = self.current_questions[3].sentence
                 pass
             elif (index == 3):
                 pass
