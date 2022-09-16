@@ -41,8 +41,8 @@ class SpeechBubbleButton(Button):
         screen.blit(text, (self.x_pos + 17, self.y_pos + (SPEECH_BUBBLE_H / 2) - FONT_SIZE))
 
     def click(self, gs : GameStatus):
-        gs.speech_button_clicked(self.index)
         print(self.text + ' 클릭됨')
+        gs.speech_button_clicked(self.index)
         self.is_clicked = not(self.is_clicked)
         
 class TimeCheckButton(Button):
