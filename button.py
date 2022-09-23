@@ -71,5 +71,4 @@ class RestartButton(Button):
         print("Restart")
         setting.is_init_interface = False
         setting.stage = 0
-        setting.is_gameover = False
-        
+        setting.is_gameover = False     
