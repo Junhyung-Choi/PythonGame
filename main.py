@@ -4,6 +4,7 @@ import setting
 import menu
 import story
 import meeting
+import gameover
 #############################################
 #                                            
 #    stage  0 : 메뉴 씬                      
@@ -35,6 +36,10 @@ def event():
             if event.key == pygame.K_EQUALS:
                 setting.stage += 1
                 print("현재 스테이지 : " + str(setting.stage))
+            if event.key == pygame.K_0:
+                gameover.active_gameover()
+
+        gameover.process_event(event=event)
 
         # 스테이지별 이벤트
         if setting.stage == 0: # 시작 화면일때
@@ -58,7 +63,10 @@ def render():
         #pygame.display.update()
     elif setting.stage == 2:
         meeting.render()
-    
+
+    if setting.is_gameover:
+        gameover.show_box()
+
     pygame.time.Clock().tick(setting.FPS)
     pygame.display.update()
 
