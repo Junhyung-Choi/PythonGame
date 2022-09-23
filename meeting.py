@@ -41,11 +41,11 @@ def process_event_btn(event):
         i.click_event(event,gamestatus)
 
 def init_ani():
-    girl_watchphone = Animation("img/meeting/Girl_WatchPhone/girl_watchPhone__",60)
+    girl_watchphone = Animation("img/meeting/Girl_WatchPhone/girl_watchPhone_",60)
     girl_smile = Animation("img/meeting/Girl_Smile/girl_smile_", 31)
     girl_eyebrowup = Animation("img/meeting/Girl_EyebrowUp/girl_eyebrowUp_", 20)
-    girl_armup = Animation("img/meeting/Girl_armUp/girl_armUp_", 60)
-    girl_armdown = Animation("img/meeting/Girl_armDown/girl_armDown_", 60)
+    girl_armup = Animation("img/meeting/Girl_ArmUp/girl_armUp_", 60)
+    girl_armdown = Animation("img/meeting/Girl_ArmDown/girl_armDown_", 60)
 
     animations.extend((girl_watchphone, girl_smile, girl_eyebrowup, girl_armup, girl_armdown))
 
