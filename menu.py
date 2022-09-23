@@ -1,5 +1,3 @@
-from turtle import Screen
-from wsgiref.util import setup_testing_defaults
 import pygame
 import setting
 
@@ -14,8 +12,6 @@ def process_event(event):
             print("게임시작")
         if event.key == pygame.K_2:
             print("패치노트")
-    if event.type == pygame.MOUSEMOTION:
-        print(pygame.mouse.get_pos())
     if event.type == pygame.MOUSEBUTTONDOWN:
         mouseX, mouseY = pygame.mouse.get_pos()
         if(180 < mouseX < 260 and 480 < mouseY < 540):

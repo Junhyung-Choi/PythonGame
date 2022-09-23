@@ -7,21 +7,24 @@ from script import *
 
 buttons = []
 animations = []
-global current_ani, gamestatus
+global current_ani, gamestatus, isEventAvailable
 gamestatus = None
+isEventAvailable = False
 
 def process_event(event):
-    process_event_btn(event)
+    if(isEventAvailable):
+        process_event_btn(event)
 
 def render():
-    global current_ani
+    global current_ani, isEventAvailable
+    if (setting.is_init_interface and not isEventAvailable):
+        isEventAvailable = True
     if not(setting.is_init_interface):
-        init_btn()
+        isEventAvailable = False
         init_ani()
+        init_btn()
         init_status()
-        setting.is_init_interface = True
         current_ani = -1
-    
     index = 0
     while(index < 5):
         if buttons[index].is_clicked == True:
@@ -33,20 +36,23 @@ def render():
             animations[index].update()
         index += 1
 
-
+    
     screen.blit(setting.img_meeting_window, (WINDOW_X, WINDOW_Y))
     show_btn()
+
+    if not(setting.is_init_interface):
+        setting.is_init_interface = True
 
 def process_event_btn(event):
     for i in buttons:
         i.click_event(event,gamestatus)
 
 def init_ani():
-    girl_watchphone = Animation("img/meeting/Girl_WatchPhone/girl_watchPhone__",60)
-    girl_smile = Animation("img/meeting/Girl_Smile/girl_smile_", 39)
+    girl_watchphone = Animation("img/meeting/Girl_WatchPhone/girl_watchPhone_",60)
+    girl_smile = Animation("img/meeting/Girl_Smile/girl_smile_", 31)
     girl_eyebrowup = Animation("img/meeting/Girl_EyebrowUp/girl_eyebrowUp_", 20)
-    girl_armup = Animation("img/meeting/Girl_armUp/girl_armUp_", 60)
-    girl_armdown = Animation("img/meeting/Girl_armDown/girl_armDown_", 60)
+    girl_armup = Animation("img/meeting/Girl_ArmUp/girl_armUp_", 60)
+    girl_armdown = Animation("img/meeting/Girl_ArmDown/girl_armDown_", 60)
 
     animations.extend((girl_watchphone, girl_smile, girl_eyebrowup, girl_armup, girl_armdown))
 

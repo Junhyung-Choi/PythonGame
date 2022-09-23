@@ -14,6 +14,7 @@ class Animation():
         self.now_img = self.imgs[0]
         self.loop = True
         self.isPlayed = False
+        self.isArmOnTable = True
 
     def update(self):
         # 루프를 돌아야 하거나, 한번 끝까지 재생되었거나
@@ -29,6 +30,9 @@ class Animator():
         self.current_animation = None
         self.animations = {}
         self.state = AnimatiorState.PLAY
+    
+    def update(self):
+        pass
     
     def translate(self, key):
         self.state = AnimatiorState.TRANS

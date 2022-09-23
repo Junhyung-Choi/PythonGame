@@ -120,10 +120,10 @@ for i in range(0, STORY_NUMBERS):
 # 메뉴 씬
 eyes = []
 for idx in range(36):
-    eyes.append(pygame.image.load("img/eye_" + str(idx) + ".png"))
+    eyes.append(pygame.image.load("img/eye/eye_" + str(idx) + ".png"))
     eyes[idx] = pygame.transform.scale(eyes[idx],(800,600))
 
-eyeBall = pygame.image.load("img/eyeBall.png")
+eyeBall = pygame.image.load("img/eye/eyeBall.png")
 eyeBall = pygame.transform.scale(eyeBall,(eyeBall.get_width()/2,eyeBall.get_height()/2))
 
 main_table = pygame.image.load("img/Main_Table.png")
