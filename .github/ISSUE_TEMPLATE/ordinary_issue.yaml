@@ -30,7 +30,7 @@ body:
     validations:
       required: true
   - type: dropdown
-    id: Branch Version
+    id: Branch_Version
     attributes:
       label: Branch Version
       description: What branch version of our software are you running?
