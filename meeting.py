@@ -15,8 +15,8 @@ def process_event(event):
 def render():
     global current_ani
     if not(setting.is_init_interface):
-        init_btn()
         init_ani()
+        init_btn()
         init_status()
         setting.is_init_interface = True
         current_ani = -1
@@ -57,7 +57,7 @@ def init_btn():
     btn_pause = PauseButton(PAUSE_BTN_X, PAUSE_BTN_Y, [PAUSE_BTN_SIZE, PAUSE_BTN_SIZE])
     btn_timecheck = TimeCheckButton(LEFT_CIRCLE_BTN_X, LEFT_CIRCLE_BTN_Y, [CIRCLE_BTN_SIZE, CIRCLE_BTN_SIZE])
     btn_propose = ProposeButton(RIGHT_CIRCLE_BTN_X, RIGHT_CIRCLE_BTN_Y, [CIRCLE_BTN_SIZE, CIRCLE_BTN_SIZE])
-   
+
     buttons.extend((btn_spch_bble_1, btn_spch_bble_2, btn_spch_bble_3, btn_spch_bble_4))
     buttons.extend((btn_pause, btn_timecheck, btn_propose))
 
