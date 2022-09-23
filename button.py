@@ -26,7 +26,7 @@ class PauseButton(Button):
     def show(self):
         screen.blit(img_pause, (self.x_pos, self.y_pos))
 
-    def click(self):
+    def click(self, gs : GameStatus):
         self.is_clicked = not(self.is_clicked)
         print('일시정지')
 
@@ -56,7 +56,7 @@ class TimeCheckButton(Button):
         else:
             screen.blit(img_meeting_time_check, (self.x_pos, self.y_pos))
 
-    def click(self):
+    def click(self, gs : GameStatus):
         self.is_clicked = not(self.is_clicked)
 
 class ProposeButton(Button):
@@ -65,6 +65,7 @@ class ProposeButton(Button):
     
     def click(self, gs : GameStatus):
         print('호감을 나타냅니다.')
+        setting.stage = -1
 
 class RestartButton(Button):
     def click(self, gs : GameStatus):
