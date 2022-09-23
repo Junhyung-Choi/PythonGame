@@ -117,6 +117,7 @@ class GameStatus:
                 pass
             elif (index == 3):
                 pass
+        print("Current Score : " + str(self.score))
 
 class Question:
     def __init__(self, sentence, point):
