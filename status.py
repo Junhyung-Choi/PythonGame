@@ -12,7 +12,7 @@ class GameStatus:
         self.__root_question_chapter1__ = self.__make_questions__(1)
         self.__root_question_chapter2__ = self.__make_questions__(2)
         self.current_question : Question = self.__root_question_chapter1__
-        self.current_questions = self.current_question.child_questionsq
+        self.current_questions = self.current_question.child_questions
         self.button1 = button1
         self.button2 = button2
         self.button3 = button3

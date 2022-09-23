@@ -19,8 +19,6 @@ skip_x_pos_end = 460
 skip_y_pos_end = 600
 scene_t = 3
 
-
-
 def process_event(event):
     if event.type == pygame.QUIT:
         setting.running = False
