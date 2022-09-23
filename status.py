@@ -95,7 +95,7 @@ class GameStatus:
             if(index == 0):
                 print("Play Current Animation: " + self.current_question.sentence)
                 print("Score : " + str(self.current_question.point))
-                print("Index: " + str(self.current_question.idx))
+                print("Index: " + str(self.current_question.index))
                 # play_current_animation()
                 pass
             elif (index == 1):
@@ -132,10 +132,10 @@ class GameStatus:
         print("--------\n\n")
 
 class Question:
-    def __init__(self, sentence, point, idx):
+    def __init__(self, sentence, point, index):
         self.point = point
         self.sentence = sentence
-        self.idx = idx
+        self.index = index
         self.child_questions = []
     
     def __str__(self):
