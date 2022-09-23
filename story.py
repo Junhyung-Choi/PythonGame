@@ -17,7 +17,7 @@ skip_x_pos_start = 400
 skip_y_pos_start = 520
 skip_x_pos_end = 460
 skip_y_pos_end = 600
-scene_t = 5
+scene_t = 3
 
 
 
@@ -33,7 +33,7 @@ def process_event(event):
 
 def init_ani():
     
-    story_img = animation.Animation("img/story/story_img_", 3)
+    story_img = animation.Animation("img/story/meeting_", setting.STORY_NUMBERS)
     animations.append(story_img)
     
 
