@@ -86,12 +86,19 @@ start_t = 0
 first = True
 skip = False
 
+scene_t = 3 # 스토리 씬  재생시간
+
 STORY_NUMBERS = 6
 currnet_scene_number = 0
+
+LEFT = 1
+RIGHT = 3
 
 STORY_W = 300
 STORY_H = 400
 
+SKIP_X = 700
+SKIP_Y = 520
 SKIP_W = 30
 SKIP_H = 20
 
