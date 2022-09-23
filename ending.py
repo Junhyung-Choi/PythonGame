@@ -11,6 +11,9 @@ def render():
     global alpha
     alpha -= 3
 
+    if alpha < -50:
+        setting.stage = 0
+
     back = pygame.image.load("img/ending/back.png")
     back = pygame.transform.scale(back, (800, 600))
     end = pygame.image.load("img/ending/end.png")
