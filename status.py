@@ -29,16 +29,26 @@ class GameStatus:
     def __make_questions__(self, index):
         with open('./data.json', 'r', encoding='UTF8') as f:
             json_data = json.load(f)
-        root_question = Question("root",0)
+        root_question = Question("root",0,0)
         if(index == 1):
+            fcnt = 0
             for first in json_data["혹시 취미가"]:
                 for fk,fv in first.items():
-                    first_question = Question(fk,randint(-3,3))
+                    print("First Question Making: " + fk + " && index : " + str(fcnt))
+                    first_question = Question(fk,randint(-3,3),fcnt)
+                    fcnt += 1
+
+                    scnt = 0
                     for second in fv:
                         for sk,sv in second.items():
-                            second_question = Question(sk,randint(-3,3))
+                            second_question = Question(sk,randint(-3,3),scnt)
+                            scnt += 1
+
+                            tcnt = 0
                             for third in sv:
-                                third_question = Question(third,randint(-3,3))
+                                third_question = Question(third,randint(-3,3),tcnt)
+                                tcnt += 1
+
                                 second_question.child_questions.append(third_question)
                             first_question.child_questions.append(second_question)
                     root_question.child_questions.append(first_question)
@@ -83,8 +93,9 @@ class GameStatus:
 
             # 현재 질문 포인트에 대한 동작 애니메이션 재생시키기 
             if(index == 0):
-                print("Play Current Animation")
+                print("Play Current Animation: " + self.current_question.sentence)
                 print("Score : " + str(self.current_question.point))
+                print("Index: " + str(self.current_question.idx))
                 # play_current_animation()
                 pass
             elif (index == 1):
@@ -118,12 +129,13 @@ class GameStatus:
             elif (index == 3):
                 pass
         print("Current Score : " + str(self.score))
+        print("--------\n\n")
 
 class Question:
-    def __init__(self, sentence, point):
+    def __init__(self, sentence, point, idx):
         self.point = point
         self.sentence = sentence
-        self.index = 0
+        self.idx = idx
         self.child_questions = []
     
     def __str__(self):
