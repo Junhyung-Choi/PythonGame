@@ -1,7 +1,6 @@
 import pygame
 import setting
 from button import *
-from animation import *
 from status import *
 
 buttons = []
