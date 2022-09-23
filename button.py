@@ -1,5 +1,6 @@
 import pygame
 from setting import *
+import setting
 from status import GameStatus
 
 class Button:
@@ -10,7 +11,7 @@ class Button:
         self.height = size[1]
         self.is_clicked = False
 
-    def click(self):
+    def click(self, gs):
         print('클릭됨')
 
     def click_event(self, event, gs : GameStatus):
@@ -19,13 +20,13 @@ class Button:
                 self.click(gs)
 
     def show(self):
-        pygame.draw.rect(screen, (0, 0, 0), [self.x_pos, self.y_pos, self.width, self.height])
+        pygame.draw.rect(screen, (100, 100, 100), [self.x_pos, self.y_pos, self.width, self.height])
 
 class PauseButton(Button):
     def show(self):
         screen.blit(img_pause, (self.x_pos, self.y_pos))
 
-    def click(self):
+    def click(self, gs : GameStatus):
         self.is_clicked = not(self.is_clicked)
         print('일시정지')
 
@@ -55,12 +56,21 @@ class TimeCheckButton(Button):
         else:
             screen.blit(img_meeting_time_check, (self.x_pos, self.y_pos))
 
-    def click(self):
+    def click(self, gs : GameStatus):
         self.is_clicked = not(self.is_clicked)
 
 class ProposeButton(Button):
     def show(self):
         screen.blit(img_meeting_propose, (self.x_pos, self.y_pos))
     
-    def click(self):
+    def click(self, gs : GameStatus):
         print('호감을 나타냅니다.')
+        setting.stage = -1
+
+class RestartButton(Button):
+    def click(self, gs : GameStatus):
+        print("Restart")
+        setting.is_init_interface = False
+        setting.stage = 0
+        setting.is_gameover = False
+        
