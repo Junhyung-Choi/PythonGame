@@ -12,7 +12,7 @@ def process_event(event):
     # 마우스 버튼이 스킵 버튼을 눌렸을 때
     if event.type == pygame.MOUSEBUTTONDOWN and event.button == setting.LEFT:
         if setting.SKIP_X <= event.pos[0] <= setting.SKIP_X + setting.SKIP_W and setting.SKIP_Y <= event.pos[1] <= setting.SKIP_Y + setting.SKIP_H:
-            print("스킵합니다.")
+            print("스킵합니다.\n\n")
             setting.skip = True
 
 def init_ani():
@@ -21,7 +21,6 @@ def init_ani():
     
 
 def render():
-
     if setting.first:
         setting.first = False
         setting.start_t = time.time()

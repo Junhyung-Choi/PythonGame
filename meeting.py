@@ -6,21 +6,24 @@ from status import *
 
 buttons = []
 animations = []
-global current_ani, gamestatus
+global current_ani, gamestatus, isEventAvailable
 gamestatus = None
+isEventAvailable = False
 
 def process_event(event):
-    process_event_btn(event)
+    if(isEventAvailable):
+        process_event_btn(event)
 
 def render():
-    global current_ani
+    global current_ani, isEventAvailable
+    if (setting.is_init_interface and not isEventAvailable):
+        isEventAvailable = True
     if not(setting.is_init_interface):
-        init_btn()
+        isEventAvailable = False
         init_ani()
+        init_btn()
         init_status()
-        setting.is_init_interface = True
         current_ani = -1
-    
     index = 0
     while(index < 5):
         if buttons[index].is_clicked == True:
@@ -32,9 +35,12 @@ def render():
             animations[index].update()
         index += 1
 
-
+    
     screen.blit(setting.img_meeting_window, (WINDOW_X, WINDOW_Y))
     show_btn()
+
+    if not(setting.is_init_interface):
+        setting.is_init_interface = True
 
 def process_event_btn(event):
     for i in buttons:
