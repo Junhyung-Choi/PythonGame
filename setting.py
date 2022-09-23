@@ -18,6 +18,12 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 running = True
 stage = 0
 
+# 게임 오버 여부
+is_gameover = False
+
+# 게임 오버 모달 창 띄워졌는지 여부
+is_init_gameover = False
+
 # 윈도우 설정
 pygame.display.set_caption("Python Game")
 
@@ -127,3 +133,7 @@ menu_button_click = pygame.transform.scale(menu_button_click,(136/2,118/2))
 
 menu_button = pygame.image.load("img/Button_normal.png")
 menu_button = pygame.transform.scale(menu_button,(136/2,118/2))
+
+
+img_gameover = pygame.image.load("img/gameover.png")
+img_gameover = pygame.transform.scale(img_gameover, (400, 300))
