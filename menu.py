@@ -1,5 +1,3 @@
-from turtle import Screen
-from wsgiref.util import setup_testing_defaults
 import pygame
 import setting
 

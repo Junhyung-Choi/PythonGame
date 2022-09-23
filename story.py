@@ -30,7 +30,6 @@ def process_event(event):
             setting.skip = True
 
 def init_ani():
-    
     story_img = animation.Animation("img/story/meeting_", setting.STORY_NUMBERS)
     animations.append(story_img)
     
