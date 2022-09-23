@@ -1,4 +1,5 @@
 import json
+from random import randint
 
 MODE_CHOICE = 0
 MODE_CHECK = 1
@@ -28,16 +29,16 @@ class GameStatus:
     def __make_questions__(self, index):
         with open('./data.json', 'r', encoding='UTF8') as f:
             json_data = json.load(f)
-        root_question = Question("root")
+        root_question = Question("root",0)
         if(index == 1):
             for first in json_data["혹시 취미가"]:
                 for fk,fv in first.items():
-                    first_question = Question(fk)
+                    first_question = Question(fk,randint(-3,3))
                     for second in fv:
                         for sk,sv in second.items():
-                            second_question = Question(sk)
+                            second_question = Question(sk,randint(-3,3))
                             for third in sv:
-                                third_question = Question(third)
+                                third_question = Question(third,randint(-3,3))
                                 second_question.child_questions.append(third_question)
                             first_question.child_questions.append(second_question)
                     root_question.child_questions.append(first_question)
@@ -83,6 +84,7 @@ class GameStatus:
             # 현재 질문 포인트에 대한 동작 애니메이션 재생시키기 
             if(index == 0):
                 print("Play Current Animation")
+                print("Score : " + str(self.current_question.point))
                 # play_current_animation()
                 pass
             elif (index == 1):
@@ -117,8 +119,8 @@ class GameStatus:
                 pass
 
 class Question:
-    def __init__(self, sentence):
-        self.point = 0
+    def __init__(self, sentence, point):
+        self.point = point
         self.sentence = sentence
         self.index = 0
         self.child_questions = []
