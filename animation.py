@@ -29,20 +29,35 @@ class Animator():
     def __init__(self):
         self.current_animation = None
         self.animations = {}
-        self.state = AnimatiorState.PLAY
+        self.state = AnimatorState.PLAY
+        self.nextanimation = None
     
     def update(self):
+        # 트랜스 상태일때는 애니메이션이 끝났는지를 확인해야함
+        # current_animation이 loop = True 라면 이걸 False로 변경 (이건 translate에서 변경해도 될듯)
+        # current_animation의 now_img가 마지막 img일때 current_animation 등을 진행
+        # 만일 current_animation의 상태가 팔이 전환되는 상황이 필요하다면 이를 전환 할 수 있어야 함
+        if(self.state == AnimatorState.TRANS):
+            self.current_animation.update()
+        if(self.state == AnimatorState.PLAY):
+            pass
+        if(self.state == AnimatorState.STOP):
+            pass
         pass
     
+    def render(self):
+        return self.current_animation.now_img
+
+    
     def translate(self, key):
-        self.state = AnimatiorState.TRANS
+        self.state = AnimatorState.TRANS
         self.current_animation = self.animations[key]
     
     def add_animation(self, key, ani):
         self.animations[key] = ani
     
 
-class AnimatiorState(Enum):
+class AnimatorState(Enum):
     PLAY = 1
     TRANS = 2
     STOP = 3
