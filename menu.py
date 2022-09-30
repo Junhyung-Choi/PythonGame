@@ -1,5 +1,3 @@
-from turtle import Screen
-from wsgiref.util import setup_testing_defaults
 import pygame
 import setting
 
@@ -14,14 +12,14 @@ def process_event(event):
             print("게임시작")
         if event.key == pygame.K_2:
             print("패치노트")
-    if event.type == pygame.MOUSEMOTION:
-        print(pygame.mouse.get_pos())
     if event.type == pygame.MOUSEBUTTONDOWN:
         mouseX, mouseY = pygame.mouse.get_pos()
         if(180 < mouseX < 260 and 480 < mouseY < 540):
             print("Next Scene")
+            pygame.mixer.Sound("./sound/btn_click.wav").play()
             setting.stage += 1
         if(540 < mouseX < 620 and 480 < mouseY < 540):
+            pygame.mixer.Sound("./sound/btn_click.wav").play()
             print("GAME OVER")
 
 def render():
@@ -52,12 +50,20 @@ def render():
     setting.screen.blit(setting.main_table, (-40/2,899/2))
 
     if(180 < mouseX < 260 and 480 < mouseY < 540):
+        if not setting.is_run_left_sound:
+            pygame.mixer.Sound("./sound/btn_hover.wav").play()
+            setting.is_run_left_sound = True
         setting.screen.blit(setting.menu_button_click,(377/2,974/2))
     else:
         setting.screen.blit(setting.menu_button,(377/2,974/2))
+        setting.is_run_left_sound = False
 
     if(540 < mouseX < 620 and 480 < mouseY < 540):
+        if not setting.is_run_right_sound:
+            pygame.mixer.Sound("./sound/btn_hover.wav").play()
+            setting.is_run_right_sound = True
         setting.screen.blit(setting.menu_button_click,(1087/2,974/2))
     else:
         setting.screen.blit(setting.menu_button,(1087/2,974/2))
+        setting.is_run_right_sound = False
         

@@ -26,7 +26,7 @@ class PauseButton(Button):
     def show(self):
         screen.blit(img_pause, (self.x_pos, self.y_pos))
 
-    def click(self):
+    def click(self, gs : GameStatus):
         self.is_clicked = not(self.is_clicked)
         print('일시정지')
 
@@ -47,16 +47,29 @@ class SpeechBubbleButton(Button):
         self.is_clicked = not(self.is_clicked)
         
 class TimeCheckButton(Button):
+    def __init__(self, x1, y1, size):
+        super().__init__(x1, y1, size)
+        self.y_now = 600
+
     def show(self):
         if(self.is_clicked):
-            screen.blit(img_meeting_watch_clock,(WATCH_CLOCK_X,WATCH_CLOCK_Y))
+            if (self.y_now - 60 > WATCH_CLOCK_Y):
+                self.y_now -= 60
+            else:
+                self.y_now -= self.y_now - WATCH_CLOCK_Y
+            screen.blit(img_meeting_watch_clock,(WATCH_CLOCK_X, self.y_now))
             img_meeting_time_check.set_alpha(100)
             screen.blit(img_meeting_time_check, (self.x_pos, self.y_pos))
             img_meeting_time_check.set_alpha(256)
         else:
+            screen.blit(img_meeting_watch_clock,(WATCH_CLOCK_X, self.y_now))
             screen.blit(img_meeting_time_check, (self.x_pos, self.y_pos))
+            if (self.y_now + 60 < 600):
+                self.y_now += 60
+            elif (self.y_now < 600):
+                self.y_now += 600 - self.y_now
 
-    def click(self):
+    def click(self, gs : GameStatus):
         self.is_clicked = not(self.is_clicked)
 
 class ProposeButton(Button):
@@ -65,11 +78,11 @@ class ProposeButton(Button):
     
     def click(self, gs : GameStatus):
         print('호감을 나타냅니다.')
+        setting.stage = -1
 
 class RestartButton(Button):
     def click(self, gs : GameStatus):
         print("Restart")
         setting.is_init_interface = False
         setting.stage = 0
-        setting.is_gameover = False
-        
+        setting.is_gameover = False     

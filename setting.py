@@ -24,6 +24,10 @@ is_gameover = False
 # 게임 오버 모달 창 띄워졌는지 여부
 is_init_gameover = False
 
+# 메뉴씬 소리 재생중인지 여부
+is_run_left_sound = False
+is_run_right_sound = False
+
 # 윈도우 설정
 pygame.display.set_caption("Python Game")
 
@@ -147,10 +151,10 @@ for i in range(0, STORY_NUMBERS):
 # 메뉴 씬
 eyes = []
 for idx in range(36):
-    eyes.append(pygame.image.load("img/eye_" + str(idx) + ".png"))
+    eyes.append(pygame.image.load("img/eye/eye_" + str(idx) + ".png"))
     eyes[idx] = pygame.transform.scale(eyes[idx],(800,600))
 
-eyeBall = pygame.image.load("img/eyeBall.png")
+eyeBall = pygame.image.load("img/eye/eyeBall.png")
 eyeBall = pygame.transform.scale(eyeBall,(eyeBall.get_width()/2,eyeBall.get_height()/2))
 
 main_table = pygame.image.load("img/Main_Table.png")

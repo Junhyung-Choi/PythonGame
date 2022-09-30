@@ -34,7 +34,6 @@ class GameStatus:
             fcnt = 0
             for first in json_data["혹시 취미가"]:
                 for fk,fv in first.items():
-                    print("First Question Making: " + fk + " && index : " + str(fcnt))
                     first_question = Question(fk,randint(-3,3),fcnt)
                     fcnt += 1
 
