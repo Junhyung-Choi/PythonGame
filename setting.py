@@ -24,6 +24,10 @@ is_gameover = False
 # 게임 오버 모달 창 띄워졌는지 여부
 is_init_gameover = False
 
+# 메뉴씬 소리 재생중인지 여부
+is_run_left_sound = False
+is_run_right_sound = False
+
 # 윈도우 설정
 pygame.display.set_caption("Python Game")
 

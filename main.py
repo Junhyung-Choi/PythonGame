@@ -6,6 +6,7 @@ import story
 import meeting
 import gameover
 import ending
+
 #############################################
 #                                            
 #    stage  0 : 메뉴 씬                      
@@ -64,8 +65,11 @@ def render():
         #pygame.display.update()
     elif setting.stage == 2:
         meeting.render()
+
     elif setting.stage == -1:
         ending.render()
+
+
     if setting.is_gameover:
         gameover.show_box()
 
