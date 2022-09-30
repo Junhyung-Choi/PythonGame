@@ -96,9 +96,11 @@ text = "Hello World"
 render_text = ""
 text_index = 0
 
+script_start_t = 0
+script_currnet_t = 0
 running_script = True
 first_script = True
-delay = 1
+delay = 5
 
 # 변수
 x_pos = 0
