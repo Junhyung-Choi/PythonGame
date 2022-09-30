@@ -12,11 +12,12 @@ class Animation():
             img = pygame.transform.scale(img, (800, 600))
             self.imgs.append(img)
         self.now_img = self.imgs[0]
-        self.loop = True
+        self.loop = False
         self.isPlayed = False
         self.isArmOnTable = True
     
-    def init():
+    def init(self):
+        self.now_img = self.imgs[0]
         print("initing")
 
     def update(self):
@@ -32,8 +33,11 @@ class Animator():
     def __init__(self):
         self.current_animation : Animation = None
         self.animations = {}
-        self.state = AnimatorState.PLAY
+        self.state = AnimatorState.STOP
         self.next_animation : Animation = None
+
+    def init(self):
+        self.current_animation = self.animations["armdown"]
     
     def update(self):
         """
@@ -71,12 +75,15 @@ class Animator():
                     else:
                         self.current_animation = self.animations["armup"]
                         self.current_animation.init()
+                # 팔을 교체하지 않아도 됨.
+                else: 
+                    self.current_animation = self.next_animation
+                    self.current_animation.init()
+                    self.state = AnimatorState.PLAY
+                    self.next_animation = None
             # 기존 애니메이션이 아직 끝나지 않은 경우
             else:
-                self.current_animation = self.next_animation
-                self.current_animation.init()
-                self.state = AnimatorState.PLAY
-                self.next_animation = None
+                pass
             self.current_animation.update()
 
         elif(self.state == AnimatorState.PLAY):
@@ -94,6 +101,7 @@ class Animator():
         Return:
             현재 Animator가 출력해야 하는 이미지를 리턴함
         """
+        self.update()
         return self.current_animation.now_img
 
     def translate(self, key):
@@ -104,7 +112,7 @@ class Animator():
         current_animation이 계속해서 재생되지 않도록 loop 또한 변경함
         """
         # 만일 전환중인 상황이라면
-        if(self.state != AnimatorState.TRANS):
+        if(self.state == AnimatorState.TRANS):
             print("You cannot translate animation now.")
             print("This animator is currently tranlsating animation")
         # 만일 전환중인 상황이 아니라면 전환

@@ -1,6 +1,8 @@
 import json
 from random import randint
 
+from animation import Animator
+
 MODE_CHOICE = 0
 MODE_CHECK = 1
 
@@ -22,6 +24,7 @@ class GameStatus:
         self.button2.text = self.current_questions[1].sentence
         self.button3.text = self.current_questions[2].sentence
         self.button4.text = self.current_questions[3].sentence
+        self.girlAnimator : Animator = None
     
     def __str__(self):
         return (self.scene_name + "'s Game Status Instance")
@@ -55,7 +58,9 @@ class GameStatus:
             pass
         return root_question
             
-    
+    def bindGirlAnimator(self, girlAnimator):
+        self.girlAnimator = girlAnimator
+
     def etc_button_clicked(self, button_type):
         if(button_type == "pause"):
             pass
@@ -95,8 +100,8 @@ class GameStatus:
                 print("Play Current Animation: " + self.current_question.sentence)
                 print("Score : " + str(self.current_question.point))
                 print("Index: " + str(self.current_question.index))
-                # play_current_animation()
-                pass
+
+                self.__play_animation__()
             elif (index == 1):
                 if not (self.current_question.child_questions):
                     print("끝남")
@@ -129,6 +134,21 @@ class GameStatus:
                 pass
         print("Current Score : " + str(self.score))
         print("--------\n\n")
+
+    def __play_animation__(self):
+        point = self.current_question.point + 3
+        p_ani_list = [
+            "watchphone",
+            "watchoutside",
+            "neckmassage",
+            "shakehead",
+            "eyebrowup",
+            "smile",
+            "biglaugh",
+        ]
+
+        self.girlAnimator.translate(p_ani_list[point])
+
 
 class Question:
     def __init__(self, sentence, point, index):
