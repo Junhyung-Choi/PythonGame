@@ -35,7 +35,7 @@ def render():
     if not(setting.is_init_interface):
         init()
 
-    # 클릭 이벤트에 따른 애니메이션 제어
+    # 클릭 이벤트에 따른 애니메이션 제어 (변경 필요)
     index = 0
     while(index < 5):
         if buttons[index].is_clicked == True:

@@ -30,10 +30,10 @@ class Animation():
 
 class Animator():
     def __init__(self):
-        self.current_animation = None
+        self.current_animation : Animation = None
         self.animations = {}
         self.state = AnimatorState.PLAY
-        self.next_animation = None
+        self.next_animation : Animation = None
     
     def update(self):
         """
@@ -42,7 +42,7 @@ class Animator():
         if state == TRANS:
             if 애니메이션이 종료 됨:
                 if 팔 교체해야함 :
-                    팔 교체에 맞는 애니메이션으로 전환
+                    팔 교체에 맞는 애니메이션으로 전환 (팔 위아래로 움직이는건 마지막을 isArmOnTable의 기준으로 삼기)
                     다음 애니메이션 갱신하지 않음
                     여전히 trans 상태로 둠
                 else (교체 안해도 됨):
@@ -51,29 +51,43 @@ class Animator():
             else (종료되지 않음):
                 current_animation의 update 함수 호출함.
         elif state == PLAY
-
-            저쩌구
+            if 애니메이션이 끝났으면
+                state 를 stop으로 변경
+            else
+                update함수 호출
         elif state == STOP:
-            그쩌구
+            딱히 동작 안해도 됨.
         """
         if(self.state == AnimatorState.TRANS):
+            # 실제로 다음 애니메이션을 갱신해야 하는 경우
             if(self.current_animation.isPlayed):
-                # if current_animation.isArmOnTable != self.next_animation.isArmOnTable: 관련 함수 작성
-                # else:
-                pass
+                # 다음 애니메이션이랑 지금 애니메이션이랑 팔 위치가 다르다면
+                if self.current_animation.isArmOnTable != self.next_animation.isArmOnTable:
+                    # 팔 올린거에서 내려야 하는 상황일때
+                    if self.current_animation.isArmOnTable == True:
+                        self.current_animation = self.animations["armdown"]
+                        self.current_animation.init()
+                    # 팔 내린거에서 올려야 하는 상황일때
+                    else:
+                        self.current_animation = self.animations["armup"]
+                        self.current_animation.init()
+            # 기존 애니메이션이 아직 끝나지 않은 경우
             else:
                 self.current_animation = self.next_animation
                 self.current_animation.init()
                 self.state = AnimatorState.PLAY
                 self.next_animation = None
             self.current_animation.update()
-        else:
-            self.current_animation.update()
-        if(self.state == AnimatorState.PLAY):
+
+        elif(self.state == AnimatorState.PLAY):
+            if(not self.current_animation.loop and self.current_animation.isPlayed == True):
+                self.state == AnimatorState.STOP
+            else:
+                self.current_animation.update()
+        
+        elif(self.state == AnimatorState.STOP):
+            # 딱히 동작 필요 없음
             pass
-        if(self.state == AnimatorState.STOP):
-            pass
-        pass
     
     def render(self):
         """
