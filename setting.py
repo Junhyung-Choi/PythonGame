@@ -101,6 +101,8 @@ SKIP_X = 700
 SKIP_Y = 520
 SKIP_W = 30
 SKIP_H = 20
+ALL_SKIP_X = 750
+ALL_SKIP_Y = 20
 
 skip_img = pygame.image.load("img/story/skip.png")
 skip_img = pygame.transform.scale(skip_img, (SKIP_W, SKIP_H))

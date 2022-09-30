@@ -14,6 +14,9 @@ def process_event(event):
         if setting.SKIP_X <= event.pos[0] <= setting.SKIP_X + setting.SKIP_W and setting.SKIP_Y <= event.pos[1] <= setting.SKIP_Y + setting.SKIP_H:
             print("스킵합니다.\n\n")
             setting.skip = True
+        elif setting.ALL_SKIP_X <= event.pos[0] <= setting.ALL_SKIP_X + setting.SKIP_W and setting.ALL_SKIP_Y <= event.pos[1] <= setting.ALL_SKIP_Y + setting.SKIP_H:
+            print("모두 스킵합니다.\n\n")
+            setting.stage = 2
 
 def init_ani():
     story_img = animation.Animation("img/story/meeting_", setting.STORY_NUMBERS)
@@ -29,6 +32,7 @@ def render():
         
     setting.screen.blit(animations[0].now_img, (0, 0))
     setting.screen.blit(setting.skip_img, (setting.SKIP_X, setting.SKIP_Y))
+    setting.screen.blit(setting.skip_img, (setting.ALL_SKIP_X, setting.ALL_SKIP_Y))
 
     if setting.currnet_scene_number >= setting.STORY_NUMBERS:
         setting.stage = 2
