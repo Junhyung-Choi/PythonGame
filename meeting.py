@@ -1,3 +1,4 @@
+from tkinter.tix import Tree
 import pygame
 import setting
 from button import *
@@ -9,7 +10,7 @@ buttons = []
 animations = []
 girlAnimator = Animator()
 global current_ani, gamestatus, isEventAvailable
-gamestatus = None
+gamestatus : GameStatus = None
 isEventAvailable = False
 
 
@@ -35,17 +36,20 @@ def render():
     if not(setting.is_init_interface):
         init()
 
-    # 클릭 이벤트에 따른 애니메이션 제어 (변경 필요)
-    index = 0
-    while(index < 5):
-        if buttons[index].is_clicked == True:
-            if index != current_ani:
-                if current_ani != -1:
-                    buttons[current_ani].is_clicked = False
-                current_ani = index
-            screen.blit(animations[index].now_img, (0, 0))
-            animations[index].update()
-        index += 1
+    # 플레이어 애니메이션 렌더
+    screen.blit(girlAnimator.render(), (0, 0))
+    
+    # # 클릭 이벤트에 따른 애니메이션 제어 (변경 필요)
+    # index = 0
+    # while(index < 5) :
+    #     if buttons[index].is_clicked == True:
+    #         if index != current_ani:
+    #             if current_ani != -1:
+    #                 buttons[current_ani].is_clicked = False
+    #             current_ani = index
+    #         screen.blit(animations[index].now_img, (0, 0))
+    #         animations[index].update()
+    #     index += 1
 
     # 미팅 씬 배경화면 렌더링
     screen.blit(setting.img_meeting_window, (WINDOW_X, WINDOW_Y))
@@ -60,12 +64,15 @@ def init():
     """
     초기화 함수들을 관리하는 함수
     """
-    global isEventAvailable, current_ani
+    global isEventAvailable
     isEventAvailable = False
     init_ani()
     init_btn()
     init_status()
-    current_ani = -1
+
+    girlAnimator.init()
+    gamestatus.bindGirlAnimator(girlAnimator=girlAnimator)
+
 
 def process_event_btn(event):
     """
@@ -78,19 +85,59 @@ def init_ani():
     """
     애니메이션 이미지 호출 및 애니메이션 관리 객체에 등록
     """
-    girl_watchphone = Animation("img/meeting/Girl_WatchPhone/girl_watchPhone_",60)
-    girl_smile = Animation("img/meeting/Girl_Smile/girl_smile_", 31)
-    girl_eyebrowup = Animation("img/meeting/Girl_EyebrowUp/girl_eyebrowUp_", 20)
+    # 팔 올리기 : 부정 -> 긍정(팔 위에), 매칭 점수 없음
     girl_armup = Animation("img/meeting/Girl_ArmUp/girl_armUp_", 60)
-    girl_armdown = Animation("img/meeting/Girl_ArmDown/girl_armDown_", 60)
 
-    girlAnimator.add_animation("watchPhone",girl_watchphone)
-    girlAnimator.add_animation("smile",girl_smile)
-    girlAnimator.add_animation("eyebrowup",girl_eyebrowup)
+    # 팔 내리기 : 긍정 -> 부정(팔 아래), 매칭 점수 없음
+    girl_armdown = Animation("img/meeting/Girl_ArmDown/girl_armDown_", 60)
+    girl_armdown.isArmOnTable = False
+    
+    # 크게 웃기 : 긍정(팔 위에), 매칭 점수 : 3점
+    girl_biglaugh = Animation("img/meeting/Girl_BigLaugh/girl_biglaugh_", 60)
+
+    # 웃기 : 긍정(팔 위에), 매칭 점수 : 2점
+    girl_smile = Animation("img/meeting/Girl_Smile/girl_smile_", 31)
+
+    # 눈썹 올리기 : 긍정(팔 위에), 매칭 점수 : 1점
+    girl_eyebrowup = Animation("img/meeting/Girl_EyebrowUp/girl_eyebrowUp_", 20)
+    
+    # 고개 끄덕이기 : 긍정(팔 위에), 매칭 점수 : 0점
+    girl_shakehead = Animation("img/meeting/Girl_ShakeHead/girl_shakehead_", 13)
+    
+    # 목 만지기 : 부정(팔 아래에), 매칭 점수 : -1점
+    girl_neckmassage = Animation("img/meeting/Girl_NeckMassage/girl_NeckMassage_", 60)
+    girl_neckmassage.isArmOnTable = False
+    
+    # 바깥 쳐다보기 : 부정(팔 아래에), 매칭 점수 : -2점
+    girl_watchoutside = Animation("img/meeting/Girl_WatchOutside/girl_watchoutside_", 31)
+    girl_watchoutside.isArmOnTable = False
+
+    # 핸드폰 보기 : 부정(팔 아래), 매칭 점수 : -3점
+    girl_watchphone = Animation("img/meeting/Girl_WatchPhone/girl_watchPhone_",60)
+
+    # 중간 챕터 폰 올리기(부정) : 긍정(팔 위에)
+    girl_chapter_change_phone_ring_positive = Animation("img/meeting/Girl_ChapterChangePhoneRing/Positive/girl_ChapChangePhoneRing_Positive_", 27)
+
+    # 중간 챕터 폰 올리기(부정) : 부정(팔 아래에), 매칭 점수 : X점  
+    girl_chapter_change_phone_ring_negative = Animation("img/meeting/Girl_ChapterChangePhoneRing/Negative/girl_ChapChangePhoneRing_Negative_", 27)
+    
     girlAnimator.add_animation("armup",girl_armup)
     girlAnimator.add_animation("armdown",girl_armdown)
 
-    animations.extend((girl_watchphone, girl_smile, girl_eyebrowup, girl_armup, girl_armdown))
+    girlAnimator.add_animation("biglaugh", girl_biglaugh)
+    girlAnimator.add_animation("smile", girl_smile)
+    girlAnimator.add_animation("eyebrowup",girl_eyebrowup)
+    girlAnimator.add_animation("shakehead",girl_shakehead)
+    girlAnimator.add_animation("neckmassage",girl_neckmassage)
+    girlAnimator.add_animation("watchoutside",girl_watchoutside)
+    girlAnimator.add_animation("watchphone",girl_watchphone)
+
+    girlAnimator.add_animation("ringpositive", girl_chapter_change_phone_ring_positive)
+    girlAnimator.add_animation("ringnegative", girl_chapter_change_phone_ring_negative)
+
+    girlAnimator.init()
+
+    # animations.extend((girl_watchphone, girl_smile, girl_eyebrowup, girl_armup, girl_armdown))
 
 def init_btn():
     """
