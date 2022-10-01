@@ -3,7 +3,7 @@ import setting
 import time
 import animation
 
-animations = []
+global story_animation
 
 def process_event(event):
     if event.type == pygame.QUIT:
@@ -19,28 +19,32 @@ def process_event(event):
             setting.stage = 2
 
 def init_ani():
-    story_img = animation.Animation("img/story/meeting_", setting.STORY_NUMBERS)
-    animations.append(story_img)
+    global story_animation
+    story_animation = animation.Animation("img/story/meeting_", setting.STORY_NUMBERS)
+    story_animation.update()
     
 
 def render():
+    global story_animation
     if setting.first:
         setting.first = False
         setting.start_t = time.time()
         init_ani()
-        setting.currnet_scene_number += 1
-        
-    setting.screen.blit(animations[0].now_img, (0, 0))
-    setting.screen.blit(setting.skip_img, (setting.SKIP_X, setting.SKIP_Y))
-    setting.screen.blit(setting.skip_img, (setting.ALL_SKIP_X, setting.ALL_SKIP_Y))
 
-    if setting.currnet_scene_number >= setting.STORY_NUMBERS:
-        setting.stage = 2
-        return 0
     
     currnet_t = time.time()
+
     if setting.start_t + setting.scene_t <= currnet_t or setting.skip:
         setting.start_t = time.time()
         setting.skip = False
-        animations[0].update()
-        setting.currnet_scene_number += 1
+        story_animation.update()
+        setting.story_scene_number += 1
+
+    if setting.story_scene_number >= setting.STORY_NUMBERS:
+        setting.screen.blit(story_animation.now_img, (0,0))
+        setting.stage = 2
+        return 0
+
+    setting.screen.blit(story_animation.now_img, (0, 0))
+    setting.screen.blit(setting.skip_img, (setting.SKIP_X, setting.SKIP_Y))
+    setting.screen.blit(setting.skip_img, (setting.ALL_SKIP_X, setting.ALL_SKIP_Y))

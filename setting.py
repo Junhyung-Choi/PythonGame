@@ -121,7 +121,7 @@ skip = False
 scene_t = 3 # 스토리 씬  재생시간
 
 STORY_NUMBERS = 6
-currnet_scene_number = 0
+story_scene_number = 0
 
 LEFT = 1
 RIGHT = 3
