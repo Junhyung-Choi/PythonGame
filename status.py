@@ -104,7 +104,7 @@ class GameStatus:
                 self.__play_animation__()
             elif (index == 1):
                 if not (self.current_question.child_questions):
-                    print("끝남")
+                    self.girlAnimator.translate_nextphase()
                     return
                
                 self.mode = MODE_CHOICE

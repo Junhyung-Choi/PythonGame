@@ -39,18 +39,6 @@ def render():
 
     # 플레이어 애니메이션 렌더
     screen.blit(girlAnimator.render(), (0, 0))
-    
-    # # 클릭 이벤트에 따른 애니메이션 제어 (변경 필요)
-    # index = 0
-    # while(index < 5) :
-    #     if buttons[index].is_clicked == True:
-    #         if index != current_ani:
-    #             if current_ani != -1:
-    #                 buttons[current_ani].is_clicked = False
-    #             current_ani = index
-    #         screen.blit(animations[index].now_img, (0, 0))
-    #         animations[index].update()
-    #     index += 1
 
     # 미팅 씬 배경화면 렌더링
     screen.blit(setting.img_meeting_window, (WINDOW_X, WINDOW_Y))
