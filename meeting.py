@@ -1,6 +1,7 @@
 from tkinter.tix import Tree
 import pygame
 import setting
+import time
 from button import *
 from animation import *
 from status import *
@@ -53,6 +54,21 @@ def render():
 
     # 미팅 씬 배경화면 렌더링
     screen.blit(setting.img_meeting_window, (WINDOW_X, WINDOW_Y))
+
+    """ script_now_t = time.time()
+    if setting.is_script_activate:
+        setting.is_script_activate = False
+        setting.script_t = time.time()
+    if setting.script_t + setting.script_running_t >= script_now_t:
+        pass
+    else:
+        show_btn()
+    if setting.running_script:
+        setting.running_script = False
+        show_script() """
+    
+    if (isEventAvailable):
+        show_script()
     # 버튼 렌더링
     show_btn()
 
