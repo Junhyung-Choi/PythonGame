@@ -84,6 +84,7 @@ img_meeting_window = pygame.transform.scale(img_meeting_window, (WINDOW_W, WINDO
 font = pygame.font.Font("font/DungGeunMo.ttf", FONT_SIZE)
 
 is_init_interface = False
+is_meet_next = False
 
 # 텍스트
 

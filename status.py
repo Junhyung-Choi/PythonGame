@@ -1,4 +1,5 @@
 import json
+import setting
 from random import randint
 import time
 
@@ -107,6 +108,7 @@ class GameStatus:
                 self.__play_animation__()
             elif (index == 1):
                 if not (self.current_question.child_questions):
+                    setting.is_meet_next = True # 임시 코드 (미들씬 작동 확인을 위한)
                     self.girlAnimator.translate_nextphase()
                     return
                
@@ -165,7 +167,24 @@ class GameStatus:
         left_time_second = left_time % 60
         return (left_time_minute,left_time_second)
 
+    def __go_next_phase__(self):
+        """
+        ### 다음 페이즈로 넘어가는 함수
+        
+        점수에 따른 씬 재생 (낫굿, 노말, 굿)
 
+        만약 점수가 너무 낮으면 그대로 엔딩행
+
+        그렇지 않다면 다음 페이즈로 진행
+        """
+        print("끝남")
+        # if 점수가 너무 낮으면 :
+        #    setting.is_gameover = True
+        # elif 점수가 다음 씬으로 넘어갈 수 있을 정도라면 :
+        #    setting.다음 씬으로 넘어갈 수 있는지 여부를 저장한 변수 = True
+        #    그러면 meeting.py에서 if 변수 : 
+        #                             render 중간씬
+        #                             게임 진행
 
 class Question:
     def __init__(self, sentence, point, index):

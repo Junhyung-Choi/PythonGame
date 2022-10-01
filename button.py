@@ -29,6 +29,7 @@ class PauseButton(Button):
 
     def click(self, gs : GameStatus):
         self.is_clicked = not(self.is_clicked)
+        setting.is_gameover = True
         print('일시정지')
 
 class SpeechBubbleButton(Button):
