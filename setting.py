@@ -85,6 +85,33 @@ font = pygame.font.Font("font/DungGeunMo.ttf", FONT_SIZE)
 
 is_init_interface = False
 
+# 텍스트
+
+# 글자체(text font) 지정하기
+text_size = 50
+font_name = None
+myFont = pygame.font.SysFont(font_name, text_size) #(글자체, 글자크기) None=기본글자체
+
+text = "Hello World"
+render_text = ""
+text_index = 0
+
+script_start_t = 0
+script_currnet_t = 0
+running_script = True
+first_script = True
+delay = 5
+
+# 변수
+x_pos = 0
+y_pos = 0
+
+play = True
+
+is_script_activate = True
+script_running_t = len(text) * delay + 0.5
+script_t = 0
+
 # 스토리 씬
 start_t = 0
 first = True
