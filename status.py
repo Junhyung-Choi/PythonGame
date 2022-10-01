@@ -105,14 +105,7 @@ class GameStatus:
                 self.__play_animation__()
             elif (index == 1):
                 if not (self.current_question.child_questions):
-                    print("끝남")
-                    # if 점수가 너무 낮으면 :
-                    #    setting.is_gameover = True
-                    # elif 점수가 다음 씬으로 넘어갈 수 있을 정도라면 :
-                    #    setting.다음 씬으로 넘어갈 수 있는지 여부를 저장한 변수 = True
-                    #    그러면 meeting.py에서 if 변수 : 
-                    #                             render 중간씬
-                    #                             게임 진행
+                    # self.go_next_phase()
                     return
                
                 self.mode = MODE_CHOICE
@@ -157,6 +150,8 @@ class GameStatus:
 
         self.girlAnimator.translate(p_ani_list[point])
 
+    def __go_next_phase__(self):
+        print("끝남")
 
 class Question:
     def __init__(self, sentence, point, index):
