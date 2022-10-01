@@ -1,3 +1,4 @@
+import time
 import pygame
 from setting import *
 import setting
@@ -50,6 +51,8 @@ class TimeCheckButton(Button):
     def __init__(self, x1, y1, size):
         super().__init__(x1, y1, size)
         self.y_now = 600
+        self.gs = None
+        self.time_font = pygame.font.Font("font/DungGeunMo.ttf", 32)
 
     def show(self):
         if(self.is_clicked):
@@ -58,6 +61,15 @@ class TimeCheckButton(Button):
             else:
                 self.y_now -= self.y_now - WATCH_CLOCK_Y
             screen.blit(img_meeting_watch_clock,(WATCH_CLOCK_X, self.y_now))
+            if(self.y_now == WATCH_CLOCK_Y):
+                minute,second = self.gs.get_left_min_sec()
+                time_text = ""
+                if(minute != 0):
+                    time_text = str(minute) + ':' + str(second)
+                else:
+                    time_text = str(second)
+                text = self.time_font.render(time_text, True, (0, 0, 0))
+                screen.blit(text, (230,self.y_now + 90))
             img_meeting_time_check.set_alpha(100)
             screen.blit(img_meeting_time_check, (self.x_pos, self.y_pos))
             img_meeting_time_check.set_alpha(256)
@@ -70,6 +82,8 @@ class TimeCheckButton(Button):
                 self.y_now += 600 - self.y_now
 
     def click(self, gs : GameStatus):
+        if(self.gs == None):
+            self.gs = gs
         self.is_clicked = not(self.is_clicked)
 
 class ProposeButton(Button):

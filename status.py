@@ -1,5 +1,6 @@
 import json
 from random import randint
+import time
 
 from animation import Animator
 
@@ -11,7 +12,9 @@ class GameStatus:
         self.score = 25
         self.scene_name = scene_name
         self.mode = MODE_CHOICE
-        self.left_time = 1
+        self.left_sec = 1
+        self.current_time = time.time()
+        self.game_sec = 120
         self.__root_question_chapter1__ = self.__make_questions__(1)
         self.__root_question_chapter2__ = self.__make_questions__(2)
         self.current_question : Question = self.__root_question_chapter1__
@@ -148,6 +151,20 @@ class GameStatus:
         ]
 
         self.girlAnimator.translate(p_ani_list[point])
+
+    def set_start_time(self):
+        self.current_time = time.time()
+    
+    def get_left_min_sec(self):
+        ctime = self.current_time
+        ntime = time.time()
+        use_time = ntime - ctime
+        use_time = int(use_time)
+        left_time = self.game_sec - use_time
+        left_time_minute = left_time // 60
+        left_time_second = left_time % 60
+        return (left_time_minute,left_time_second)
+
 
 
 class Question:
