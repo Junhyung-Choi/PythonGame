@@ -13,7 +13,7 @@ buttons = []
 animations = []
 girlAnimator = Animator()
 
-global current_ani, gamestatus, isEventAvailable, middle_scene_obj
+global gamestatus, isEventAvailable, middle_scene_obj
 
 gamestatus : GameStatus = None
 isEventAvailable = False
