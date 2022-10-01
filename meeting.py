@@ -7,14 +7,14 @@ from animation import *
 from status import *
 from script import *
 import story
+import middle_scene
 
 buttons = []
 animations = []
 girlAnimator = Animator()
-global current_ani, gamestatus, isEventAvailable
+global current_ani, gamestatus, isEventAvailable, middle_scene_obj
 gamestatus : GameStatus = None
 isEventAvailable = False
-
 
 def process_event(event):
     """
@@ -27,11 +27,11 @@ def render():
     """
     Meeting Scene의 렌더링을 관리하는 함수
     """
-    global current_ani, isEventAvailable
+    global current_ani, isEventAvailable, middle_scene_obj
 
     # 인터페이스가 준비 완료되었고, 이벤트가 사용 불가능한 상황이라면
     # 이벤트를 활성화한다.
-    if (setting.is_init_interface and not isEventAvailable):
+    if (setting.is_init_interface and not isEventAvailable and not middle_scene_obj.is_running):
         isEventAvailable = True
 
     # 씬 시작이 준비되지 않은 상황이라면, 이를 초기화를 통해 활성화한다.
@@ -73,22 +73,35 @@ def render():
     # 버튼 렌더링
     show_btn()
 
-    if is_meet_next:
-        story.render()
-    
+    # 임시 코드 (미들씬 작동 확인을 위한)
+    if setting.is_meet_next:
+        middle_scene_obj.is_running = True
+        middle_scene_obj.start_t = time.time()
+        isEventAvailable = False
+        setting.is_meet_next = False
+    # 임시 코드
+
+    if middle_scene_obj.is_running:
+        middle_scene_obj.render()
+        
     if not(setting.is_init_interface):
         setting.is_init_interface = True
+
+    print(isEventAvailable)
+    print(is_meet_next)
+    print(middle_scene_obj.is_running)
 
 def init():
     """
     초기화 함수들을 관리하는 함수
     """
-    global isEventAvailable
+    global isEventAvailable, middle_scene_obj
     isEventAvailable = False
     init_ani()
     init_btn()
     init_status()
-
+    
+    middle_scene_obj = middle_scene.MiddleScene()
     girlAnimator.init()
     gamestatus.bindGirlAnimator(girlAnimator=girlAnimator)
 
