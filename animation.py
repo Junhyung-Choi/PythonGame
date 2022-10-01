@@ -1,5 +1,6 @@
 from enum import Enum
 import pygame
+import setting
 
 class Animation():
     def __init__(self, path, frame_num):
@@ -33,12 +34,16 @@ class Animator():
         self.animations = {}
         self.state = AnimatorState.STOP
         self.next_animation : Animation = None
-        self.isNextPhaseAvailable = False
+        self.isMiddleSceneAnimationStarted = False
+        self.middleSceneStartFunction = None
 
     def init(self):
         self.current_animation = self.animations["armdown"]
         self.current_animation.now_img = self.current_animation.imgs[59]
         self.current_animation.isPlayed = True
+    
+    def bindMiddleSceneStartFunction(self, func):
+        self.middleSceneStartFunction = func
     
     def update(self):
         """
@@ -77,8 +82,10 @@ class Animator():
                 self.current_animation.update()
         
         elif(self.state == AnimatorState.STOP):
-            if(self.isNextPhaseAvailable):
-                print("중간 씬으로 이동")
+            print("STOP")
+            if(self.isMiddleSceneAnimationStarted):
+                print("What")
+                self.middleSceneStartFunction()
             pass
     
     def render(self):
@@ -120,7 +127,7 @@ class Animator():
             self.translate("ringpositive")
         else:
             self.translate("ringnegative")
-        self.isNextPhaseAvailable = True
+        self.isMiddleSceneAnimationStarted = True
 
 class AnimatorState(Enum):
     PLAY = 1
