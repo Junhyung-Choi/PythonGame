@@ -68,7 +68,7 @@ def render():
         show_script() """
     
     if (isEventAvailable):
-        show_script()
+        show_script("혹시 취미가?")
     # 버튼 렌더링
     show_btn()
 
