@@ -12,7 +12,9 @@ import middle_scene
 buttons = []
 animations = []
 girlAnimator = Animator()
-global gamestatus, isEventAvailable
+
+global gamestatus, isEventAvailable, middle_scene_obj
+
 gamestatus : GameStatus = None
 isEventAvailable = False
 
@@ -27,6 +29,7 @@ def render():
     """
     Meeting Scene의 렌더링을 관리하는 함수
     """
+    
     global isEventAvailable, middle_scene_obj
 
     # 인터페이스가 준비 완료되었고, 이벤트가 사용 불가능한 상황이라면

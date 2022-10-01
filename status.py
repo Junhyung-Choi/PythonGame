@@ -105,6 +105,7 @@ class GameStatus:
                 self.__play_animation__()
             elif (index == 1):
                 if not (self.current_question.child_questions):
+                    setting.is_meet_next = True # 임시 코드 (미들씬 작동 확인을 위한)
                     self.girlAnimator.translate_nextphase()
                     return
                
