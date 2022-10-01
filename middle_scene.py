@@ -18,7 +18,7 @@ class MiddleScene():
 
         if self.is_running:
             currnet_t = time.time()
-            if setting.currnet_scene_number > 4:
+            if self.current_scene_number > 4:
                 if self.start_t + 2 <= currnet_t:
                     self.is_running = False
                     meeting.isEventAvailable = True
@@ -26,4 +26,4 @@ class MiddleScene():
             elif self.start_t + 2 <= currnet_t:
                 self.start_t = time.time()
                 self.imgs.update()
-                setting.currnet_scene_number += 1
+                self.current_scene_number += 1
