@@ -24,7 +24,7 @@ class Animation():
         if(not self.isPlayed):
             self.now_img = self.imgs[self.index]
             self.index += 1
-            if self.index >= len(self.imgs) - 1:
+            if self.index >= len(self.imgs):
                 self.isPlayed = True
 
 class Animator():
@@ -33,6 +33,7 @@ class Animator():
         self.animations = {}
         self.state = AnimatorState.STOP
         self.next_animation : Animation = None
+        self.isNextPhaseAvailable = False
 
     def init(self):
         self.current_animation = self.animations["armdown"]
@@ -76,6 +77,8 @@ class Animator():
                 self.current_animation.update()
         
         elif(self.state == AnimatorState.STOP):
+            if(self.isNextPhaseAvailable):
+                print("중간 씬으로 이동")
             pass
     
     def render(self):
@@ -105,7 +108,19 @@ class Animator():
     
     def add_animation(self, key, ani):
         self.animations[key] = ani
-    
+
+    def translate_nextphase(self):
+        """
+        ### 중간 점검 이미지가 나오기 전 폰이 울리는 애니메이션으로 전환하기 위한 함수
+        """
+
+        # 현재 손이 위로 올라와있는지 아닌지
+        isArmOnTable = self.current_animation.isArmOnTable
+        if(isArmOnTable):
+            self.translate("ringpositive")
+        else:
+            self.translate("ringnegative")
+        self.isNextPhaseAvailable = True
 
 class AnimatorState(Enum):
     PLAY = 1
