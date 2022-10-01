@@ -24,7 +24,7 @@ class Animation():
         if(not self.isPlayed):
             self.now_img = self.imgs[self.index]
             self.index += 1
-            if self.index >= len(self.imgs) - 1:
+            if self.index >= len(self.imgs):
                 self.isPlayed = True
 
 class Animator():

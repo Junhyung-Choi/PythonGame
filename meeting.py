@@ -10,7 +10,7 @@ from script import *
 buttons = []
 animations = []
 girlAnimator = Animator()
-global current_ani, gamestatus, isEventAvailable
+global gamestatus, isEventAvailable
 gamestatus : GameStatus = None
 isEventAvailable = False
 
@@ -26,7 +26,7 @@ def render():
     """
     Meeting Scene의 렌더링을 관리하는 함수
     """
-    global current_ani, isEventAvailable
+    global isEventAvailable
 
     # 인터페이스가 준비 완료되었고, 이벤트가 사용 불가능한 상황이라면
     # 이벤트를 활성화한다.
