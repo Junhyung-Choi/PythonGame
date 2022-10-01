@@ -90,14 +90,12 @@ class Animator():
             self.current_animation.update()
 
         elif(self.state == AnimatorState.PLAY):
-            print("Animator PLAY")
             if(not self.current_animation.loop and self.current_animation.isPlayed == True):
                 self.state == AnimatorState.STOP
             else:
                 self.current_animation.update()
         
         elif(self.state == AnimatorState.STOP):
-            print("Animator STOP")
             pass
     
     def render(self):

@@ -112,7 +112,7 @@ def init_ani():
     girl_biglaugh = Animation("img/meeting/Girl_BigLaugh/girl_biglaugh_", 60)
 
     # 웃기 : 긍정(팔 위에), 매칭 점수 : 2점
-    girl_smile = Animation("img/meeting/Girl_Smile/girl_smile_", 31)
+    girl_smile = Animation("img/meeting/Girl_Smile/girl_smile_", 78)
 
     # 눈썹 올리기 : 긍정(팔 위에), 매칭 점수 : 1점
     girl_eyebrowup = Animation("img/meeting/Girl_EyebrowUp/girl_eyebrowUp_", 20)
