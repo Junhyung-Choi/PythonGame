@@ -12,23 +12,20 @@ class Animation():
             img = pygame.transform.scale(img, (800, 600))
             self.imgs.append(img)
         self.now_img = self.imgs[0]
-        self.loop = False
         self.isPlayed = False
         self.isArmOnTable = True
     
     def init(self):
         self.now_img = self.imgs[0]
+        self.index = 0
         self.isPlayed = False
-        print("initing")
 
     def update(self):
-        # 루프를 돌아야 하거나, 한번 끝까지 재생되었거나
-        if(self.loop or not self.isPlayed):
+        if(not self.isPlayed):
+            self.now_img = self.imgs[self.index]
             self.index += 1
             if self.index >= len(self.imgs):
                 self.isPlayed = True
-                self.index = 0
-            self.now_img = self.imgs[self.index]
 
 class Animator():
     def __init__(self):
@@ -36,6 +33,7 @@ class Animator():
         self.animations = {}
         self.state = AnimatorState.STOP
         self.next_animation : Animation = None
+        self.isNextPhaseAvailable = False
 
     def init(self):
         self.current_animation = self.animations["armdown"]
@@ -44,26 +42,9 @@ class Animator():
     
     def update(self):
         """
-        애니메이션의 다음
-
-        if state == TRANS:
-            if 애니메이션이 종료 됨:
-                if 팔 교체해야함 :
-                    팔 교체에 맞는 애니메이션으로 전환 (팔 위아래로 움직이는건 마지막을 isArmOnTable의 기준으로 삼기)
-                    다음 애니메이션 갱신하지 않음
-                    여전히 trans 상태로 둠
-                else (교체 안해도 됨):
-                    다음 애니메이션 pop 후 현재 애니메이션으로 전환
-                    state를 trans 에서 play로 전환
-            else (종료되지 않음):
-                current_animation의 update 함수 호출함.
-        elif state == PLAY
-            if 애니메이션이 끝났으면
-                state 를 stop으로 변경
-            else
-                update함수 호출
-        elif state == STOP:
-            딱히 동작 안해도 됨.
+        # 애니메이션 전환 함수
+        
+        update 함수가 호출될때마다 자동 호출.
         """
         if(self.state == AnimatorState.TRANS):
             # 실제로 다음 애니메이션을 갱신해야 하는 경우
@@ -90,14 +71,14 @@ class Animator():
             self.current_animation.update()
 
         elif(self.state == AnimatorState.PLAY):
-            print("Animator PLAY")
-            if(not self.current_animation.loop and self.current_animation.isPlayed == True):
+            if(self.current_animation.isPlayed == True):
                 self.state == AnimatorState.STOP
             else:
                 self.current_animation.update()
         
         elif(self.state == AnimatorState.STOP):
-            print("Animator STOP")
+            if(self.isNextPhaseAvailable):
+                print("중간 씬으로 이동")
             pass
     
     def render(self):
@@ -123,11 +104,23 @@ class Animator():
         else:
             self.next_animation = self.animations[key]
             self.state = AnimatorState.TRANS
-            self.current_animation.loop = False
+            # self.current_animation.loop = False // loop 하는 애니매이션 존재 X
     
     def add_animation(self, key, ani):
         self.animations[key] = ani
-    
+
+    def translate_nextphase(self):
+        """
+        ### 중간 점검 이미지가 나오기 전 폰이 울리는 애니메이션으로 전환하기 위한 함수
+        """
+
+        # 현재 손이 위로 올라와있는지 아닌지
+        isArmOnTable = self.current_animation.isArmOnTable
+        if(isArmOnTable):
+            self.translate("ringpositive")
+        else:
+            self.translate("ringnegative")
+        self.isNextPhaseAvailable = True
 
 class AnimatorState(Enum):
     PLAY = 1
