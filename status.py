@@ -1,4 +1,5 @@
 import json
+import setting
 from random import randint
 
 from animation import Animator
@@ -105,6 +106,8 @@ class GameStatus:
             elif (index == 1):
                 if not (self.current_question.child_questions):
                     print("끝남")
+                    # if 점수가 너무 낮으면 :
+                    #    setting.is_gameover = True
                     return
                
                 self.mode = MODE_CHOICE
