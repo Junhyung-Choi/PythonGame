@@ -89,8 +89,8 @@ is_init_interface = False
 
 # 글자체(text font) 지정하기
 text_size = 50
-font_name = None
-myFont = pygame.font.SysFont(font_name, text_size) #(글자체, 글자크기) None=기본글자체
+font_name = "font/DungGeunMo.ttf"
+myFont = pygame.font.Font("font/DungGeunMo.ttf", 25)
 
 text = "Hello World"
 render_text = ""
@@ -100,7 +100,7 @@ script_start_t = 0
 script_currnet_t = 0
 running_script = True
 first_script = True
-delay = 5
+delay = 0.1
 
 # 변수
 x_pos = 0
