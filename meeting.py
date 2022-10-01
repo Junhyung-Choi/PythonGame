@@ -114,12 +114,14 @@ def init_ani():
 
     # 핸드폰 보기 : 부정(팔 아래), 매칭 점수 : -3점
     girl_watchphone = Animation("img/meeting/Girl_WatchPhone/girl_watchPhone_",60)
+    girl_watchphone.isArmOnTable = False
 
     # 중간 챕터 폰 올리기(부정) : 긍정(팔 위에)
     girl_chapter_change_phone_ring_positive = Animation("img/meeting/Girl_ChapterChangePhoneRing/Positive/girl_ChapChangePhoneRing_Positive_", 27)
 
     # 중간 챕터 폰 올리기(부정) : 부정(팔 아래에), 매칭 점수 : X점  
     girl_chapter_change_phone_ring_negative = Animation("img/meeting/Girl_ChapterChangePhoneRing/Negative/girl_ChapChangePhoneRing_Negative_", 27)
+    girl_chapter_change_phone_ring_negative.isArmOnTable = False
     
     girlAnimator.add_animation("armup",girl_armup)
     girlAnimator.add_animation("armdown",girl_armdown)

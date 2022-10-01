@@ -8,7 +8,7 @@ MODE_CHECK = 1
 
 class GameStatus:
     def __init__(self, scene_name, button1, button2, button3, button4):
-        self.score = 0
+        self.score = 25
         self.scene_name = scene_name
         self.mode = MODE_CHOICE
         self.left_time = 1

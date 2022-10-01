@@ -18,6 +18,7 @@ class Animation():
     
     def init(self):
         self.now_img = self.imgs[0]
+        self.isPlayed = False
         print("initing")
 
     def update(self):
@@ -38,6 +39,8 @@ class Animator():
 
     def init(self):
         self.current_animation = self.animations["armdown"]
+        self.current_animation.now_img = self.current_animation.imgs[59]
+        self.current_animation.isPlayed = True
     
     def update(self):
         """
@@ -87,13 +90,14 @@ class Animator():
             self.current_animation.update()
 
         elif(self.state == AnimatorState.PLAY):
+            print("Animator PLAY")
             if(not self.current_animation.loop and self.current_animation.isPlayed == True):
                 self.state == AnimatorState.STOP
             else:
                 self.current_animation.update()
         
         elif(self.state == AnimatorState.STOP):
-            # 딱히 동작 필요 없음
+            print("Animator STOP")
             pass
     
     def render(self):
