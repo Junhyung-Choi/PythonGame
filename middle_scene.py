@@ -7,4 +7,4 @@ import animation
 
 class MiddleScene():
     def __init__(self):
-        
+        pass
