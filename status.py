@@ -106,6 +106,7 @@ class GameStatus:
             elif (index == 1):
                 if not (self.current_question.child_questions):
                     print("끝남")
+                    setting.is_meet_next = True
                     # if 점수가 너무 낮으면 :
                     #    setting.is_gameover = True
                     # elif 점수가 다음 씬으로 넘어갈 수 있을 정도라면 :

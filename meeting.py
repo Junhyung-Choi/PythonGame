@@ -6,6 +6,7 @@ from button import *
 from animation import *
 from status import *
 from script import *
+import story
 
 buttons = []
 animations = []
@@ -72,6 +73,8 @@ def render():
     # 버튼 렌더링
     show_btn()
 
+    if is_meet_next:
+        story.render()
     
     if not(setting.is_init_interface):
         setting.is_init_interface = True
