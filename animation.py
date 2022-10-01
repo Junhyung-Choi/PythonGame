@@ -77,14 +77,12 @@ class Animator():
 
         elif(self.state == AnimatorState.PLAY):
             if(self.current_animation.isPlayed == True):
-                self.state == AnimatorState.STOP
+                self.state = AnimatorState.STOP
             else:
                 self.current_animation.update()
         
         elif(self.state == AnimatorState.STOP):
-            print("STOP")
             if(self.isMiddleSceneAnimationStarted):
-                print("What")
                 self.middleSceneStartFunction()
             pass
     
