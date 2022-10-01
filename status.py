@@ -108,6 +108,11 @@ class GameStatus:
                     print("끝남")
                     # if 점수가 너무 낮으면 :
                     #    setting.is_gameover = True
+                    # elif 점수가 다음 씬으로 넘어갈 수 있을 정도라면 :
+                    #    setting.다음 씬으로 넘어갈 수 있는지 여부를 저장한 변수 = True
+                    #    그러면 meeting.py에서 if 변수 : 
+                    #                             render 중간씬
+                    #                             게임 진행
                     return
                
                 self.mode = MODE_CHOICE
