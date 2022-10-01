@@ -64,23 +64,10 @@ def render():
     # 버튼 렌더링
     show_btn()
 
-    # 임시 코드 (미들씬 작동 확인을 위한)
-    if setting.is_meet_next:
-        middle_scene_obj.is_running = True
-        middle_scene_obj.start_t = time.time()
-        isEventAvailable = False
-        setting.is_meet_next = False
-    # 임시 코드
-
-    if middle_scene_obj.is_running:
-        middle_scene_obj.render()
+    middle_scene_obj.render()
         
     if not(setting.is_init_interface):
         setting.is_init_interface = True
-
-    print(isEventAvailable)
-    print(is_meet_next)
-    print(middle_scene_obj.is_running)
 
 def init():
     """
@@ -94,6 +81,7 @@ def init():
     
     middle_scene_obj = middle_scene.MiddleScene()
     girlAnimator.init()
+    girlAnimator.bindMiddleSceneStartFunction(middle_scene_obj.start)
     gamestatus.bindGirlAnimator(girlAnimator=girlAnimator)
 
 
