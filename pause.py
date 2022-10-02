@@ -4,6 +4,7 @@ import pygame
 import setting
 import button
 import time
+import meeting
 
 class Pause():
     def __init__(self):
@@ -33,6 +34,10 @@ class Pause():
         self.is_pausing = False
         self.btn_start.is_clicked = False
         setting.game_status = 'playing'
-
-        return (time.time() - self.pause_time)
-        # 이 값을 GameStatus의 남은 시간에 더하면 됨.
+        
+        if meeting.gamestatus.scene_name == 'meeting':
+            ctime = self.pause_time
+            ntime = time.time()
+            use_time = ntime - ctime
+            use_time = int(use_time)
+            meeting.gamestatus.game_sec += use_time
