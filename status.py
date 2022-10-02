@@ -110,7 +110,7 @@ class GameStatus:
                 if not (self.current_question.child_questions):
                     if(self.chapter == 1):
                         self.chapter = 2
-                        self.score = 25
+                        # self.score = 25
                         self.current_question = self.__root_question_chapter2__
                         self.current_questions = self.current_question.child_questions
                         self.set_button_text()
