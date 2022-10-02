@@ -18,6 +18,7 @@ class Pause():
         print('일시정지')
         self.is_pausing = True
         self.pause_time = current_time
+        setting.left_time_min, setting.left_time_second = meeting.gamestatus.get_left_min_sec()
 
     def show(self):
         setting.screen.blit(self.img, (200, 100))
