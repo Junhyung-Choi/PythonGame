@@ -33,14 +33,14 @@ class MiddleScene():
             setting.screen.blit(self.imgs_bad.now_img, (0, 0))
             print('bad')
 
-        if self.is_running:
-            currnet_t = time.time()
-            if self.current_scene_number > 4:
-                if self.start_t + 2 <= currnet_t:
-                    self.is_running = False
-                    meeting.isEventAvailable = True
+            if self.is_running:
+                currnet_t = time.time()
+                if self.current_scene_number > 4:
+                    if self.start_t + 2 <= currnet_t:
+                        self.is_running = False
+                        meeting.isEventAvailable = True
 
-            elif self.start_t + 2 <= currnet_t:
-                self.start_t = time.time()
-                self.imgs.update()
-                self.current_scene_number += 1
+                elif self.start_t + 2 <= currnet_t:
+                    self.start_t = time.time()
+                    self.imgs.update()
+                    self.current_scene_number += 1
