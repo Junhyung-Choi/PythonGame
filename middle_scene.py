@@ -23,13 +23,13 @@ class MiddleScene():
     
     def load_imgs(self, kind):
         if kind == 'good':
-            self.imgs = animation.Animation("img/meeting/middle/", 5)
+            self.imgs = animation.Animation("img/meeting/middle/midChap_Good_", 3)
             print('==========GOOD==========')
         elif kind == 'normal':
-            self.imgs = animation.Animation("img/meeting/middle/", 5)
+            self.imgs = animation.Animation("img/meeting/middle/midChap_Normal_", 3)
             print('==========NORMAL==========')
         elif kind == 'bad':
-            self.imgs = animation.Animation("img/meeting/middle/", 5)
+            self.imgs = animation.Animation("img/meeting/middle/midChap_Bad_", 3)
             print('==========BAD==========')
 
             if self.is_running:
