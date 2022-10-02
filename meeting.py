@@ -54,13 +54,10 @@ def render(pause_obj):
 
     if middle_scene_obj.is_running:
         if (gamestatus.score - 25 < -3):
-            print('MIDDLE SCORE : ' + str(gamestatus.score))
             kind = 'bad'
         elif (-3 <= gamestatus.score - 25 <= 3):
-            print('MIDDLE SCORE : ' + str(gamestatus.score))
             kind = 'normal'
         elif (3 < gamestatus.score - 25):
-            print('MIDDLE SCORE : ' + str(gamestatus.score))
             kind = 'good'
 
         middle_scene_obj.render(kind)
