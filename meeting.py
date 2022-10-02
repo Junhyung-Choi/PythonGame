@@ -52,7 +52,15 @@ def render(pause_obj):
     # 버튼 렌더링
     show_btn()
 
-    middle_scene_obj.render()
+    if middle_scene_obj.is_running:
+        if gamestatus.score < -10:
+            kind = 'bad'
+        elif -10 <= gamestatus.score <= 10:
+            kind = 'normal'
+        elif 10 < gamestatus.score:
+            kind = 'good'
+
+        middle_scene_obj.render(kind)
         
     if not(setting.is_init_interface):
         setting.is_init_interface = True
