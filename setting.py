@@ -20,6 +20,9 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 running = True
 stage = 0
 
+# 점수 저장소
+score = 0
+
 # 게임 상태 (진행중, 일시정지, 게임오버)
 # 'playing', 'pause', 'gameover'
 game_status = 'playing'
