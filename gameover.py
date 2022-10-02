@@ -6,7 +6,7 @@ from status import *
 buttons = []
 
 def active_gameover():
-    setting.is_gameover = not setting.is_gameover
+    setting.game_status = 'gameover'
 
 def show_box():
     if not setting.is_init_gameover:

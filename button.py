@@ -14,6 +14,7 @@ class Button:
 
     def click(self, gs):
         print('클릭됨')
+        self.is_clicked = True
 
     def click_event(self, event, gs : GameStatus):
         if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
@@ -29,8 +30,7 @@ class PauseButton(Button):
 
     def click(self, gs : GameStatus):
         self.is_clicked = not(self.is_clicked)
-        setting.is_gameover = True
-        print('일시정지')
+        setting.game_status = 'pause'
 
 class SpeechBubbleButton(Button):
     def __init__(self, x1, y1, size,index, text='테스트'):
@@ -100,4 +100,4 @@ class RestartButton(Button):
         print("Restart")
         setting.is_init_interface = False
         setting.stage = 0
-        setting.is_gameover = False     
+        setting.game_status = 'playing'
