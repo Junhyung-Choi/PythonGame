@@ -24,6 +24,10 @@ stage = 0
 # 'playing', 'pause', 'gameover'
 game_status = 'playing'
 
+# 남은 시간
+left_time_min = 0
+left_time_second = 0
+
 # 게임 오버 모달 창 띄워졌는지 여부
 is_init_gameover = False
 

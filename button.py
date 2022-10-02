@@ -63,7 +63,10 @@ class TimeCheckButton(Button):
                 self.y_now -= self.y_now - WATCH_CLOCK_Y
             screen.blit(img_meeting_watch_clock,(WATCH_CLOCK_X, self.y_now))
             if(self.y_now == WATCH_CLOCK_Y):
-                minute,second = self.gs.get_left_min_sec()
+                if not setting.game_status == 'pause':
+                    minute,second = self.gs.get_left_min_sec()
+                else:
+                    minute, second = setting.left_time_min, setting.left_time_second
                 time_text = ""
                 if(minute != 0):
                     time_text = str(minute) + ':' + str(second)
