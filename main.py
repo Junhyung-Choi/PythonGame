@@ -97,8 +97,7 @@ def render():
             kind = "3"
         elif 29 <= setting.score:
             kind = "4"
-            
-        kind = "end"
+        
         ending_obj.render(kind)
 
     # 게임 상태 관리 (게임오버, 일시정지)

@@ -5,8 +5,8 @@ import time
 
 class Ending():
     def __init__(self):
-        self.alpha = 400
-        self.common_imgs = animation.Animation("img/meeting/middle/", 2)
+        self.alpha = 900
+        self.common_imgs = animation.Animation("img/ending/Ending_begin_", 2)
         self.separate_img = None
         self.separate_back_img = None
         self.is_loaded_common_img = False
