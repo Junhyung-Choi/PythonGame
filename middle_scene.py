@@ -30,6 +30,8 @@ class MiddleScene():
                     if self.start_t + 2 <= currnet_t:
                         self.is_running = False
                         meeting.isEventAvailable = True
+                        gs : status.GameStatus = meeting.gamestatus
+                        gs.set_Second_Phase()
 
                 elif self.start_t + 2 <= currnet_t:
                     self.start_t = time.time()

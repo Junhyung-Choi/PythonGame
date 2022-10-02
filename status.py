@@ -108,13 +108,6 @@ class GameStatus:
                 self.__play_animation__()
             elif (index == 1):
                 if not (self.current_question.child_questions):
-                    if(self.chapter == 1):
-                        self.mode = MODE_CHOICE
-                        self.chapter = 2
-                        self.score = 25
-                        self.current_question = self.__root_question_chapter2__
-                        self.current_questions = self.current_question.child_questions
-                        self.set_button_text()
                     print("middleAnimationStartCalled")
                     self.girlAnimator.translate_nextphase()
                     return
@@ -175,6 +168,16 @@ class GameStatus:
         self.button2.text = self.current_questions[1].sentence
         self.button3.text = self.current_questions[2].sentence
         self.button4.text = self.current_questions[3].sentence
+
+    def set_Second_Phase(self):
+        if(self.chapter == 1):
+            self.mode = MODE_CHOICE
+            self.chapter = 2
+            self.score = 25
+            self.current_question = self.__root_question_chapter2__
+            self.current_questions = self.current_question.child_questions
+            self.set_button_text()
+
 
 class Question:
     def __init__(self, sentence, point, index):
