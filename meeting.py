@@ -25,7 +25,7 @@ def process_event(event):
     if(isEventAvailable):
         process_event_btn(event)
 
-def render():
+def render(pause_obj):
     """
     Meeting Scene의 렌더링을 관리하는 함수
     """
@@ -46,18 +46,6 @@ def render():
 
     # 미팅 씬 배경화면 렌더링
     screen.blit(setting.img_meeting_window, (WINDOW_X, WINDOW_Y))
-
-    """ script_now_t = time.time()
-    if setting.is_script_activate:
-        setting.is_script_activate = False
-        setting.script_t = time.time()
-    if setting.script_t + setting.script_running_t >= script_now_t:
-        pass
-    else:
-        show_btn()
-    if setting.running_script:
-        setting.running_script = False
-        show_script() """
     
     if (isEventAvailable):
         show_script("혹시 취미가?")
@@ -68,6 +56,9 @@ def render():
         
     if not(setting.is_init_interface):
         setting.is_init_interface = True
+
+    if pause_obj.is_pausing:
+        isEventAvailable = False
 
 def init():
     """

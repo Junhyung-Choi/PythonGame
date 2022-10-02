@@ -6,6 +6,8 @@ import story
 import meeting
 import gameover
 import ending
+import pause
+import time
 
 #############################################
 #                                            
@@ -15,6 +17,14 @@ import ending
 #    stage -1 : 엔딩 씬                
 #                                            
 #############################################
+
+global pause_obj
+
+def init():
+    global pause_obj
+    pause_obj = pause.Pause()
+
+    setting.is_init = True
 
 def loop():
     while setting.running:
@@ -35,14 +45,17 @@ def event():
             if event.key == pygame.K_MINUS: 
                 setting.stage -= 1
                 print("현재 스테이지 : " + str(setting.stage))
-            if event.key == pygame.K_EQUALS:
+            elif event.key == pygame.K_EQUALS:
                 setting.stage += 1
                 print("현재 스테이지 : " + str(setting.stage))
-            if event.key == pygame.K_0:
+            elif event.key == pygame.K_0:
                 gameover.active_gameover()
 
-        gameover.process_event(event=event)
-
+        if setting.game_status == 'gameover':
+            gameover.process_event(event=event)
+        elif setting.game_status == 'pause':
+            pause_obj.event(event)
+            
         # 스테이지별 이벤트
         if setting.stage == 0: # 시작 화면일때
             menu.process_event(event=event)
@@ -54,6 +67,10 @@ def event():
             meeting.process_event(event=event)
 
 def render():
+    if not setting.is_init:
+        init()
+
+
     if setting.stage != 0:
         setting.screen.blit(setting.background, (0, 0))
 
@@ -64,14 +81,18 @@ def render():
         story.render()
         #pygame.display.update()
     elif setting.stage == 2:
-        meeting.render()
+        meeting.render(pause_obj)
 
     elif setting.stage == -1:
         ending.render()
 
-
-    if setting.is_gameover:
+    # 게임 상태 관리 (게임오버, 일시정지)
+    if setting.game_status == 'gameover':
         gameover.show_box()
+    elif setting.game_status == 'pause':
+        if not pause_obj.is_pausing:
+            pause_obj.pause(time.time())
+        pause_obj.show()
 
     pygame.time.Clock().tick(setting.FPS)
     pygame.display.update()

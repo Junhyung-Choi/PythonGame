@@ -2,6 +2,8 @@ import pygame
 
 pygame.font.init()
 
+is_init = False
+
 LEFT = 1
 RIGHT = 3
 
@@ -18,8 +20,9 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 running = True
 stage = 0
 
-# 게임 오버 여부
-is_gameover = False
+# 게임 상태 (진행중, 일시정지, 게임오버)
+# 'playing', 'pause', 'gameover'
+game_status = 'playing'
 
 # 게임 오버 모달 창 띄워졌는지 여부
 is_init_gameover = False
