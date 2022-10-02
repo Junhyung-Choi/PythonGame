@@ -1,5 +1,3 @@
-from locale import currency
-from this import d
 import pygame
 import setting
 import button

@@ -1,4 +1,3 @@
-from tkinter.tix import Tree
 import pygame
 import setting
 import time
@@ -48,7 +47,7 @@ def render(pause_obj):
     screen.blit(setting.img_meeting_window, (WINDOW_X, WINDOW_Y))
     
     if (isEventAvailable):
-        show_script("혹시 취미가?")
+        show_script("Chapter 1. 혹시 취미가?")
     # 버튼 렌더링
     show_btn()
 

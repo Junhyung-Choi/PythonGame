@@ -109,6 +109,7 @@ class GameStatus:
             elif (index == 1):
                 if not (self.current_question.child_questions):
                     if(self.chapter == 1):
+                        self.mode = MODE_CHOICE
                         self.chapter = 2
                         # self.score = 25
                         self.current_question = self.__root_question_chapter2__
