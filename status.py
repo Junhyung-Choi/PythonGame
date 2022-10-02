@@ -17,6 +17,7 @@ class GameStatus:
         self.left_sec = 1
         self.current_time = time.time()
         self.game_sec = 120
+        self.chapter = 1
         self.__root_question_chapter1__ = self.__make_questions__(1)
         self.__root_question_chapter2__ = self.__make_questions__(2)
         self.current_question : Question = self.__root_question_chapter1__
@@ -38,29 +39,27 @@ class GameStatus:
         with open('./data.json', 'r', encoding='UTF8') as f:
             json_data = json.load(f)
         root_question = Question("root",0,0)
-        if(index == 1):
-            fcnt = 0
-            for first in json_data["혹시 취미가"]:
-                for fk,fv in first.items():
-                    first_question = Question(fk,randint(-3,3),fcnt)
-                    fcnt += 1
+        phase_question = ["더미", "혹시 취미가", "평소에"]
+        fcnt = 0
+        for first in json_data[phase_question[index]]:
+            for fk,fv in first.items():
+                first_question = Question(fk,randint(-3,3),fcnt)
+                fcnt += 1
 
-                    scnt = 0
-                    for second in fv:
-                        for sk,sv in second.items():
-                            second_question = Question(sk,randint(-3,3),scnt)
-                            scnt += 1
+                scnt = 0
+                for second in fv:
+                    for sk,sv in second.items():
+                        second_question = Question(sk,randint(-3,3),scnt)
+                        scnt += 1
 
-                            tcnt = 0
-                            for third in sv:
-                                third_question = Question(third,randint(-3,3),tcnt)
-                                tcnt += 1
+                        tcnt = 0
+                        for third in sv:
+                            third_question = Question(third,randint(-3,3),tcnt)
+                            tcnt += 1
 
-                                second_question.child_questions.append(third_question)
-                            first_question.child_questions.append(second_question)
-                    root_question.child_questions.append(first_question)
-        elif(index == 2):
-            pass
+                            second_question.child_questions.append(third_question)
+                        first_question.child_questions.append(second_question)
+                root_question.child_questions.append(first_question)
         return root_question
             
     def bindGirlAnimator(self, girlAnimator):
@@ -109,6 +108,12 @@ class GameStatus:
                 self.__play_animation__()
             elif (index == 1):
                 if not (self.current_question.child_questions):
+                    if(self.chapter == 1):
+                        self.chapter = 2
+                        self.score = 25
+                        self.current_question = self.__root_question_chapter2__
+                        self.current_questions = self.current_question.child_questions
+                        self.set_button_text()
                     print("middleAnimationStartCalled")
                     self.girlAnimator.translate_nextphase()
                     return
@@ -120,11 +125,9 @@ class GameStatus:
             
                 self.current_questions = self.current_question.child_questions
                 print(self.current_questions)
+
                 # 현재 질문에 대한 반응을 get 하고 그 다음 질문들을 만들어야 하므로 button들을 갱신
-                self.button1.text = self.current_questions[0].sentence
-                self.button2.text = self.current_questions[1].sentence
-                self.button3.text = self.current_questions[2].sentence
-                self.button4.text = self.current_questions[3].sentence
+                self.set_button_text()
 
                 pass
 
@@ -132,10 +135,7 @@ class GameStatus:
             elif (index == 2):
                 self.mode = MODE_CHOICE
                 # 모드가 이미 바뀌었으므로 아무것도 하지 않아도 사용 가능함
-                self.button1.text = self.current_questions[0].sentence
-                self.button2.text = self.current_questions[1].sentence
-                self.button3.text = self.current_questions[2].sentence
-                self.button4.text = self.current_questions[3].sentence
+                self.set_button_text()
                 pass
             elif (index == 3):
                 pass
@@ -168,6 +168,12 @@ class GameStatus:
         left_time_minute = left_time // 60
         left_time_second = left_time % 60
         return (left_time_minute,left_time_second)
+    
+    def set_button_text(self):
+        self.button1.text = self.current_questions[0].sentence
+        self.button2.text = self.current_questions[1].sentence
+        self.button3.text = self.current_questions[2].sentence
+        self.button4.text = self.current_questions[3].sentence
 
 class Question:
     def __init__(self, sentence, point, index):
