@@ -69,9 +69,9 @@ class TimeCheckButton(Button):
                     minute, second = setting.left_time_min, setting.left_time_second
                 time_text = ""
                 if(minute != 0):
-                    time_text = str(minute) + ':' + str(second)
+                    time_text = str(minute) + ':' + str(second).zfill(2)
                 else:
-                    time_text = str(second)
+                    time_text = '0:' + str(second).zfill(2)
                 text = self.time_font.render(time_text, True, (0, 0, 0))
                 screen.blit(text, (230,self.y_now + 90))
             img_meeting_time_check.set_alpha(100)
