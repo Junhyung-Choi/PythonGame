@@ -42,7 +42,8 @@ def render():
         story_animation.update()
         if setting.story_scene_number != 0:
             story_sounds.update()
-            story_sounds.play()
+            if story_sounds.now_sound != None:
+                story_sounds.play()
         setting.story_scene_number += 1
 
     if setting.story_scene_number >= setting.STORY_NUMBERS:
