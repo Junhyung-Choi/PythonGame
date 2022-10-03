@@ -84,21 +84,8 @@ def render():
     elif setting.stage == 2:
         meeting.render(pause_obj)
 
-    elif setting.stage == -1:
-        # 점수에 따라 kind명(엔딩씬 종류) 변경.
-        # 점수 저장 변수 : setting.score
-        if 0 <= setting.score < 8:
-            kind = "0"
-        elif 8 <= setting.score < 15:
-            kind = "1"
-        elif 15 <= setting.score < 22:
-            kind = "2"
-        elif 22 <= setting.score < 29:
-            kind = "3"
-        elif 29 <= setting.score:
-            kind = "4"
-        
-        ending_obj.render(kind)
+    elif setting.stage == -1:        
+        ending_obj.render(meeting.gamestatus.score)
 
     # 게임 상태 관리 (게임오버, 일시정지)
     if setting.game_status == 'gameover':
