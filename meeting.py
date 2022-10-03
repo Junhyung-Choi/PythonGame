@@ -70,7 +70,7 @@ def init():
     init_btn()
     init_status()
 
-    middle_sounds = sound.SceneSound("sound/meeting/", 2)
+    middle_sounds = sound.SceneSound("sound/meeting/middle/", 2)
     middle_scene_obj = middle_scene.MiddleScene(middle_sounds)
     girlAnimator.init()
     girlAnimator.bindMiddleSceneStartFunction(middle_scene_obj.start)
