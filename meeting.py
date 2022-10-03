@@ -52,14 +52,7 @@ def render(pause_obj):
     show_btn()
 
     if middle_scene_obj.is_running:
-        if (gamestatus.score - 25 < -3):
-            kind = 'bad'
-        elif (-3 <= gamestatus.score - 25 <= 3):
-            kind = 'normal'
-        elif (3 < gamestatus.score - 25):
-            kind = 'good'
-
-        middle_scene_obj.render(kind)
+        middle_scene_obj.render(gamestatus.score)
         
     if not(setting.is_init_interface):
         setting.is_init_interface = True

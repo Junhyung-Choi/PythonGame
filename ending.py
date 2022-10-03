@@ -20,7 +20,18 @@ class Ending():
         self.separate_back_img = pygame.image.load("img/ending/back.png")
         self.separate_back_img = pygame.transform.scale(self.separate_back_img, (800, 600))
 
-    def render(self, kind):
+    def render(self, score):
+        if 0 <= score < 8:
+            kind = "0"
+        elif 8 <= score < 15:
+            kind = "1"
+        elif 15 <= score < 22:
+            kind = "2"
+        elif 22 <= score < 29:
+            kind = "3"
+        elif 29 <= score:
+            kind = "4"
+
         if not self.is_loaded_common_img:
             self.load_separate_img(kind)
             self.is_loaded_common_img = True
