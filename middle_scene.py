@@ -32,15 +32,6 @@ class MiddleScene():
             self.imgs = animation.Animation("img/meeting/middle/midChap_Good_", 3)
             print('==========GOOD==========')
 
-        if self.is_running:
-            currnet_t = time.time()
-            if self.current_scene_number > 4:
-                if self.start_t + 2 <= currnet_t:
-                    self.is_running = False
-                    meeting.isEventAvailable = True
-                    gs : status.GameStatus = meeting.gamestatus
-                    gs.set_Second_Phase()
-
     def render(self, kind):
         if not self.is_load_imgs:
             self.load_imgs(kind)
@@ -54,6 +45,8 @@ class MiddleScene():
                 if self.start_t + 2 <= currnet_t:
                     self.is_running = False
                     meeting.isEventAvailable = True
+                    gs : status.GameStatus = meeting.gamestatus
+                    gs.set_Second_Phase()
 
             elif self.start_t + 2 <= currnet_t:
                 self.start_t = time.time()
