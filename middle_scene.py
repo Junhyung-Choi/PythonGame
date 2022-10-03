@@ -7,13 +7,14 @@ import animation
 import meeting
 
 class MiddleScene():
-    def __init__(self):
+    def __init__(self, sound):
         self.imgs = None
         self.start_t = time.time()
         self.current_scene_number = 0
         self.is_running = False
         self.isStarted = False
         self.is_load_imgs = False
+        self.sound = sound
 
     def start(self):
         if not self.isStarted:
@@ -36,7 +37,9 @@ class MiddleScene():
         if not self.is_load_imgs:
             self.load_imgs(kind)
             self.is_load_imgs = True
+            self.sound.play()
 
+        
         setting.screen.blit(self.imgs.now_img, (0, 0))
 
         if self.is_running:
@@ -51,4 +54,6 @@ class MiddleScene():
             elif self.start_t + 2 <= currnet_t:
                 self.start_t = time.time()
                 self.imgs.update()
+                self.sound.update()
+                self.sound.play()
                 self.current_scene_number += 1

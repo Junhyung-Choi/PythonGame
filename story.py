@@ -7,6 +7,7 @@ import sound
 global story_animation, story_sounds
 
 def process_event(event):
+    global story_sounds
     if event.type == pygame.QUIT:
         setting.running = False
             
@@ -17,6 +18,7 @@ def process_event(event):
             setting.skip = True
         elif setting.ALL_SKIP_X <= event.pos[0] <= setting.ALL_SKIP_X + setting.SKIP_W and setting.ALL_SKIP_Y <= event.pos[1] <= setting.ALL_SKIP_Y + setting.SKIP_H:
             print("모두 스킵합니다.\n\n")
+            story_sounds.now_sound.stop()
             setting.stage = 2
 
 def init_ani():
@@ -35,15 +37,14 @@ def render():
 
     
     currnet_t = time.time()
-
+    
     if setting.start_t + setting.scene_t <= currnet_t or setting.skip:
         setting.start_t = time.time()
         setting.skip = False
         story_animation.update()
         if setting.story_scene_number != 0:
             story_sounds.update()
-            if story_sounds.now_sound != None:
-                story_sounds.play()
+            story_sounds.play()
         setting.story_scene_number += 1
 
     if setting.story_scene_number >= setting.STORY_NUMBERS:

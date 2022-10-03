@@ -5,7 +5,7 @@ from button import *
 from animation import *
 from status import *
 from script import *
-import story
+import sound
 import middle_scene
 
 buttons = []
@@ -76,8 +76,9 @@ def init():
     init_ani()
     init_btn()
     init_status()
-    
-    middle_scene_obj = middle_scene.MiddleScene()
+
+    middle_sounds = sound.SceneSound("sound/meeting/", 2)
+    middle_scene_obj = middle_scene.MiddleScene(middle_sounds)
     girlAnimator.init()
     girlAnimator.bindMiddleSceneStartFunction(middle_scene_obj.start)
     gamestatus.bindGirlAnimator(girlAnimator=girlAnimator)
