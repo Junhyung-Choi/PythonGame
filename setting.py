@@ -90,6 +90,9 @@ img_meeting_watch_clock = pygame.image.load("img/meeting/Meeting_checkTime.png")
 img_meeting_watch_clock = pygame.transform.scale(img_meeting_watch_clock, (WATCH_CLOCK_W, WATCH_CLOCK_H))
 img_meeting_window = pygame.image.load("img/meeting/Meeting_Window.png")
 img_meeting_window = pygame.transform.scale(img_meeting_window, (WINDOW_W, WINDOW_H))
+img_meeting_chandelier = pygame.image.load("img/meeting/Meeting_Chandelier.png")
+img_meeting_roombackground = pygame.image.load("img/meeting/Meeting_RoomBackground.png")
+img_meeting_roombackground = pygame.transform.scale(img_meeting_roombackground, (800,600))
 
 font = pygame.font.Font("font/DungGeunMo.ttf", FONT_SIZE)
 
