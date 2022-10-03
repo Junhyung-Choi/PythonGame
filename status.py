@@ -5,6 +5,7 @@ import time
 import meeting
 
 from animation import Animator
+from script import Script
 
 MODE_CHOICE = 0
 MODE_CHECK = 1
@@ -177,6 +178,7 @@ class GameStatus:
             self.current_question = self.__root_question_chapter2__
             self.current_questions = self.current_question.child_questions
             self.set_button_text()
+            Script.init()
 
 
 class Question:

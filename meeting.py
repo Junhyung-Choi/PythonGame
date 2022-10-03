@@ -52,7 +52,10 @@ def render(pause_obj):
 
     
     if (isEventAvailable):
-        show_script("Chapter 1. 혹시 취미가?")
+        if(gamestatus.chapter == 1):
+            Script.show_script("Chapter 1. 혹시 취미가?")
+        if(gamestatus.chapter == 2):
+            Script.show_script("Chapter 2. 평소에..?")
 
 
     # 버튼 렌더링
