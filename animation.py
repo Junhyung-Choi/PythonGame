@@ -27,6 +27,13 @@ class Animation():
             self.index += 1
             if self.index >= len(self.imgs):
                 self.isPlayed = True
+    
+    def backward(self):
+        if self.index > 0:
+            self.index -= 2
+            self.now_img = self.imgs[self.index]
+            self.index += 1
+
 
 class Animator():
     def __init__(self):

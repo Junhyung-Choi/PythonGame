@@ -130,6 +130,7 @@ script_t = 0
 start_t = 0
 first = True
 skip = False
+backward = False
 
 scene_t = 3 # 스토리 씬  재생시간
 
@@ -142,26 +143,19 @@ RIGHT = 3
 STORY_W = 300
 STORY_H = 400
 
-SKIP_X = 700
+SKIP_X = 750
 SKIP_Y = 520
 SKIP_W = 35
 SKIP_H = 26
 ALL_SKIP_X = 750
 ALL_SKIP_Y = 20
+BACKWARD_X = 700
+BACKWARD_Y = 520
 
 skip_img = pygame.image.load("img/story/skip.png")
 skip_img = pygame.transform.scale(skip_img, (SKIP_W, SKIP_H))
-
-story_imgs = []
-for i in range(0, STORY_NUMBERS):
-    story_img = pygame.image.load("img/story/meeting_{numbers}.png".format(numbers = i))
-    story_img = pygame.transform.scale(story_img, (STORY_W, STORY_H))
-    story_imgs.append(story_img)
-
-story_texts = []
-story_font = pygame.font.Font("font/DungGeunMo.ttf", 35)
-for i in range(0, STORY_NUMBERS):
-    pass
+backward_img = pygame.image.load("img/story/backward.png")
+backward_img = pygame.transform.scale(backward_img, (SKIP_W, SKIP_H))
 
 
 # 메뉴 씬
