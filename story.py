@@ -2,8 +2,9 @@ import pygame
 import setting
 import time
 import animation
+import sound
 
-global story_animation
+global story_animation, story_sounds
 
 def process_event(event):
     if event.type == pygame.QUIT:
@@ -22,14 +23,15 @@ def init_ani():
     global story_animation
     story_animation = animation.Animation("img/story/meeting_", setting.STORY_NUMBERS)
     story_animation.update()
-    
 
 def render():
-    global story_animation
+    global story_animation, story_sounds
     if setting.first:
         setting.first = False
         setting.start_t = time.time()
         init_ani()
+        story_sounds = sound.SceneSound("sound/story/", 5)
+        story_sounds.play()
 
     
     currnet_t = time.time()
@@ -38,6 +40,9 @@ def render():
         setting.start_t = time.time()
         setting.skip = False
         story_animation.update()
+        if setting.story_scene_number != 0:
+            story_sounds.update()
+            story_sounds.play()
         setting.story_scene_number += 1
 
     if setting.story_scene_number >= setting.STORY_NUMBERS:
