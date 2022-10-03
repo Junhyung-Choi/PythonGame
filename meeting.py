@@ -39,15 +39,22 @@ def render(pause_obj):
     # 씬 시작이 준비되지 않은 상황이라면, 이를 초기화를 통해 활성화한다.
     if not(setting.is_init_interface):
         init()
+    
+    # 배경 렌더링
+    screen.blit(setting.img_meeting_roombackground,(0,0))
+    # 미팅 씬 창문 렌더링
+    screen.blit(setting.img_meeting_window, (WINDOW_X, WINDOW_Y))
+    # 샹들리에 렌더링
+    screen.blit(setting.img_meeting_chandelier,(310,-30))
 
     # 플레이어 애니메이션 렌더
     screen.blit(girlAnimator.render(), (0, 0))
 
-    # 미팅 씬 배경화면 렌더링
-    screen.blit(setting.img_meeting_window, (WINDOW_X, WINDOW_Y))
     
     if (isEventAvailable):
         show_script("Chapter 1. 혹시 취미가?")
+
+
     # 버튼 렌더링
     show_btn()
 
