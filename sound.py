@@ -30,4 +30,5 @@ class SceneSound(Sound):
             self.now_sound = self.sounds[self.index]
     
     def play(self):
-        self.now_sound.play()
+        if self.now_sound != None:
+            self.now_sound.play()
