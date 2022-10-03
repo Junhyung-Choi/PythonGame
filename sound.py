@@ -29,6 +29,12 @@ class SceneSound(Sound):
                 return
             self.now_sound = self.sounds[self.index]
     
+    def backward(self):
+        if self.index > 0:
+            self.now_sound.stop()
+            self.index -= 1
+            self.now_sound = self.sounds[self.index]
+    
     def play(self):
         if self.now_sound != None:
             self.now_sound.play()

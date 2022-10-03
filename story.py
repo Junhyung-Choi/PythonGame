@@ -20,6 +20,9 @@ def process_event(event):
             print("모두 스킵합니다.\n\n")
             story_sounds.now_sound.stop()
             setting.stage = 2
+        elif setting.BACKWARD_X <= event.pos[0] <= setting.BACKWARD_X + setting.SKIP_W and setting.BACKWARD_Y <= event.pos[1] <= setting.BACKWARD_Y + setting.SKIP_H:
+            setting.backward = True
+            print("뒤로 이동합니다.\n\n")
 
 def init_ani():
     global story_animation
@@ -35,7 +38,17 @@ def render():
         story_sounds = sound.SceneSound("sound/story/", 5)
         story_sounds.play()
 
-    
+    if story_animation.index > 1 and setting.backward == True:
+        setting.start_t = time.time()
+        setting.backward = False
+        story_animation.backward()
+        if 0 <= setting.story_scene_number <= 1:
+            pass
+        else:
+            story_sounds.backward()
+            story_sounds.play()
+        setting.story_scene_number -= 1
+
     currnet_t = time.time()
     
     if setting.start_t + setting.scene_t <= currnet_t or setting.skip:
@@ -55,3 +68,4 @@ def render():
     setting.screen.blit(story_animation.now_img, (0, 0))
     setting.screen.blit(setting.skip_img, (setting.SKIP_X, setting.SKIP_Y))
     setting.screen.blit(setting.skip_img, (setting.ALL_SKIP_X, setting.ALL_SKIP_Y))
+    setting.screen.blit(setting.backward_img, (setting.BACKWARD_X, setting.BACKWARD_Y))
