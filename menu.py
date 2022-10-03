@@ -1,6 +1,15 @@
 import pygame
 import setting
 
+global is_inited, bgm
+is_inited = False
+
+def init():
+    global is_inited, bgm
+    is_inited = True
+    bgm = pygame.mixer.Sound("./sound/menu_bgm.mp3")
+    bgm.play()
+
 def remap(old_val, old_min, old_max, new_min, new_max):
     return (new_max - new_min)*(old_val - old_min) / (old_max - old_min) + new_min
 
@@ -18,11 +27,15 @@ def process_event(event):
             print("Next Scene")
             pygame.mixer.Sound("./sound/btn_click.wav").play()
             setting.stage += 1
+            bgm.stop()
         if(540 < mouseX < 620 and 480 < mouseY < 540):
             pygame.mixer.Sound("./sound/btn_click.wav").play()
             print("GAME OVER")
 
 def render():
+    global is_inited
+    if not is_inited:
+        init()
     setting.screen.blit(setting.main_background, (0, 0))
     
     frame_number = 36
