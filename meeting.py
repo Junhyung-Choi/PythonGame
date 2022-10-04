@@ -115,7 +115,7 @@ def init_ani():
     girl_smile = Animation("img/meeting/Girl_Smile/girl_smile_", 78)
 
     # 눈썹 올리기 : 긍정(팔 위에), 매칭 점수 : 1점
-    girl_eyebrowup = Animation("img/meeting/Girl_EyebrowUp/girl_eyebrowUp_", 20)
+    girl_eyebrowup = Animation("img/meeting/Girl_EyebrowUp/girl_eyebrowUp_", 36)
     
     # 고개 끄덕이기 : 긍정(팔 위에), 매칭 점수 : 0점
     girl_shakehead = Animation("img/meeting/Girl_ShakeHead/girl_shakehead_", 13)
