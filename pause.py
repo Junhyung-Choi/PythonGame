@@ -1,16 +1,43 @@
 import pygame
 import setting
-import button
 import time
 import meeting
 
 class Pause():
     def __init__(self):
         self.pause_time = None
-        self.img = pygame.image.load("img/pause.png")
-        self.img = pygame.transform.scale(self.img, (400, 250))
+
+        self.background = pygame.image.load("img/PauseUI/PauseBox.png")
+        self.background = pygame.transform.scale(self.background, (650,170))
+        self.backgroundPosition = (175//2,461//2)
+        
+        # 0: Normal / 1: Pressed
+        self.yesButtons = []
+        # 0: Normal
+        tmp = pygame.image.load("img/PauseUI/Pause_Yes_Normal.png")
+        tmp = pygame.transform.scale(tmp, (160, 50))
+        self.yesButtons.append(tmp)
+        # 1: Pressed
+        tmp = pygame.image.load("img/PauseUI/Pause_Yes_Pressed.png")
+        tmp = pygame.transform.scale(tmp, (160, 50))
+        self.yesButtons.append(tmp)
+        self.yesPosition = (314//2,658//2)
+        self.yesIndex = 0
+
+        # 0: Normal / 1: Pressed
+        self.noButtons = []
+        # 0: Normal
+        tmp = pygame.image.load("img/PauseUI/Pause_No_Normal.png")
+        tmp = pygame.transform.scale(tmp, (160, 50))
+        self.noButtons.append(tmp)
+        # 1: Pressed
+        tmp = pygame.image.load("img/PauseUI/Pause_No_Pressed.png")
+        tmp = pygame.transform.scale(tmp, (160, 50))
+        self.noButtons.append(tmp)
+        self.noPosition = (996//2,665//2)
+        self.noIndex = 0
+
         self.is_pausing = False
-        self.btn_start = button.Button(380, 300, [40, 20])
 
     def pause(self, current_time):
         print('일시정지')
@@ -19,19 +46,43 @@ class Pause():
         setting.left_time_min, setting.left_time_second = meeting.gamestatus.get_left_min_sec()
 
     def show(self):
-        setting.screen.blit(self.img, (200, 100))
-        self.btn_start.show()
+        screen = setting.screen
+        
+        # 배경 렌더링
+        screen.blit(self.background,self.backgroundPosition)
 
-    def event(self, event):
-        self.btn_start.click_event(event, None)
+        # 버튼 렌더링
+        screen.blit(self.yesButtons[self.yesIndex],self.yesPosition)
+        screen.blit(self.noButtons[self.noIndex],self.noPosition)
 
-        if self.is_pausing and self.btn_start.is_clicked:
-            self.start()
+        # setting.screen.blit(self.img, (200, 100))
+        # self.btn_start.show()
+
+    def event(self, event:pygame.event.Event):
+        mouseX, mouseY = pygame.mouse.get_pos()
+        
+        # 게임 종료 버튼
+        if(self.yesPosition[0] <= mouseX <= self.yesPosition[0] + 160 and self.yesPosition[1] <= mouseY <= self.yesPosition[1] + 50):
+            self.yesIndex = 1
+            # 클릭시 
+            if event.type == pygame.MOUSEBUTTONUP and event.button == setting.LEFT:
+                pygame.quit()
+        else:
+            self.yesIndex = 0
+        
+        # 일시정지 해제 버튼
+        if(self.noPosition[0] <= mouseX <= self.noPosition[0] + 160 and self.noPosition[1] <= mouseY <= self.noPosition[1] + 50):
+            self.noIndex = 1
+            if event.type == pygame.MOUSEBUTTONUP and event.button == setting.LEFT:
+                self.is_pausing = False
+                self.start()
+        else:
+            self.noIndex = 0
+
 
     def start(self):
         print('실행')
         self.is_pausing = False
-        self.btn_start.is_clicked = False
         setting.game_status = 'playing'
         
         if meeting.gamestatus.scene_name == 'meeting':
