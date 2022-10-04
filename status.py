@@ -119,7 +119,6 @@ class GameStatus:
                 self.score += self.current_question.point
             
                 self.current_questions = self.current_question.child_questions
-                print(self.current_questions)
 
                 # 현재 질문에 대한 반응을 get 하고 그 다음 질문들을 만들어야 하므로 button들을 갱신
                 self.set_button_text()
