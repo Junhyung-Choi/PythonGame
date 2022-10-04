@@ -61,12 +61,12 @@ def render(pause_obj):
     if isEventAvailable == True:
         if gamestatus.chapter == 1:
             if not chapter1_girl_speech.is_finished == True:
-                screen.blit(setting.img_meeting_script_box,(460, 170))
-                chapter1_girl_speech.show_script(x = 500, y = 210)
+                screen.blit(setting.img_meeting_script_box,(460, 180))
+                chapter1_girl_speech.show_script(x = 515, y = 210)
         elif gamestatus.chapter == 2:
             if not chapter2_girl_speech.is_finished == True:
-                screen.blit(setting.img_meeting_script_box,(460, 170))
-                chapter2_girl_speech.show_script(x = 500, y = 210)
+                screen.blit(setting.img_meeting_script_box,(460, 180))
+                chapter2_girl_speech.show_script(x = 515, y = 210)
             
 
     # 버튼 렌더링
