@@ -15,7 +15,7 @@ class MiddleScene():
         self.isStarted = False
         self.is_load_imgs = False
         self.sound = sound
-
+        self.is_played_gulp = False
     def start(self):
         if not self.isStarted:
             self.isStarted = True
@@ -23,13 +23,13 @@ class MiddleScene():
             self.start_t = time.time()
     
     def load_imgs(self, score):
-        if (score - 25 < -3):
+        if (score - 15 < -3):
             self.imgs = animation.Animation("img/meeting/middle/midChap_Bad_", 3)
             print('==========BAD==========')
-        elif (-3 <= score - 25 <= 3):
+        elif (-3 <= score - 15 <= 3):
             self.imgs = animation.Animation("img/meeting/middle/midChap_Normal_", 3)
             print('==========NORMAL==========')
-        elif (3 < score - 25):
+        elif (3 < score - 15):
             self.imgs = animation.Animation("img/meeting/middle/midChap_Good_", 3)
             print('==========GOOD==========')
 
@@ -41,7 +41,7 @@ class MiddleScene():
 
         
         setting.screen.blit(self.imgs.now_img, (0, 0))
-
+        
         if self.is_running:
             currnet_t = time.time()
             if self.current_scene_number > 4:
@@ -55,5 +55,8 @@ class MiddleScene():
                 self.start_t = time.time()
                 self.imgs.update()
                 self.sound.update()
-                self.sound.play()
                 self.current_scene_number += 1
+
+            elif self.start_t + 1 <= currnet_t and self.current_scene_number == 1 and not self.is_played_gulp:
+                self.sound.play()
+                self.is_played_gulp = True
