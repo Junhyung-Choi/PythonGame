@@ -50,13 +50,24 @@ def render(pause_obj):
     # 플레이어 애니메이션 렌더
     screen.blit(girlAnimator.render(), (0, 0))
 
+    # chapter 표시
+    if isEventAvailable == True:
+        if gamestatus.chapter == 1:
+            chapter1_script.show_script(x = 30, y = 30)
+        if gamestatus.chapter == 2 :
+            chapter2_script.show_script(x = 30, y = 30)
     
-    if (isEventAvailable):
-        if(gamestatus.chapter == 1):
-            Script.show_script("Chapter 1. 혹시 취미가?")
-        if(gamestatus.chapter == 2):
-            Script.show_script("Chapter 2. 평소에..?")
-
+    # 말풍선 렌더링
+    if isEventAvailable == True:
+        if gamestatus.chapter == 1:
+            if not chapter1_girl_speech.is_finished == True:
+                screen.blit(setting.img_meeting_script_box,(460, 170))
+                chapter1_girl_speech.show_script(x = 500, y = 210)
+        elif gamestatus.chapter == 2:
+            if not chapter2_girl_speech.is_finished == True:
+                screen.blit(setting.img_meeting_script_box,(460, 170))
+                chapter2_girl_speech.show_script(x = 500, y = 210)
+            
 
     # 버튼 렌더링
     show_btn()
@@ -79,6 +90,7 @@ def init():
     init_ani()
     init_btn()
     init_status()
+    init_script()
 
     middle_sounds = sound.SceneSound("sound/meeting/middle/", 2)
     middle_scene_obj = middle_scene.MiddleScene(middle_sounds)
@@ -180,6 +192,17 @@ def init_status():
     global gamestatus
     if gamestatus == None:
         gamestatus = GameStatus("meeting",buttons[0],buttons[1],buttons[2],buttons[3])
+
+def init_script():
+    """
+    자막에 대한 객체를 생성해주는 함수
+    """
+    global chapter1_script, chapter2_script, chapter1_girl_speech, chapter2_girl_speech
+
+    chapter1_script = Script("Chapter 1. 혹시 취미가?")
+    chapter2_script = Script("Chapter 2. 평소에..?")
+    chapter1_girl_speech = Script("혹시 취미가..?")
+    chapter2_girl_speech = Script("평소에..?")
 
 
 def show_btn():

@@ -81,6 +81,7 @@ FONT_SIZE = 12
 img_speech_bubble = pygame.image.load("img/meeting/Meeting_QuestionBox.png")
 img_speech_bubble = pygame.transform.scale(img_speech_bubble, (SPEECH_BUBBLE_W, SPEECH_BUBBLE_H))
 img_meeting_question_box = pygame.image.load("img/meeting/Meeting_QuestionBG.png")
+img_meeting_script_box = pygame.transform.scale(img_meeting_question_box, (300, 100))
 img_meeting_question_box = pygame.transform.scale(img_meeting_question_box, (775, 105))
 img_meeting_propose = pygame.image.load("img/meeting/Meeting_propose.png")
 img_meeting_propose = pygame.transform.scale(img_meeting_propose, (CIRCLE_BTN_SIZE, CIRCLE_BTN_SIZE))
