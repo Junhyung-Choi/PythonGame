@@ -6,6 +6,7 @@ import meeting
 
 from animation import Animator
 from script import Script
+from gameover import active_gameover
 
 MODE_CHOICE = 0
 MODE_CHECK = 1
@@ -15,9 +16,10 @@ class GameStatus:
         self.score = 15
         self.scene_name = scene_name
         self.mode = MODE_CHOICE
-        self.left_sec = 1
+        self.start_time = time.time()
         self.current_time = time.time()
         self.game_sec = 120
+        self.left_sec = int(self.game_sec - (self.current_time - self.start_time))
         self.chapter = 1
         self.__root_question_chapter1__ = self.__make_questions__(1)
         self.__root_question_chapter2__ = self.__make_questions__(2)
@@ -149,18 +151,17 @@ class GameStatus:
         ]
 
         self.girlAnimator.translate(p_ani_list[point])
-
-    def set_start_time(self):
+    
+    def timer(self):
         self.current_time = time.time()
+        self.left_sec = int(self.game_sec - (self.current_time - self.start_time))
+
+        if self.left_sec < 0:
+            active_gameover()
     
     def get_left_min_sec(self):
-        ctime = self.current_time
-        ntime = time.time()
-        use_time = ntime - ctime
-        use_time = int(use_time)
-        left_time = self.game_sec - use_time
-        left_time_minute = left_time // 60
-        left_time_second = left_time % 60
+        left_time_minute = self.left_sec // 60
+        left_time_second = self.left_sec % 60
         return (left_time_minute,left_time_second)
     
     def set_button_text(self):

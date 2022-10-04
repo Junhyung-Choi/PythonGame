@@ -23,6 +23,7 @@ def process_event(event):
     """
     if(isEventAvailable):
         process_event_btn(event)
+    
 
 def render(pause_obj):
     """
@@ -80,6 +81,9 @@ def render(pause_obj):
 
     if pause_obj.is_pausing:
         isEventAvailable = False
+    
+    # 게임의 시간을 관리하기 위한 timer() loop에서 호출해준다.
+    gamestatus.timer()
 
 def init():
     """
