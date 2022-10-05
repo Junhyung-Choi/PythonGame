@@ -2,6 +2,7 @@ import pygame
 import setting
 import animation
 import time
+import sound
 
 class Ending():
     def __init__(self):
@@ -13,10 +14,14 @@ class Ending():
         self.is_common_imgs_running = True
         self.current_scene_number = 0
         self.start_t = None
+        self.common_sound = sound.Sound("sound/ending/0.mp3")
+        self.separate_sound = None
 
     def load_separate_img(self, kind):
         self.separate_imgs = animation.Animation("img/ending/Ending_" + kind + "_", 4 if kind == "good" else 3)
         self.separate_back_img = pygame.transform.scale(self.separate_back_img, (800, 600))
+        self.separate_sound = sound.SceneSound("sound/ending/" + kind + "/", (3 if kind == "normal" else 2))
+        self.separate_sound.index = -1
 
     def render(self, score):
         if 0 <= score < 8:
@@ -34,20 +39,19 @@ class Ending():
             self.start_t = time.time()
 
 
-
         if self.is_common_imgs_running:
             setting.screen.blit(self.common_imgs.now_img, (0, 0))
+            self.common_sound.play()
         else:
             setting.screen.blit(self.separate_back_img, (0, 0))
             setting.screen.blit(self.separate_imgs.now_img, (0, 0))
 
-        # print("CURRENT SCENE NUMBER : ", self.current_scene_number)
-        # print("START TIME : ", self.start_t)
         current_t = time.time()
-        # print("CURRENT TIME : ", current_t)
+
         if self.current_scene_number > 1 and self.is_common_imgs_running:
             if self.start_t + 2 <= current_t:
                 self.is_common_imgs_running = False
+
         
         elif self.start_t + 2 <= current_t:
             self.start_t = time.time()
@@ -55,11 +59,14 @@ class Ending():
             
             if self.is_common_imgs_running:
                 self.common_imgs.update()
-                print('update', self.current_scene_number)
+
             else:
                 self.separate_imgs.update()
-                print('update', self.current_scene_number)
+                self.separate_sound.update()
+                self.separate_sound.play()
+                print("하하하 : ", self.separate_sound.index)
             
+
         if self.current_scene_number > (7 if kind == "good" else 6):
             self.alpha -= 3
             
