@@ -106,3 +106,4 @@ pygame.init()
 loop()
 # 파이게임 종료
 pygame.quit()
+
