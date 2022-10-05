@@ -99,8 +99,7 @@ def init():
     meeting_bgm = pygame.mixer.Sound("sound/meeting/meeting_bgm.mp3")
     meeting_bgm.play()
 
-    middle_sounds = sound.SceneSound("sound/meeting/middle/", 2)
-    middle_scene_obj = middle_scene.MiddleScene(middle_sounds)
+    middle_scene_obj = middle_scene.MiddleScene()
     girlAnimator.init()
     girlAnimator.bindMiddleSceneStartFunction(middle_scene_obj.start)
     gamestatus.bindGirlAnimator(girlAnimator=girlAnimator)
