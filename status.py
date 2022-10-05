@@ -3,6 +3,7 @@ from middle_scene import MiddleScene
 from random import randint
 import time
 import meeting
+import setting
 
 from animation import Animator
 from script import Script
@@ -157,7 +158,7 @@ class GameStatus:
         self.left_sec = int(self.game_sec - (self.current_time - self.start_time))
 
         if self.left_sec < 0:
-            active_gameover()
+            setting.stage = -1
     
     def get_left_min_sec(self):
         left_time_minute = self.left_sec // 60
