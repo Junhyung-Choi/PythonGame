@@ -129,15 +129,9 @@ script_running_t = len(text) * delay + 0.5
 script_t = 0
 
 # 스토리 씬
-start_t = 0
 first = True
-skip = False
-backward = False
 
-scene_t = 3 # 스토리 씬  재생시간
-
-STORY_NUMBERS = 6
-story_scene_number = 0
+STORY_NUMBERS = 5
 
 LEFT = 1
 RIGHT = 3
@@ -145,23 +139,27 @@ RIGHT = 3
 STORY_W = 300
 STORY_H = 400
 
-SKIP_X = screen_width - 50
-SKIP_Y = screen_height / 2
-SKIP_W = 35
-SKIP_H = 26
-ALL_SKIP_X = 640
-ALL_SKIP_Y = 500
-ALL_SKIP_W = 160
-ALL_SKIP_H = 57
-BACKWARD_X = 30
-BACKWARD_Y = screen_height / 2
+NEXT_SCENE_X = screen_width - 55
+NEXT_SCENE_Y = screen_height / 2
+NEXT_SCENE_W = 35
+NEXT_SCENE_H = 26
 
-skip_img = pygame.image.load("img/story/Next_Scene.png")
-skip_img = pygame.transform.scale(skip_img, (SKIP_W, SKIP_H))
-backward_img = pygame.image.load("img/story/Before_Scene.png")
-backward_img = pygame.transform.scale(backward_img, (SKIP_W, SKIP_H))
-all_skip_ing = pygame.image.load("img/story/SkipToPlay.png")
-all_skip_ing = pygame.transform.scale(all_skip_ing, (ALL_SKIP_W, ALL_SKIP_H))
+BACKWARD_SCENE_X = 35
+BACKWARD_SCENE_Y = screen_height / 2
+BACKWARD_SCENE_W = 35
+BACKWARD_SCENE_H = 26
+
+NEXT_STAGE_X = 600
+NEXT_STAGE_Y = 500
+NEXT_STAGE_W = 160
+NEXT_STAGE_H = 57
+
+next_scene_img = pygame.image.load("img/story/Next_Scene.png")
+next_scene_img = pygame.transform.scale(next_scene_img, (NEXT_SCENE_W, NEXT_SCENE_H))
+backward_scene_img = pygame.image.load("img/story/Before_Scene.png")
+backward_scene_img = pygame.transform.scale(backward_scene_img, (BACKWARD_SCENE_W, BACKWARD_SCENE_H))
+next_stage_img = pygame.image.load("img/story/SkipToPlay.png")
+next_stage_img = pygame.transform.scale(next_stage_img, (NEXT_STAGE_W, NEXT_STAGE_H))
 
 
 # 메뉴 씬

@@ -1,7 +1,8 @@
+from telnetlib import PRAGMA_HEARTBEAT
 import pygame
 import setting
 import time
-import animation
+from animation import *
 import sound
 from script import *
 
@@ -14,69 +15,59 @@ def process_event(event):
             
     # 마우스 버튼이 스킵 버튼을 눌렸을 때
     if event.type == pygame.MOUSEBUTTONDOWN and event.button == setting.LEFT:
-        if setting.SKIP_X <= event.pos[0] <= setting.SKIP_X + setting.SKIP_W and setting.SKIP_Y <= event.pos[1] <= setting.SKIP_Y + setting.SKIP_H and not setting.story_scene_number >= setting.STORY_NUMBERS - 1:
+        if setting.NEXT_SCENE_X <= event.pos[0] <= setting.NEXT_SCENE_X + setting.NEXT_SCENE_W and setting.NEXT_SCENE_Y <= event.pos[1] <= setting.NEXT_SCENE_Y + setting.NEXT_SCENE_H and story_animation.index < story_animation.frame_num:
+            skip()
             print("스킵합니다.\n\n")
-            setting.skip = True
-        elif setting.ALL_SKIP_X <= event.pos[0] <= setting.ALL_SKIP_X + setting.ALL_SKIP_W  and setting.ALL_SKIP_Y <= event.pos[1] <= setting.ALL_SKIP_Y + setting.ALL_SKIP_H:
-            print("모두 스킵합니다.\n\n")
+        elif setting.NEXT_STAGE_X <= event.pos[0] <= setting.NEXT_STAGE_X + setting.NEXT_STAGE_W  and setting.NEXT_STAGE_Y <= event.pos[1] <= setting.NEXT_STAGE_Y + setting.NEXT_STAGE_H:
+            print("다음 스테이지로 넘어갑니다.\n\n")
             story_sounds.now_sound.stop()
             setting.stage = 2
-        elif setting.BACKWARD_X <= event.pos[0] <= setting.BACKWARD_X + setting.SKIP_W and setting.BACKWARD_Y <= event.pos[1] <= setting.BACKWARD_Y + setting.SKIP_H:
-            setting.backward = True
+        elif setting.BACKWARD_SCENE_X <= event.pos[0] <= setting.BACKWARD_SCENE_X + setting.BACKWARD_SCENE_W and setting.BACKWARD_SCENE_Y <= event.pos[1] <= setting.BACKWARD_SCENE_Y + setting.BACKWARD_SCENE_H and story_animation.index > 0:
+            backward()
             print("뒤로 이동합니다.\n\n")
 
 def init_ani():
     global story_animation
-    story_animation = animation.Animation("img/story/meeting_", setting.STORY_NUMBERS)
-    story_animation.update()
+    story_animation = StoryAnimation("img/story/meeting_", setting.STORY_NUMBERS)
+
+def init_sound():
+    global story_sounds
+    story_sounds = sound.SceneSound("sound/story/", 5)
+    story_sounds.play()
 
 def init_script():
     global story_script
-    story_script = Script("All skip")
+    story_script = Script("Play now")
 
-def render():
-    global story_animation, story_sounds
-    if setting.first:
-        setting.first = False
-        setting.start_t = time.time()
-        init_ani()
-        init_script()
-        story_sounds = sound.SceneSound("sound/story/", 5)
+def skip():
+    story_animation.update()
+    if story_animation.index >= 2:
+        story_sounds.update()
         story_sounds.play()
 
-    if story_animation.index > 1 and setting.backward == True:
-        setting.start_t = time.time()
-        setting.backward = False
-        story_animation.backward()
-        if 0 <= setting.story_scene_number <= 1:
-            pass
-        else:
-            story_sounds.backward()
-            story_sounds.play()
-        setting.story_scene_number -= 1
+def backward():
+    story_animation.backward()
+    if story_animation.index >= 1:
+        story_sounds.backward()
+        story_sounds.play()
 
-    currnet_t = time.time()
+def render():
     
-    if setting.start_t + setting.scene_t <= currnet_t or setting.skip:
-        setting.start_t = time.time()
-        setting.skip = False
-        story_animation.update()
-        if setting.story_scene_number != 0:
-            story_sounds.update()
-            story_sounds.play()
-        setting.story_scene_number += 1
+    if setting.first:
+        # Story init 하는 부분입니다.
+        setting.first = False
+        init_ani()
+        init_sound()
+        init_script()
 
-    if setting.story_scene_number >= setting.STORY_NUMBERS:
-        setting.screen.blit(story_animation.now_img, (0,0))
-        setting.stage = 2
-        return 0
-    
+    # 스토리 이미지를 보여줍니다.
     setting.screen.blit(story_animation.now_img, (0, 0))
-    setting.screen.blit(setting.backward_img, (setting.BACKWARD_X, setting.BACKWARD_Y))
-    setting.screen.blit(setting.all_skip_ing, (setting.ALL_SKIP_X, setting.ALL_SKIP_Y))
-    story_script.show_all_script(650, 515)
 
-    if not setting.story_scene_number >= setting.STORY_NUMBERS - 1:
-        setting.screen.blit(setting.skip_img, (setting.SKIP_X, setting.SKIP_Y))
-    else:
-        story_script.text = "Play now"
+    # 화살표 이미지를 상황에 따라 보여줍니다.
+    if story_animation.index > 0:
+        setting.screen.blit(setting.backward_scene_img, (setting.BACKWARD_SCENE_X, setting.BACKWARD_SCENE_Y))
+    if story_animation.index < story_animation.frame_num:
+        setting.screen.blit(setting.next_scene_img, (setting.NEXT_SCENE_X, setting.NEXT_SCENE_Y))
+    if story_animation.index == story_animation.frame_num:
+        setting.screen.blit(setting.next_stage_img, (setting.NEXT_STAGE_X, setting.NEXT_STAGE_Y))
+        story_script.show_all_script(setting.NEXT_STAGE_X + 10, setting.NEXT_STAGE_Y + 15)
