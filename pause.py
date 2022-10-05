@@ -66,7 +66,9 @@ class Pause():
             self.yesIndex = 1
             # 클릭시 
             if event.type == pygame.MOUSEBUTTONUP and event.button == setting.LEFT:
-                pygame.quit()
+                self.is_pausing = False
+                setting.game_status = 'playing'
+                setting.stage = 0
         else:
             self.yesIndex = 0
         
