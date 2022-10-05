@@ -145,19 +145,23 @@ RIGHT = 3
 STORY_W = 300
 STORY_H = 400
 
-SKIP_X = 750
-SKIP_Y = 520
+SKIP_X = screen_width - 50
+SKIP_Y = screen_height / 2
 SKIP_W = 35
 SKIP_H = 26
-ALL_SKIP_X = 750
-ALL_SKIP_Y = 20
-BACKWARD_X = 700
-BACKWARD_Y = 520
+ALL_SKIP_X = 640
+ALL_SKIP_Y = 500
+ALL_SKIP_W = 160
+ALL_SKIP_H = 57
+BACKWARD_X = 30
+BACKWARD_Y = screen_height / 2
 
-skip_img = pygame.image.load("img/story/skip.png")
+skip_img = pygame.image.load("img/story/Next_Scene.png")
 skip_img = pygame.transform.scale(skip_img, (SKIP_W, SKIP_H))
-backward_img = pygame.image.load("img/story/backward.png")
+backward_img = pygame.image.load("img/story/Before_Scene.png")
 backward_img = pygame.transform.scale(backward_img, (SKIP_W, SKIP_H))
+all_skip_ing = pygame.image.load("img/story/SkipToPlay.png")
+all_skip_ing = pygame.transform.scale(all_skip_ing, (ALL_SKIP_W, ALL_SKIP_H))
 
 
 # 메뉴 씬

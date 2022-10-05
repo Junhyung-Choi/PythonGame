@@ -16,6 +16,10 @@ class Script():
         self.text = text
         self.render_text = ""
 
+    def show_all_script(self, x, y):
+        myText = setting.myFont.render(self.text, True, (0, 0, 0))
+        setting.screen.blit(myText, (x, y))
+
     def show_script(self, x, y):
         myText = setting.myFont.render(self.render_text, True, (0, 0, 0))
         if self.is_first_script:

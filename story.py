@@ -3,6 +3,7 @@ import setting
 import time
 import animation
 import sound
+from script import *
 
 global story_animation, story_sounds
 
@@ -16,11 +17,11 @@ def process_event(event):
         if setting.SKIP_X <= event.pos[0] <= setting.SKIP_X + setting.SKIP_W and setting.SKIP_Y <= event.pos[1] <= setting.SKIP_Y + setting.SKIP_H:
             print("스킵합니다.\n\n")
             setting.skip = True
-        elif setting.ALL_SKIP_X <= event.pos[0] <= setting.ALL_SKIP_X + setting.SKIP_W and setting.ALL_SKIP_Y <= event.pos[1] <= setting.ALL_SKIP_Y + setting.SKIP_H:
+        elif setting.ALL_SKIP_X <= event.pos[0] <= setting.ALL_SKIP_X + setting.ALL_SKIP_W  and setting.ALL_SKIP_Y <= event.pos[1] <= setting.ALL_SKIP_Y + setting.ALL_SKIP_H:
             print("모두 스킵합니다.\n\n")
             story_sounds.now_sound.stop()
             setting.stage = 2
-        elif setting.BACKWARD_X <= event.pos[0] <= setting.BACKWARD_X + setting.SKIP_W and setting.BACKWARD_Y <= event.pos[1] <= setting.BACKWARD_Y + setting.SKIP_H:
+        elif setting.BACKWARD_X <= event.pos[0] <= setting.BACKWARD_X + setting.SKIP_W and setting.BACKWARD_Y <= event.pos[1] <= setting.BACKWARD_Y + setting.SKIP_H and not setting.story_scene_number >= setting.STORY_NUMBERS - 1:
             setting.backward = True
             print("뒤로 이동합니다.\n\n")
 
@@ -29,12 +30,17 @@ def init_ani():
     story_animation = animation.Animation("img/story/meeting_", setting.STORY_NUMBERS)
     story_animation.update()
 
+def init_script():
+    global story_script
+    story_script = Script("Play now")
+
 def render():
     global story_animation, story_sounds
     if setting.first:
         setting.first = False
         setting.start_t = time.time()
         init_ani()
+        init_script()
         story_sounds = sound.SceneSound("sound/story/", 5)
         story_sounds.play()
 
@@ -64,8 +70,13 @@ def render():
         setting.screen.blit(story_animation.now_img, (0,0))
         setting.stage = 2
         return 0
-
+    
     setting.screen.blit(story_animation.now_img, (0, 0))
     setting.screen.blit(setting.skip_img, (setting.SKIP_X, setting.SKIP_Y))
-    setting.screen.blit(setting.skip_img, (setting.ALL_SKIP_X, setting.ALL_SKIP_Y))
-    setting.screen.blit(setting.backward_img, (setting.BACKWARD_X, setting.BACKWARD_Y))
+    setting.screen.blit(setting.all_skip_ing, (setting.ALL_SKIP_X, setting.ALL_SKIP_Y))
+    story_script.show_all_script(650, 515)
+
+    if not setting.story_scene_number >= setting.STORY_NUMBERS - 1:
+        setting.screen.blit(setting.backward_img, (setting.BACKWARD_X, setting.BACKWARD_Y))
+
+    
