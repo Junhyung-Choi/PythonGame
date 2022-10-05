@@ -41,7 +41,7 @@ class MiddleScene():
 
         
         setting.screen.blit(self.imgs.now_img, (0, 0))
-        
+
         if self.is_running:
             currnet_t = time.time()
             if self.current_scene_number > 4:
