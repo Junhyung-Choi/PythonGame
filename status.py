@@ -179,7 +179,7 @@ class GameStatus:
             self.current_question = self.__root_question_chapter2__
             self.current_questions = self.current_question.child_questions
             self.set_button_text()
-            Script.init()
+            
 
 
 class Question:
