@@ -15,7 +15,7 @@ class Animation():
         self.now_img = self.imgs[0]
         self.isPlayed = False
         self.isArmOnTable = True
-    
+        
     def init(self):
         self.now_img = self.imgs[0]
         self.index = 0
@@ -33,6 +33,12 @@ class Animation():
             self.index -= 2
             self.now_img = self.imgs[self.index]
             self.index += 1
+
+    def add_ani(self, path, frame_num):
+        for i in range(frame_num):
+            img = pygame.image.load(path + str(i) + ".png")
+            img = pygame.transform.scale(img, (800, 600))
+            self.imgs.append(img)
 
 
 class Animator():

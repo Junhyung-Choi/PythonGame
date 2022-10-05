@@ -29,10 +29,10 @@ def init():
 
 def loop():
     while setting.running:
-        # 이벤트 처리
-        event()
         # 각 스테이지 렌더링
         render()
+        # 이벤트 처리
+        event()
 
 
 def event():
@@ -66,6 +66,10 @@ def event():
 
         if setting.stage == 2: # 두 번째 stage 이벤트
             meeting.process_event(event=event)
+
+        if setting.stage == -1:
+            ending_obj.prev_btn.click_event(event=event, gs=None)
+            ending_obj.next_btn.click_event(event=event, gs=None)
 
 def render():
     if not setting.is_init:

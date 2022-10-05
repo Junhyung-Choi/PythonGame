@@ -104,3 +104,31 @@ class RestartButton(Button):
         setting.is_init_interface = False
         setting.stage = 0
         setting.game_status = 'playing'
+
+class NextButton(Button):
+    def __init__(self, x1, y1, size, obj):
+        super().__init__(x1, y1, size)
+        self.obj = obj
+
+    def show(self):
+        if self.obj.current_scene_number < len(self.obj.common_imgs.imgs):
+            setting.screen.blit(setting.skip_img, (self.x_pos, self.y_pos))
+
+    def click(self, gs : GameStatus):
+        if self.obj.current_scene_number < len(self.obj.common_imgs.imgs):
+            print("스킵합니다.\n\n")
+            self.obj.current_scene_number += 1
+
+class PrevButton(Button):
+    def __init__(self, x1, y1, size, obj):
+        super().__init__(x1, y1, size)
+        self.obj = obj
+
+    def show(self):
+        if self.obj.current_scene_number > 0:
+            setting.screen.blit(setting.backward_img, (self.x_pos, self.y_pos))
+    
+    def click(self, gs : GameStatus):
+        if self.obj.current_scene_number > 0:
+            print("뒤로 이동합니다.\n\n")
+            self.obj.current_scene_number -= 1

@@ -46,3 +46,8 @@ class SceneSound(Sound):
     def play(self):
         if self.now_sound != None:
             self.now_sound.play()
+
+    def add_sound(self, path, sound_num):
+        for i in range(sound_num):
+            sound = Sound(path + str(i) + ".mp3")
+            self.sounds.append(sound)
