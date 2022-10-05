@@ -23,6 +23,7 @@ class Ending():
     def load_separate(self, kind):
         self.common_imgs.add_ani("img/ending/Ending_" + kind + "_", 4 if kind == "good" else 3)
         self.separate_back_img = pygame.transform.scale(self.separate_back_img, (800, 600))
+        self.common_sound.add_sound("")
         self.separate_sound = sound.SceneSound("sound/ending/" + kind + "/", (3 if kind == "normal" else 2))
         self.separate_sound.index = -1
 
