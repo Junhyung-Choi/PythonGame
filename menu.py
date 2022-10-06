@@ -30,7 +30,7 @@ def process_event(event):
             bgm.stop()
         if(540 < mouseX < 620 and 480 < mouseY < 540):
             pygame.mixer.Sound("./sound/btn_click.wav").play()
-            print("GAME OVER")
+            pygame.quit()
 
 def render():
     global is_inited
