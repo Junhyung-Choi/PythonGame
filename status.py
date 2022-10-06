@@ -114,6 +114,9 @@ class GameStatus:
                 if not (self.current_question.child_questions):
                     print("middleAnimationStartCalled")
                     self.girlAnimator.translate_nextphase()
+                    
+                    if self.chapter == 2:
+                        setting.stage = -1
                     return
                
                 self.mode = MODE_CHOICE
