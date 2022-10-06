@@ -43,21 +43,32 @@ def render():
     maxWidth = setting.screen.get_width()
     
     mouseX, mouseY = pygame.mouse.get_pos()
+    # print(mouseY)
     eyeX = int(remap(mouseX,0,maxWidth,230,350))
     eyeY = int(remap(mouseY,0,maxHeight,280,320))
     setting.screen.blit(setting.eyeBall,(eyeX,eyeY))
     setting.screen.blit(setting.eyeBall,(eyeX+200,eyeY))
     
-    if(mouseY < maxHeight / 2):
-        setting.screen.blit(setting.eyes[17],(0,0))
-    else:
-        if mouseX < 170:
-            setting.screen.blit(setting.eyes[0],(0,0))
-        elif mouseX > 630:
-            setting.screen.blit(setting.eyes[35],(0,0))
-        else:
-            fidx = int(remap(mouseX,170,630,0,frame_number-1))
-            setting.screen.blit(setting.eyes[fidx],(0,0))
+    # if(mouseY < maxHeight / 2):
+    #     setting.screen.blit(setting.eyes[17],(0,0))
+    # else:
+    xfidx = 0
+    yfidx = 0
+    if mouseX < 170:
+        xfidx = 0
+    if mouseX > 630:
+        xfidx = 35
+    if mouseY > 540:
+        yfidx = 35
+    xfidx = int(remap(mouseX,170,630,0,frame_number-1))
+    if(xfidx < 0):
+        xfidx = -xfidx
+    yfidx = int(remap(mouseY,0,540,0,frame_number-1))
+    fidx = min(xfidx, yfidx)
+    if(fidx > 35):
+        fidx = 35
+    # fidx = int(remap(mouseX,170,630,0,frame_number-1))
+    setting.screen.blit(setting.eyes[fidx],(0,0))
     
     setting.screen.blit(setting.main_title, (176/2,54/2))
     setting.screen.blit(setting.main_table, (-40/2,899/2))
