@@ -67,7 +67,7 @@ def render():
         init_script()
 
     # Fade in Fade out을 진행하는 부분입니다.
-    if 0 <= story_animation.index < story_animation.frame_num - 1 and setting.alpha > 0:
+    if 0 <= story_animation.index < story_animation.frame_num and setting.alpha > 0 and setting.tutorial == False:
         setting.alpha -= 2
 
         if story_script.color[0] > 0:
