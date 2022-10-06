@@ -72,7 +72,7 @@ def render():
         if story_script.color[0] > 0:
             for i in range(3):
                 story_script.color[i] -= 2
-        print(setting.alpha)
+
     elif story_animation.index == story_animation.frame_num - 1 and setting.alpha < 250:
         setting.alpha += 2
 
@@ -80,9 +80,6 @@ def render():
                 story_script.color[i] += 2
     elif story_animation.index == story_animation.frame_num:
         setting.alpha = 0
-        print(setting.alpha)
-        print(story_script.color)
-
     setting.back_img.set_alpha(setting.alpha)
 
     # 스토리 이미지를 보여줍니다.
