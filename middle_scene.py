@@ -47,11 +47,13 @@ class MiddleScene():
 
         if self.scene.imgs[self.scene.index] == None:
             self.is_running = False
+            gs : status.GameStatus = meeting.gamestatus
+            gs.set_Second_Phase()
             return
 
         setting.screen.blit(self.scene.imgs[self.scene.index], (0, 0))
         self.sound.play()
-            
+        
 
         print(self.sound.index)
         self.next_btn.show()
