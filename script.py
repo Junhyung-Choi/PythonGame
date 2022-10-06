@@ -16,6 +16,7 @@ class Script():
         self.text = text
         self.render_text = ""
         self.color = [0, 0, 0]
+        self.timer = 0
 
     def show_all_script(self, x, y):
         myText = setting.myFont.render(self.text, True, self.color)

@@ -131,7 +131,7 @@ script_t = 0
 # 스토리 씬
 first = True
 
-STORY_NUMBERS = 5
+STORY_NUMBERS = 6
 
 LEFT = 1
 RIGHT = 3
@@ -149,17 +149,26 @@ BACKWARD_SCENE_Y = screen_height / 2
 BACKWARD_SCENE_W = 35
 BACKWARD_SCENE_H = 26
 
-NEXT_STAGE_X = 600
-NEXT_STAGE_Y = 500
+GO_TUTORIAL_X = 600
+GO_TUTORIAL_Y = 500
+GO_TUTORIAL_W = 200
+GO_TUTORIAL_H = 57
+
+NEXT_STAGE_X = 550
+NEXT_STAGE_Y = 120
 NEXT_STAGE_W = 160
 NEXT_STAGE_H = 57
+
+
 
 next_scene_img = pygame.image.load("img/story/Next_Scene.png")
 next_scene_img = pygame.transform.scale(next_scene_img, (NEXT_SCENE_W, NEXT_SCENE_H))
 backward_scene_img = pygame.image.load("img/story/Before_Scene.png")
 backward_scene_img = pygame.transform.scale(backward_scene_img, (BACKWARD_SCENE_W, BACKWARD_SCENE_H))
+go_tutorial_img = pygame.image.load("img/story/SkipToPlay.png")
+go_tutorial_img = pygame.transform.scale(go_tutorial_img, (GO_TUTORIAL_W, GO_TUTORIAL_H))
 next_stage_img = pygame.image.load("img/story/SkipToPlay.png")
-next_stage_img = pygame.transform.scale(next_stage_img, (NEXT_STAGE_W, NEXT_STAGE_H))
+next_stage_img = pygame.transform.scale(go_tutorial_img, (NEXT_STAGE_W, NEXT_STAGE_H))
 back_img = pygame.image.load("img/ending/back.png")
 back_img = pygame.transform.scale(back_img, (800, 600))
 

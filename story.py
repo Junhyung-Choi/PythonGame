@@ -13,16 +13,18 @@ def process_event(event):
             
     # 마우스 버튼이 스킵 버튼을 눌렸을 때
     if event.type == pygame.MOUSEBUTTONDOWN and event.button == setting.LEFT:
-        if setting.NEXT_SCENE_X <= event.pos[0] <= setting.NEXT_SCENE_X + setting.NEXT_SCENE_W and setting.NEXT_SCENE_Y <= event.pos[1] <= setting.NEXT_SCENE_Y + setting.NEXT_SCENE_H and story_animation.index < story_animation.frame_num:
+        if setting.NEXT_SCENE_X <= event.pos[0] <= setting.NEXT_SCENE_X + setting.NEXT_SCENE_W and setting.NEXT_SCENE_Y <= event.pos[1] <= setting.NEXT_SCENE_Y + setting.NEXT_SCENE_H and story_animation.index < story_animation.frame_num - 1:
             forward()
-            print("스킵합니다.\n\n")
-        elif setting.NEXT_STAGE_X <= event.pos[0] <= setting.NEXT_STAGE_X + setting.NEXT_STAGE_W  and setting.NEXT_STAGE_Y <= event.pos[1] <= setting.NEXT_STAGE_Y + setting.NEXT_STAGE_H:
-            print("다음 스테이지로 넘어갑니다.\n\n")
-            story_sounds.stop()
-            setting.stage = 2
-        elif setting.BACKWARD_SCENE_X <= event.pos[0] <= setting.BACKWARD_SCENE_X + setting.BACKWARD_SCENE_W and setting.BACKWARD_SCENE_Y <= event.pos[1] <= setting.BACKWARD_SCENE_Y + setting.BACKWARD_SCENE_H and story_animation.index > 0:
+            print("다음씬을 재생합니다.")
+        elif setting.BACKWARD_SCENE_X <= event.pos[0] <= setting.BACKWARD_SCENE_X + setting.BACKWARD_SCENE_W and setting.BACKWARD_SCENE_Y <= event.pos[1] <= setting.BACKWARD_SCENE_Y + setting.BACKWARD_SCENE_H and 0 < story_animation.index <= story_animation.frame_num - 1:
             backward()
-            print("뒤로 이동합니다.\n\n")
+            print("이전씬을 재생합니다.")
+        elif setting.GO_TUTORIAL_X <= event.pos[0] <= setting.GO_TUTORIAL_X + setting.GO_TUTORIAL_W  and setting.GO_TUTORIAL_Y <= event.pos[1] <= setting.GO_TUTORIAL_Y + setting.GO_TUTORIAL_H and story_animation.index == story_animation.frame_num - 1:
+            forward()
+            print("튜토리얼로 이동합니다.")
+        elif setting.NEXT_STAGE_X <= event.pos[0] <= setting.NEXT_STAGE_X + setting.NEXT_STAGE_W  and setting.NEXT_STAGE_Y <= event.pos[1] <= setting.NEXT_STAGE_Y + setting.NEXT_STAGE_H and story_animation.index == story_animation.frame_num:
+            setting.stage = 2
+            print("다음 스테이지로 이동합니다.")
 
 def init_ani():
     global story_animation
@@ -35,12 +37,16 @@ def init_sound():
     story_sounds.play()
 
 def init_script():
-    global story_script
-    story_script = Script("Play now")
+    global story_script, tutorial_skip_script
+    story_script = Script("Go Tutorial")
+    tutorial_skip_script = Script("Play Now")
+    tutorial_skip_script.color = [250, 250, 250]
 
 def forward():
     story_animation.update()
-    if story_animation.index >= 2:
+    if story_animation.index == story_animation.frame_num:
+        story_sounds.stop()
+    elif story_animation.index >= 2:
         story_sounds.update(True)
         story_sounds.play()
 
@@ -60,17 +66,20 @@ def render():
         init_script()
 
     # Fade in Fade out을 진행하는 부분입니다.
-    if 0 <= story_animation.index < story_animation.frame_num and setting.alpha > 0:
-        setting.alpha -= 1
-        # 자막의 색을 바꾸는 부분입니다.
+    if 0 <= story_animation.index < story_animation.frame_num - 1 and setting.alpha > 0:
+        setting.alpha -= 2
+
         if story_script.color[0] > 0:
             for i in range(3):
-                story_script.color[i] -= 1
+                story_script.color[i] -= 2
         print(setting.alpha)
-    elif story_animation.index == story_animation.frame_num and setting.alpha < 250:
-        setting.alpha += 1
+    elif story_animation.index == story_animation.frame_num - 1 and setting.alpha < 250:
+        setting.alpha += 2
+
         for i in range(3):
-                story_script.color[i] += 1
+                story_script.color[i] += 2
+    elif story_animation.index == story_animation.frame_num:
+        setting.alpha = 0
         print(setting.alpha)
         print(story_script.color)
 
@@ -81,10 +90,18 @@ def render():
     setting.screen.blit(setting.back_img, (0, 0))
 
     # 화살표 이미지를 상황에 따라 보여줍니다.
-    if story_animation.index > 0:
+    if story_animation.index > 0 and story_animation.index != story_animation.frame_num:
         setting.screen.blit(setting.backward_scene_img, (setting.BACKWARD_SCENE_X, setting.BACKWARD_SCENE_Y))
-    if story_animation.index < story_animation.frame_num:
+    if story_animation.index < story_animation.frame_num - 1:
         setting.screen.blit(setting.next_scene_img, (setting.NEXT_SCENE_X, setting.NEXT_SCENE_Y))
+    if story_animation.index == story_animation.frame_num - 1:
+        setting.screen.blit(setting.go_tutorial_img, (setting.GO_TUTORIAL_X, setting.GO_TUTORIAL_Y))
+        story_script.show_all_script(setting.GO_TUTORIAL_X + 10, setting.GO_TUTORIAL_Y + 15)
     if story_animation.index == story_animation.frame_num:
         setting.screen.blit(setting.next_stage_img, (setting.NEXT_STAGE_X, setting.NEXT_STAGE_Y))
-        story_script.show_all_script(setting.NEXT_STAGE_X + 10, setting.NEXT_STAGE_Y + 15)
+        tutorial_skip_script.show_all_script(setting.NEXT_STAGE_X + 10, setting.NEXT_STAGE_Y + 15)
+        if 0 <= tutorial_skip_script.timer % 10 <= 4:
+            tutorial_skip_script.color = [0, 0, 0]
+        else:
+            tutorial_skip_script.color = [250, 250, 250]
+        tutorial_skip_script.timer += 1
