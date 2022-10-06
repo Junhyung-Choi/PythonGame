@@ -25,6 +25,8 @@ def init():
     pause_obj = pause.Pause()
     ending_obj = ending.Ending()
 
+    pygame.display.set_caption("DON'T ASK JUST SEE")
+    
     setting.is_init = True
 
 def reset():
