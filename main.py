@@ -68,8 +68,15 @@ def event():
             meeting.process_event(event=event)
 
         if setting.stage == -1:
-            ending_obj.prev_btn.click_event(event=event, gs=None)
-            ending_obj.next_btn.click_event(event=event, gs=None)
+            if ending_obj.scene.index == 0 or ending_obj.scene.index == 3:
+                ending_obj.next_btn.click_event(event=event, gs=None, b=False)
+            else:
+                ending_obj.next_btn.click_event(event=event, gs=None, b=True)
+
+            if ending_obj.scene.index == 1 or ending_obj.scene.index == 4:
+                ending_obj.prev_btn.click_event(event=event, gs=None, b=False)
+            else:
+                ending_obj.prev_btn.click_event(event=event, gs=None, b=True)
 
 def render():
     if not setting.is_init:
@@ -89,8 +96,8 @@ def render():
         meeting.render(pause_obj)
 
     elif setting.stage == -1:        
-        ending_obj.render(10)
-        # ending_obj.render(meeting.gamestatus.score)
+        # ending_obj.render(10)
+        ending_obj.render(meeting.gamestatus.score)
 
     # 게임 상태 관리 (게임오버, 일시정지)
     if setting.game_status == 'gameover':
