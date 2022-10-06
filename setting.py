@@ -106,7 +106,7 @@ is_meet_next = False
 # 글자체(text font) 지정하기
 text_size = 50
 font_name = "font/DungGeunMo.ttf"
-myFont = pygame.font.Font("font/DungGeunMo.ttf", 25)
+myFont = pygame.font.Font("font/DungGeunMo.ttf", 22)
 
 text = "Hello World"
 render_text = ""
@@ -154,10 +154,10 @@ GO_TUTORIAL_Y = 500
 GO_TUTORIAL_W = 200
 GO_TUTORIAL_H = 57
 
-NEXT_STAGE_X = 550
-NEXT_STAGE_Y = 120
-NEXT_STAGE_W = 160
-NEXT_STAGE_H = 57
+NEXT_STAGE_X = 605
+NEXT_STAGE_Y = 527
+NEXT_STAGE_W = 158
+NEXT_STAGE_H = 52
 
 
 
