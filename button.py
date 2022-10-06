@@ -118,7 +118,7 @@ class NextButton(Button):
 
     def show(self):
         if self.obj.scene.index < len(self.obj.scene.imgs) - 1:
-            setting.screen.blit(setting.skip_img, (self.x_pos, self.y_pos))
+            setting.screen.blit(setting.next_scene_img, (self.x_pos, self.y_pos))
 
     def click(self, gs : GameStatus, b):
         if self.obj.scene.index < len(self.obj.scene.imgs) - 1:
@@ -132,7 +132,7 @@ class PrevButton(Button):
 
     def show(self):
         if self.obj.scene.index > 0:
-            setting.screen.blit(setting.backward_img, (self.x_pos, self.y_pos))
+            setting.screen.blit(setting.backward_scene_img, (self.x_pos, self.y_pos))
 
     def click(self, gs : GameStatus, b):
         if self.obj.scene.index > 0:
