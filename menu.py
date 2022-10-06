@@ -8,7 +8,7 @@ def init():
     global is_inited, bgm
     is_inited = True
     bgm = pygame.mixer.Sound("./sound/menu_bgm.mp3")
-    bgm.play()
+    bgm.play(-1)
 
 def remap(old_val, old_min, old_max, new_min, new_max):
     return (new_max - new_min)*(old_val - old_min) / (old_max - old_min) + new_min
