@@ -18,7 +18,8 @@ import time
 #                                            
 #############################################
 
-global pause_obj
+global pause_obj, last_stage
+last_stage = 0
 
 def init():
     global pause_obj, ending_obj
@@ -26,6 +27,13 @@ def init():
     ending_obj = ending.Ending()
 
     setting.is_init = True
+
+def reset():
+    pause_obj = pause.Pause()
+    ending_obj = ending.Ending()
+
+    setting.first = True
+    setting.is_init_interface = False
 
 def loop():
     while setting.running:
@@ -79,6 +87,11 @@ def event():
                 ending_obj.prev_btn.click_event(event=event, gs=None, b=True)
 
 def render():
+    global last_stage
+
+    if(setting.stage == 0 and last_stage != setting.stage):
+        reset()
+    last_stage = setting.stage
     if not setting.is_init:
         init()
 

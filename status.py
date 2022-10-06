@@ -117,6 +117,7 @@ class GameStatus:
                     
                     if self.chapter == 2:
                         setting.stage = -1
+                        meeting.bgm.stop()
                     return
                
                 self.mode = MODE_CHOICE
