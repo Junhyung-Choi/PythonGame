@@ -62,16 +62,15 @@ def render():
     # Fade in Fade out을 진행하는 부분입니다.
     if 0 <= story_animation.index < story_animation.frame_num and setting.alpha > 0:
         setting.alpha -= 1
+        # 자막의 색을 바꾸는 부분입니다.
         if story_script.color[0] > 0:
-            story_script.color[0] -= 1
-            story_script.color[1] -= 1
-            story_script.color[2] -= 1
+            for i in range(3):
+                story_script.color[i] -= 1
         print(setting.alpha)
     elif story_animation.index == story_animation.frame_num and setting.alpha < 250:
         setting.alpha += 1
-        story_script.color[0] += 1
-        story_script.color[1] += 1
-        story_script.color[2] += 1
+        for i in range(3):
+                story_script.color[i] += 1
         print(setting.alpha)
         print(story_script.color)
 
