@@ -53,8 +53,6 @@ class MiddleScene():
 
         setting.screen.blit(self.scene.imgs[self.scene.index], (0, 0))
         self.sound.play()
-        
 
-        print(self.sound.index)
         self.next_btn.show()
         self.prev_btn.show()
