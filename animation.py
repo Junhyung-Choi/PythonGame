@@ -150,10 +150,12 @@ class StoryAnimation(Animation):
 
     def __init__(self, path, frame_num):
         super().__init__(path, frame_num)
+        self.alpha = 250
         self.imgs = []
         for i in range(self.frame_num + 1):
             img = pygame.image.load(self.path + str(i) + ".png")
             img = pygame.transform.scale(img, (800, 600))
+            img.set_alpha(self.alpha)
             self.imgs.append(img)
     
     def update(self):
@@ -165,3 +167,8 @@ class StoryAnimation(Animation):
         if self.index > 0:
             self.index -= 1
             self.now_img = self.imgs[self.index]
+    
+    def set_alpha(self, alpha):
+        self.alpha = alpha
+        self.now_img.set_alpha(self.alpha)
+
