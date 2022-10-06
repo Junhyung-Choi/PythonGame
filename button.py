@@ -103,12 +103,15 @@ class ProposeButton(Button):
         if not self.is_clicked:
             if (meeting.gamestatus.score - 15 < -3):
                 meeting.gamestatus.score -= 3
+                meeting.gamestatus.girlAnimator.translate("neckmassage")
                 print('==========BAD==========')
             elif (-3 <= meeting.gamestatus.score - 15 <= 3):
                 meeting.gamestatus.score += 3
+                meeting.gamestatus.girlAnimator.translate("smile")
                 print('==========NORMAL==========')
             elif (3 < meeting.gamestatus.score - 15):
                 meeting.gamestatus.score += 5
+                meeting.gamestatus.girlAnimator.translate("biglaugh")
                 print('==========GOOD==========')
             
             print("CURRENT SCORE: ", meeting.gamestatus.score)
