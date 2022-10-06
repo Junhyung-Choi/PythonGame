@@ -111,7 +111,8 @@ def render():
         meeting.render(pause_obj)
 
     elif setting.stage == -1:        
-        ending_obj.render(meeting.gamestatus.score)
+        # ending_obj.render(meeting.gamestatus.score)
+        ending_obj.render(8)
 
     # 게임 상태 관리 (게임오버, 일시정지)
     if setting.game_status == 'pause':
