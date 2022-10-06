@@ -24,6 +24,11 @@ def process_event(event):
     if(isEventAvailable):
         process_event_btn(event)
     
+    elif setting.is_init_interface:
+        if middle_scene_obj.is_running:
+            if middle_scene_obj.is_running:
+                middle_scene_obj.next_btn.click_event(event=event, gs=None, b=True)
+                middle_scene_obj.prev_btn.click_event(event=event, gs=None, b=True)
 
 def render(pause_obj):
     """
@@ -75,7 +80,8 @@ def render(pause_obj):
 
     if middle_scene_obj.is_running:
         middle_scene_obj.render(gamestatus.score)
-        
+        isEventAvailable = False
+
     if not(setting.is_init_interface):
         setting.is_init_interface = True
 
@@ -111,6 +117,7 @@ def process_event_btn(event):
     """
     for i in buttons:
         i.click_event(event,gamestatus)
+
 
 def init_ani():
     """

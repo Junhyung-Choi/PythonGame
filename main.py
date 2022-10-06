@@ -29,10 +29,10 @@ def init():
 
 def loop():
     while setting.running:
-        # 이벤트 처리
-        event()
         # 각 스테이지 렌더링
         render()
+        # 이벤트 처리
+        event()
 
 
 def event():
@@ -67,6 +67,17 @@ def event():
         if setting.stage == 2: # 두 번째 stage 이벤트
             meeting.process_event(event=event)
 
+        if setting.stage == -1:
+            if ending_obj.scene.index == 0 or ending_obj.scene.index == 3:
+                ending_obj.next_btn.click_event(event=event, gs=None, b=False)
+            else:
+                ending_obj.next_btn.click_event(event=event, gs=None, b=True)
+
+            if ending_obj.scene.index == 1 or ending_obj.scene.index == 4:
+                ending_obj.prev_btn.click_event(event=event, gs=None, b=False)
+            else:
+                ending_obj.prev_btn.click_event(event=event, gs=None, b=True)
+
 def render():
     if not setting.is_init:
         init()
@@ -85,8 +96,8 @@ def render():
         meeting.render(pause_obj)
 
     elif setting.stage == -1:        
-        ending_obj.render(10)
-        # ending_obj.render(meeting.gamestatus.score)
+        # ending_obj.render(10)
+        ending_obj.render(meeting.gamestatus.score)
 
     # 게임 상태 관리 (게임오버, 일시정지)
     if setting.game_status == 'gameover':

@@ -6,66 +6,53 @@ import time
 import animation
 import meeting
 import sound
+import scene
 
 class MiddleScene():
-    def __init__(self, sound):
-        self.imgs = None
-        self.start_t = time.time()
-        self.current_scene_number = 0
+    
+    def __init__(self):
+        self.scene = None
+        self.is_started = False
         self.is_running = False
-        self.isStarted = False
-        self.is_load_imgs = False
-        self.sound = sound.SceneSound("sound/meeting/middle/", 2)
-        self.is_played_gulp = False
-        self.separate_sound = None
+        self.is_loaded = False
+        self.sound = sound.SceneSounds("sound/meeting/middle/", 2)
+        self.next_btn = button.NextButton(setting.SKIP_X, setting.SKIP_Y, [setting.SKIP_W, setting.SKIP_H], self)
+        self.prev_btn = button.PrevButton(setting.BACKWARD_X, setting.BACKWARD_Y, [setting.SKIP_W, setting.SKIP_H], self)
 
     def start(self):
-        if not self.isStarted:
-            self.isStarted = True
+        if not self.is_started:
+            self.is_started = True
             self.is_running = True
-            self.start_t = time.time()
     
-    def load_imgs(self, score):
+    def load_file(self, score):
         if (score - 15 < -3):
-            self.imgs = animation.Animation("img/meeting/middle/midChap_Bad_", 3)
-            self.separate_sound = sound.Sound("sound/meeting/middle/bad.mp3")
+            self.scene = scene.Scene("img/meeting/middle/midChap_Bad_", 3)
+            self.sound.add_sound("sound/meeting/middle/bad/", 1)
             print('==========BAD==========')
         elif (-3 <= score - 15 <= 3):
-            self.imgs = animation.Animation("img/meeting/middle/midChap_Normal_", 3)
-            self.separate_sound = sound.Sound("sound/meeting/middle/normal.mp3")
+            self.scene = scene.Scene("img/meeting/middle/midChap_Normal_", 3)
+            self.sound.add_sound("sound/meeting/middle/normal/", 1)
             print('==========NORMAL==========')
         elif (3 < score - 15):
-            self.imgs = animation.Animation("img/meeting/middle/midChap_Good_", 3)
-            self.separate_sound = sound.Sound("sound/meeting/middle/good.mp3")
+            self.scene = scene.Scene("img/meeting/middle/midChap_Good_", 3)
+            self.sound.add_sound("sound/meeting/middle/good/", 1)
             print('==========GOOD==========')
+        
+        self.scene.add_None()
 
     def render(self, kind):
-        if not self.is_load_imgs:
-            self.load_imgs(kind)
-            self.is_load_imgs = True
-            self.sound.play()
+        if not self.is_loaded:
+            self.load_file(kind)
+            self.is_loaded = True
 
-        
-        setting.screen.blit(self.imgs.now_img, (0, 0))
+        if self.scene.imgs[self.scene.index] == None:
+            self.is_running = False
+            return
 
-        if self.is_running:
-            currnet_t = time.time()
-            if self.current_scene_number > 4:
-                if self.start_t + 2 <= currnet_t:
-                    self.is_running = False
-                    meeting.isEventAvailable = True
-                    gs : status.GameStatus = meeting.gamestatus
-                    gs.set_Second_Phase()
+        setting.screen.blit(self.scene.imgs[self.scene.index], (0, 0))
+        self.sound.play()
+            
 
-            elif self.start_t + 2 <= currnet_t:
-                self.start_t = time.time()
-                self.imgs.update()
-                self.sound.update()
-                self.current_scene_number += 1
-
-            elif self.start_t + 1 <= currnet_t and self.current_scene_number == 1 and not self.is_played_gulp:
-                self.sound.play()
-                self.is_played_gulp = True
-
-            if self.current_scene_number == 3:
-                self.separate_sound.play()
+        print(self.sound.index)
+        self.next_btn.show()
+        self.prev_btn.show()

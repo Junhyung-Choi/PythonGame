@@ -3,25 +3,23 @@ import setting
 import animation
 import time
 import sound
+import button
+import scene
 
 class Ending():
     def __init__(self):
         self.alpha = 500
-        self.common_imgs = animation.Animation("img/ending/Ending_begin_", 2)
-        self.separate_imgs = None
-        self.separate_back_img = pygame.image.load("img/ending/back.png")
-        self.is_loaded_separate_img = False
-        self.is_common_imgs_running = True
-        self.current_scene_number = 0
-        self.start_t = None
-        self.common_sound = sound.Sound("sound/ending/0.mp3")
-        self.separate_sound = None
-
-    def load_separate_img(self, kind):
-        self.separate_imgs = animation.Animation("img/ending/Ending_" + kind + "_", 4 if kind == "good" else 3)
-        self.separate_back_img = pygame.transform.scale(self.separate_back_img, (800, 600))
-        self.separate_sound = sound.SceneSound("sound/ending/" + kind + "/", (3 if kind == "normal" else 2))
-        self.separate_sound.index = -1
+        self.scene = scene.Scene("img/ending/Ending_begin_", 2)
+        self.back_img = pygame.image.load("img/ending/back.png")
+        self.sound = sound.SceneSounds("sound/ending/", 1)
+        self.next_btn = button.NextButton(setting.SKIP_X, setting.SKIP_Y, [setting.SKIP_W, setting.SKIP_H], self)
+        self.prev_btn = button.PrevButton(setting.BACKWARD_X, setting.BACKWARD_Y, [setting.SKIP_W, setting.SKIP_H], self)
+        self.is_loaded = False
+        
+    def load_file(self, kind):
+        self.scene.add_scene("img/ending/Ending_" + kind + "_", 4 if kind == "good" else 3)
+        self.back_img = pygame.transform.scale(self.back_img, (800, 600))
+        self.sound.add_sound("sound/ending/" + kind + "/", (3 if kind == "normal" else 2))
 
     def render(self, score):
         if 0 <= score < 8:
@@ -33,47 +31,30 @@ class Ending():
         elif 22 <= score:
             kind = "good"
 
-        if not self.is_loaded_separate_img:
-            self.load_separate_img(kind)
-            self.is_loaded_separate_img = True
-            self.start_t = time.time()
+        if not self.is_loaded:
+            self.load_file(kind)
+            self.is_loaded = True
 
+        setting.screen.blit(self.scene.imgs[self.scene.index], (0, 0))
 
-        if self.is_common_imgs_running:
-            setting.screen.blit(self.common_imgs.now_img, (0, 0))
-            self.common_sound.play()
-        else:
-            setting.screen.blit(self.separate_back_img, (0, 0))
-            setting.screen.blit(self.separate_imgs.now_img, (0, 0))
-
-        current_t = time.time()
-
-        if self.current_scene_number > 1 and self.is_common_imgs_running:
-            if self.start_t + 2 <= current_t:
-                self.is_common_imgs_running = False
-
-        
-        elif self.start_t + 2 <= current_t:
-            self.start_t = time.time()
-            self.current_scene_number += 1
-            
-            if self.is_common_imgs_running:
-                self.common_imgs.update()
-
-            else:
-                self.separate_imgs.update()
-                self.separate_sound.update()
-                self.separate_sound.play()
-                print("하하하 : ", self.separate_sound.index)
+        if self.scene.index == 1:
+            self.sound.index = 0
+        elif self.scene.index == 4:
+            self.sound.index = 2
+        self.sound.play()
             
 
-        if self.current_scene_number > (7 if kind == "good" else 6):
-            self.alpha -= 3
-            
-            if self.alpha < -50:
-                setting.stage = 0
+        print(self.sound.index)
+        self.next_btn.show()
+        self.prev_btn.show()
 
-            self.separate_imgs.now_img.set_alpha(self.alpha)
+        # if self.current_scene_number > (7 if kind == "good" else 6):
+        #     self.alpha -= 3
             
-            setting.screen.blit(self.separate_back_img, (0, 0))
-            setting.screen.blit(self.separate_imgs.now_img, (0, 0))
+        #     if self.alpha < -50:
+        #         setting.stage = 0
+
+        #     self.separate_imgs.now_img.set_alpha(self.alpha)
+            
+        #     setting.screen.blit(self.back_img, (0, 0))
+        #     setting.screen.blit(self.separate_imgs.now_img, (0, 0))

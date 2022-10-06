@@ -11,15 +11,17 @@ class Button:
         self.height = size[1]
         self.is_clicked = False
 
-    def click(self, gs):
+    def click(self, gs, b):
         print('클릭됨')
         self.is_clicked = True
 
-    def click_event(self, event, gs: GameStatus):
+    def click_event(self, event, gs : GameStatus, b=None):
         if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
-            if self.x_pos <= event.pos[0] <= self.x_pos + self.width and\
-                    self.y_pos <= event.pos[1] <= self.y_pos + self.height:
-                self.click(gs)
+            if self.x_pos <= event.pos[0] <= self.x_pos + self.width and self.y_pos <= event.pos[1] <= self.y_pos + self.height:
+                if b != None:
+                    self.click(gs, b)
+                else:
+                    self.click(gs)
 
     def show(self):
         pygame.draw.rect(screen, (100, 100, 100), [self.x_pos, self.y_pos, self.width, self.height])
@@ -108,3 +110,31 @@ class RestartButton(Button):
         setting.is_init_interface = False
         setting.stage = 0
         setting.game_status = 'playing'
+
+class NextButton(Button):
+    def __init__(self, x1, y1, size, obj):
+        super().__init__(x1, y1, size)
+        self.obj = obj
+
+    def show(self):
+        if self.obj.scene.index < len(self.obj.scene.imgs) - 1:
+            setting.screen.blit(setting.skip_img, (self.x_pos, self.y_pos))
+
+    def click(self, gs : GameStatus, b):
+        if self.obj.scene.index < len(self.obj.scene.imgs) - 1:
+            self.obj.scene.update()
+            self.obj.sound.update(b)
+
+class PrevButton(Button):
+    def __init__(self, x1, y1, size, obj):
+        super().__init__(x1, y1, size)
+        self.obj = obj
+
+    def show(self):
+        if self.obj.scene.index > 0:
+            setting.screen.blit(setting.backward_img, (self.x_pos, self.y_pos))
+
+    def click(self, gs : GameStatus, b):
+        if self.obj.scene.index > 0:
+            self.obj.scene.backward()
+            self.obj.sound.backward(b)
