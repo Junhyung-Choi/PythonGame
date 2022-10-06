@@ -64,14 +64,16 @@ class SceneSounds():
     
     def update(self, b):
         if self.index < self.sound_num and b:
-            self.sounds[self.index].stop()
-            self.sounds[self.index].is_played = False
+            if self.sounds[self.index] != None:
+                self.sounds[self.index].stop()
+                self.sounds[self.index].is_played = False
             self.index += 1
             
     def backward(self, b):
         if self.index > 0 and b:
-            self.sounds[self.index].stop()
-            self.sounds[self.index].is_played = False
+            if self.sounds[self.index] != None:
+                self.sounds[self.index].stop()
+                self.sounds[self.index].is_played = False
             self.index -= 1
 
     def add_sound(self, path, sound_num):
@@ -79,6 +81,11 @@ class SceneSounds():
         for i in range(sound_num):
             sound = Sound(path + str(i) + ".mp3")
             self.sounds.append(sound)
+        
+    def add_None(self):
+        self.sound_num += 1
+        self.sounds.append(None)
 
     def play(self):
-        self.sounds[self.index].play()
+        if self.sounds[self.index] != None:
+            self.sounds[self.index].play()
