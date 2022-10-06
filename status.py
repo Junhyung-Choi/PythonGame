@@ -162,6 +162,7 @@ class GameStatus:
         self.left_sec = int(self.game_sec - (self.current_time - self.start_time))
 
         if self.left_sec < 0:
+            meeting.bgm.stop() 
             setting.stage = -1
     
     def get_left_min_sec(self):
