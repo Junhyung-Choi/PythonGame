@@ -131,14 +131,14 @@ class Animator():
         """
         ### 중간 점검 이미지가 나오기 전 폰이 울리는 애니메이션으로 전환하기 위한 함수
         """
-
-        # 현재 손이 위로 올라와있는지 아닌지
-        isArmOnTable = self.current_animation.isArmOnTable
-        if(isArmOnTable):
-            self.translate("ringpositive")
-        else:
-            self.translate("ringnegative")
-        self.isMiddleSceneAnimationStarted = True
+        if not self.isMiddleSceneAnimationStarted:
+            # 현재 손이 위로 올라와있는지 아닌지
+            isArmOnTable = self.current_animation.isArmOnTable
+            if(isArmOnTable):
+                self.translate("ringpositive")
+            else:
+                self.translate("ringnegative")
+            self.isMiddleSceneAnimationStarted = True
 
 class AnimatorState(Enum):
     PLAY = 1
