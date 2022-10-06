@@ -9,7 +9,6 @@ import sound
 import scene
 
 class MiddleScene():
-    
     def __init__(self):
         self.scene = None
         self.is_started = False
