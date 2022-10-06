@@ -45,6 +45,9 @@ class Ending():
             
             if self.alpha < -50:
                 setting.stage = 0
+                self.sound.sounds[self.sound.index].stop()
+                if kind == "normal":
+                    self.normal_sound.stop()
             
             self.scene.imgs[self.scene.index - 1].set_alpha(self.alpha)
             
@@ -52,22 +55,19 @@ class Ending():
             setting.screen.blit(self.scene.imgs[self.scene.index - 1], (0, 0))
         
         else:
-            if self.fadeIn < 250 and self.scene.index == 0:
-                self.fadeIn += 3
+            if self.fadeIn < 250 and self.scene.index == 3:
                 self.scene.imgs[self.scene.index].set_alpha(self.fadeIn)
                 setting.screen.blit(self.back_img, (0, 0))
-            else:
+                self.fadeIn += 3
+            elif self.scene.index > 3:
                 self.fadeIn = 250
 
             setting.screen.blit(self.scene.imgs[self.scene.index], (0, 0))
-
 
         if kind == "normal" and self.scene.index == 3:
             self.normal_sound.play()
         self.sound.play()
         
-
-        print(self.sound.index)
         self.next_btn.show()
         self.prev_btn.show()
 

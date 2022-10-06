@@ -18,7 +18,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 # 현재 씬 
 running = True
-stage = 0
+stage = -1
 
 # 점수 저장소
 score = 0
