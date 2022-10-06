@@ -15,13 +15,14 @@ class Script():
         self.text_index = 0
         self.text = text
         self.render_text = ""
+        self.color = [0, 0, 0]
 
     def show_all_script(self, x, y):
-        myText = setting.myFont.render(self.text, True, (0, 0, 0))
+        myText = setting.myFont.render(self.text, True, self.color)
         setting.screen.blit(myText, (x, y))
 
     def show_script(self, x, y):
-        myText = setting.myFont.render(self.render_text, True, (0, 0, 0))
+        myText = setting.myFont.render(self.render_text, True, self.color)
         if self.is_first_script:
             self.is_first_script = False
             self.start_time = time.time()

@@ -160,6 +160,10 @@ backward_scene_img = pygame.image.load("img/story/Before_Scene.png")
 backward_scene_img = pygame.transform.scale(backward_scene_img, (BACKWARD_SCENE_W, BACKWARD_SCENE_H))
 next_stage_img = pygame.image.load("img/story/SkipToPlay.png")
 next_stage_img = pygame.transform.scale(next_stage_img, (NEXT_STAGE_W, NEXT_STAGE_H))
+back_img = pygame.image.load("img/ending/back.png")
+back_img = pygame.transform.scale(back_img, (800, 600))
+
+alpha = 250
 
 
 # 메뉴 씬

@@ -14,7 +14,7 @@ def process_event(event):
     # 마우스 버튼이 스킵 버튼을 눌렸을 때
     if event.type == pygame.MOUSEBUTTONDOWN and event.button == setting.LEFT:
         if setting.NEXT_SCENE_X <= event.pos[0] <= setting.NEXT_SCENE_X + setting.NEXT_SCENE_W and setting.NEXT_SCENE_Y <= event.pos[1] <= setting.NEXT_SCENE_Y + setting.NEXT_SCENE_H and story_animation.index < story_animation.frame_num:
-            skip()
+            forward()
             print("스킵합니다.\n\n")
         elif setting.NEXT_STAGE_X <= event.pos[0] <= setting.NEXT_STAGE_X + setting.NEXT_STAGE_W  and setting.NEXT_STAGE_Y <= event.pos[1] <= setting.NEXT_STAGE_Y + setting.NEXT_STAGE_H:
             print("다음 스테이지로 넘어갑니다.\n\n")
@@ -27,6 +27,7 @@ def process_event(event):
 def init_ani():
     global story_animation
     story_animation = StoryAnimation("img/story/meeting_", setting.STORY_NUMBERS)
+    setting.alpha = 250
 
 def init_sound():
     global story_sounds
@@ -37,7 +38,7 @@ def init_script():
     global story_script
     story_script = Script("Play now")
 
-def skip():
+def forward():
     story_animation.update()
     if story_animation.index >= 2:
         story_sounds.update(True)
@@ -58,8 +59,27 @@ def render():
         init_sound()
         init_script()
 
+    # Fade in Fade out을 진행하는 부분입니다.
+    if 0 <= story_animation.index < story_animation.frame_num and setting.alpha > 0:
+        setting.alpha -= 1
+        if story_script.color[0] > 0:
+            story_script.color[0] -= 1
+            story_script.color[1] -= 1
+            story_script.color[2] -= 1
+        print(setting.alpha)
+    elif story_animation.index == story_animation.frame_num and setting.alpha < 250:
+        setting.alpha += 1
+        story_script.color[0] += 1
+        story_script.color[1] += 1
+        story_script.color[2] += 1
+        print(setting.alpha)
+        print(story_script.color)
+
+    setting.back_img.set_alpha(setting.alpha)
+
     # 스토리 이미지를 보여줍니다.
     setting.screen.blit(story_animation.now_img, (0, 0))
+    setting.screen.blit(setting.back_img, (0, 0))
 
     # 화살표 이미지를 상황에 따라 보여줍니다.
     if story_animation.index > 0:
