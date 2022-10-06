@@ -173,6 +173,7 @@ back_img = pygame.image.load("img/ending/back.png")
 back_img = pygame.transform.scale(back_img, (800, 600))
 
 alpha = 250
+tutorial = False
 
 
 # 메뉴 씬

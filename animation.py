@@ -158,8 +158,10 @@ class StoryAnimation(Animation):
             img.set_alpha(self.alpha)
             self.imgs.append(img)
     
-    def update(self):
-        if self.index <= self.frame_num:
+    def update(self, tutorial = None):
+        if self.index == self.frame_num - 1 and tutorial == True:
+            pass
+        elif self.index <= self.frame_num:
             self.index += 1
             self.now_img = self.imgs[self.index]
             

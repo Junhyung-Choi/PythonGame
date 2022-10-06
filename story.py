@@ -19,8 +19,9 @@ def process_event(event):
         elif setting.BACKWARD_SCENE_X <= event.pos[0] <= setting.BACKWARD_SCENE_X + setting.BACKWARD_SCENE_W and setting.BACKWARD_SCENE_Y <= event.pos[1] <= setting.BACKWARD_SCENE_Y + setting.BACKWARD_SCENE_H and 0 < story_animation.index <= story_animation.frame_num - 1:
             backward()
             print("이전씬을 재생합니다.")
-        elif setting.GO_TUTORIAL_X <= event.pos[0] <= setting.GO_TUTORIAL_X + setting.GO_TUTORIAL_W  and setting.GO_TUTORIAL_Y <= event.pos[1] <= setting.GO_TUTORIAL_Y + setting.GO_TUTORIAL_H and story_animation.index == story_animation.frame_num - 1:
-            forward()
+        elif setting.GO_TUTORIAL_X <= event.pos[0] <= setting.GO_TUTORIAL_X + setting.GO_TUTORIAL_W  and setting.GO_TUTORIAL_Y <= event.pos[1] <= setting.GO_TUTORIAL_Y + setting.GO_TUTORIAL_H and story_animation.index == story_animation.frame_num - 1 and not setting.tutorial:
+            setting.tutorial = True
+            forward(True)
             print("튜토리얼로 이동합니다.")
         elif setting.NEXT_STAGE_X <= event.pos[0] <= setting.NEXT_STAGE_X + setting.NEXT_STAGE_W  and setting.NEXT_STAGE_Y <= event.pos[1] <= setting.NEXT_STAGE_Y + setting.NEXT_STAGE_H and story_animation.index == story_animation.frame_num:
             setting.stage = 2
@@ -42,11 +43,11 @@ def init_script():
     tutorial_skip_script = Script("Play Now")
     tutorial_skip_script.color = [250, 250, 250]
 
-def forward():
-    story_animation.update()
+def forward(tutorial = False):
+    story_animation.update(tutorial)
     if story_animation.index == story_animation.frame_num:
         story_sounds.stop()
-    elif story_animation.index >= 2:
+    elif story_animation.index >= 2 and not tutorial:
         story_sounds.update(True)
         story_sounds.play()
 
@@ -73,13 +74,16 @@ def render():
             for i in range(3):
                 story_script.color[i] -= 2
 
-    elif story_animation.index == story_animation.frame_num - 1 and setting.alpha < 250:
+    elif story_animation.index == story_animation.frame_num - 1 and setting.alpha < 250 and setting.tutorial == True:
         setting.alpha += 2
 
         for i in range(3):
                 story_script.color[i] += 2
+        if setting.alpha == 250:
+            setting.tutorial = False
+            forward(False)
     elif story_animation.index == story_animation.frame_num:
-        setting.alpha = 0
+        setting.alpha -= 2
     setting.back_img.set_alpha(setting.alpha)
 
     # 스토리 이미지를 보여줍니다.
