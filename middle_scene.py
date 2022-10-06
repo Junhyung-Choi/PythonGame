@@ -16,8 +16,8 @@ class MiddleScene():
         self.is_running = False
         self.is_loaded = False
         self.sound = sound.SceneSounds("sound/meeting/middle/", 2)
-        self.next_btn = button.NextButton(setting.SKIP_X, setting.SKIP_Y, [setting.SKIP_W, setting.SKIP_H], self)
-        self.prev_btn = button.PrevButton(setting.BACKWARD_X, setting.BACKWARD_Y, [setting.SKIP_W, setting.SKIP_H], self)
+        self.next_btn = button.NextButton(self)
+        self.prev_btn = button.PrevButton(self)
 
     def start(self):
         if not self.is_started:

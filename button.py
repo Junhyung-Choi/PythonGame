@@ -112,8 +112,8 @@ class RestartButton(Button):
         setting.game_status = 'playing'
 
 class NextButton(Button):
-    def __init__(self, x1, y1, size, obj):
-        super().__init__(x1, y1, size)
+    def __init__(self, obj):
+        super().__init__(setting.NEXT_SCENE_X, setting.NEXT_SCENE_Y, [setting.NEXT_SCENE_W, setting.NEXT_SCENE_H])
         self.obj = obj
 
     def show(self):
@@ -126,8 +126,8 @@ class NextButton(Button):
             self.obj.sound.update(b)
 
 class PrevButton(Button):
-    def __init__(self, x1, y1, size, obj):
-        super().__init__(x1, y1, size)
+    def __init__(self, obj):
+        super().__init__(setting.BACKWARD_SCENE_X, setting.BACKWARD_SCENE_Y, [setting.BACKWARD_SCENE_W, setting.BACKWARD_SCENE_H])
         self.obj = obj
 
     def show(self):

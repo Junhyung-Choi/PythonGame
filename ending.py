@@ -12,8 +12,8 @@ class Ending():
         self.scene = scene.Scene("img/ending/Ending_begin_", 2)
         self.back_img = pygame.image.load("img/ending/back.png")
         self.sound = sound.SceneSounds("sound/ending/", 1)
-        self.next_btn = button.NextButton(setting.SKIP_X, setting.SKIP_Y, [setting.SKIP_W, setting.SKIP_H], self)
-        self.prev_btn = button.PrevButton(setting.BACKWARD_X, setting.BACKWARD_Y, [setting.SKIP_W, setting.SKIP_H], self)
+        self.next_btn = button.NextButton(self)
+        self.prev_btn = button.PrevButton(self)
         self.is_loaded = False
         
     def load_file(self, kind):
