@@ -99,7 +99,6 @@ img_meeting_roombackground = pygame.transform.scale(img_meeting_roombackground, 
 font = pygame.font.Font("font/DungGeunMo.ttf", FONT_SIZE)
 
 is_init_interface = False
-is_meet_next = False
 
 # 텍스트
 
