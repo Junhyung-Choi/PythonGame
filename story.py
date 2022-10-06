@@ -16,7 +16,7 @@ def process_event(event):
         if setting.NEXT_SCENE_X <= event.pos[0] <= setting.NEXT_SCENE_X + setting.NEXT_SCENE_W and setting.NEXT_SCENE_Y <= event.pos[1] <= setting.NEXT_SCENE_Y + setting.NEXT_SCENE_H and story_animation.index < story_animation.frame_num - 1:
             forward()
             print("다음씬을 재생합니다.")
-        elif setting.BACKWARD_SCENE_X <= event.pos[0] <= setting.BACKWARD_SCENE_X + setting.BACKWARD_SCENE_W and setting.BACKWARD_SCENE_Y <= event.pos[1] <= setting.BACKWARD_SCENE_Y + setting.BACKWARD_SCENE_H and 0 < story_animation.index <= story_animation.frame_num - 1:
+        elif setting.BACKWARD_SCENE_X <= event.pos[0] <= setting.BACKWARD_SCENE_X + setting.BACKWARD_SCENE_W and setting.BACKWARD_SCENE_Y <= event.pos[1] <= setting.BACKWARD_SCENE_Y + setting.BACKWARD_SCENE_H and 0 < story_animation.index <= story_animation.frame_num - 1 and not setting.tutorial:
             backward()
             print("이전씬을 재생합니다.")
         elif setting.GO_TUTORIAL_X <= event.pos[0] <= setting.GO_TUTORIAL_X + setting.GO_TUTORIAL_W  and setting.GO_TUTORIAL_Y <= event.pos[1] <= setting.GO_TUTORIAL_Y + setting.GO_TUTORIAL_H and story_animation.index == story_animation.frame_num - 1 and not setting.tutorial:
