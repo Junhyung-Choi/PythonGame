@@ -40,7 +40,7 @@ def init_sound():
 def init_script():
     global story_script, tutorial_skip_script
     story_script = Script("Go Tutorial")
-    tutorial_skip_script = Script("Play Now")
+    tutorial_skip_script = Script("SKIP TUTORIAL")
     tutorial_skip_script.color = [250, 250, 250]
 
 def forward(tutorial = False):
@@ -97,12 +97,13 @@ def render():
         setting.screen.blit(setting.next_scene_img, (setting.NEXT_SCENE_X, setting.NEXT_SCENE_Y))
     if story_animation.index == story_animation.frame_num - 1:
         setting.screen.blit(setting.go_tutorial_img, (setting.GO_TUTORIAL_X, setting.GO_TUTORIAL_Y))
-        story_script.show_all_script(setting.GO_TUTORIAL_X + 10, setting.GO_TUTORIAL_Y + 15)
+        story_script.show_all_script(setting.GO_TUTORIAL_X + 20, setting.GO_TUTORIAL_Y + 15)
     if story_animation.index == story_animation.frame_num:
-        setting.screen.blit(setting.next_stage_img, (setting.NEXT_STAGE_X, setting.NEXT_STAGE_Y))
-        tutorial_skip_script.show_all_script(setting.NEXT_STAGE_X + 10, setting.NEXT_STAGE_Y + 15)
-        if 0 <= tutorial_skip_script.timer % 10 <= 4:
-            tutorial_skip_script.color = [0, 0, 0]
-        else:
-            tutorial_skip_script.color = [250, 250, 250]
+        # setting.screen.blit(setting.next_stage_img, (setting.NEXT_STAGE_X, setting.NEXT_STAGE_Y))
         tutorial_skip_script.timer += 1
+        if tutorial_skip_script.timer > 400:
+            tutorial_skip_script.show_all_script(605, 527)
+            if tutorial_skip_script.timer % 10 > 4:
+                tutorial_skip_script.color = [247,255,129]
+            else:
+                tutorial_skip_script.color = [255,255,255]
