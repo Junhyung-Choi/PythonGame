@@ -18,7 +18,7 @@ class GameStatus:
         self.mode = MODE_CHOICE
         self.start_time = time.time()
         self.current_time = time.time()
-        self.game_sec = 120
+        self.game_sec = 240
         self.left_sec = int(self.game_sec - (self.current_time - self.start_time))
         self.chapter = 1
         self.__root_question_chapter1__ = self.__make_questions__(1)
@@ -113,6 +113,7 @@ class GameStatus:
                 if not (self.current_question.child_questions):
                     print("middleAnimationStartCalled")
                     self.girlAnimator.translate_nextphase()
+                    meeting.bgm.set_volume(0.2)
                     
                     if self.chapter == 2:
                         setting.stage = -1
