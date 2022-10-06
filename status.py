@@ -113,6 +113,7 @@ class GameStatus:
                 if not (self.current_question.child_questions):
                     print("middleAnimationStartCalled")
                     self.girlAnimator.translate_nextphase()
+                    meeting.bgm.set_volume(0.2)
                     
                     if self.chapter == 2:
                         setting.stage = -1

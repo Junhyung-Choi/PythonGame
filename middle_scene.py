@@ -48,6 +48,7 @@ class MiddleScene():
             self.is_running = False
             gs : status.GameStatus = meeting.gamestatus
             gs.set_Second_Phase()
+            meeting.bgm.set_volume(1.0)
             return
 
         setting.screen.blit(self.scene.imgs[self.scene.index], (0, 0))
