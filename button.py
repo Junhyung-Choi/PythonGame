@@ -105,9 +105,10 @@ class ProposeButton(Button):
                 meeting.gamestatus.score -= 3
                 print('==========BAD==========')
             elif (-3 <= meeting.gamestatus.score - 15 <= 3):
+                meeting.gamestatus.score += 3
                 print('==========NORMAL==========')
             elif (3 < meeting.gamestatus.score - 15):
-                meeting.gamestatus.score += 3
+                meeting.gamestatus.score += 5
                 print('==========GOOD==========')
             
             print("CURRENT SCORE: ", meeting.gamestatus.score)

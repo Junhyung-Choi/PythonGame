@@ -70,6 +70,9 @@ class Ending():
 
         if kind == "normal" and self.scene.index == 3:
             self.normal_sound.play()
+        elif kind == "normal" and self.scene.index == 2:
+            self.normal_sound.stop()
+            
         self.sound.play()
         
         self.next_btn.show()
