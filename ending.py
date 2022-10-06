@@ -54,7 +54,7 @@ class Ending():
             setting.screen.blit(self.scene.imgs[self.scene.index], (0, 0))
 
 
-        if kind == "normal":
+        if kind == "normal" and self.scene.index == 3:
             self.normal_sound.play()
         self.sound.play()
         
