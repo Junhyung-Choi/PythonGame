@@ -45,7 +45,11 @@ class Ending():
             
             if self.alpha < -50:
                 setting.stage = 0
-                self.sound.sounds[self.sound.index].stop()
+                if self.sound.sounds[self.sound.index] == None:
+                    self.sound.sounds[self.sound.index - 1].stop()
+                else:
+                    self.sound.sounds[self.sound.index].stop()
+
                 if kind == "normal":
                     self.normal_sound.stop()
             
