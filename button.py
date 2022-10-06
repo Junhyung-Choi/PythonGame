@@ -1,7 +1,7 @@
 from setting import *
 import setting
 from status import GameStatus
-
+import meeting
 
 class Button:
     def __init__(self, x1, y1, size):
@@ -100,8 +100,23 @@ class ProposeButton(Button):
         screen.blit(img_meeting_propose, (self.x_pos, self.y_pos))
 
     def click(self, gs: GameStatus):
-        print('호감을 나타냅니다.')
-        setting.stage = -1
+        if not self.is_clicked:
+            if (meeting.gamestatus.score - 15 < -3):
+                meeting.gamestatus.score -= 3
+                print('==========BAD==========')
+            elif (-3 <= meeting.gamestatus.score - 15 <= 3):
+                print('==========NORMAL==========')
+            elif (3 < meeting.gamestatus.score - 15):
+                meeting.gamestatus.score += 3
+                print('==========GOOD==========')
+            
+            print("CURRENT SCORE: ", meeting.gamestatus.score)
+            print('호감을 나타냅니다.')
+        else:
+            print("CURRENT SCORE: ", meeting.gamestatus.score)
+            print("호감 표시는 1회만 가능합니다.")
+        self.is_clicked = True
+        
 
 
 class RestartButton(Button):
