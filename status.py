@@ -7,7 +7,6 @@ import setting
 
 from animation import Animator
 from script import Script
-from gameover import active_gameover
 
 MODE_CHOICE = 0
 MODE_CHECK = 1

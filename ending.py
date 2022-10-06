@@ -5,6 +5,7 @@ import time
 import sound
 import button
 import scene
+import prototype
 
 class Ending():
     def __init__(self):
@@ -17,7 +18,8 @@ class Ending():
         self.next_btn = button.NextButton(self)
         self.prev_btn = button.PrevButton(self)
         self.is_loaded = False
-
+        self.prototype = prototype.Prototype()
+        
     def load_file(self, kind):
         self.scene.add_scene("img/ending/Ending_" + kind + "_", 4 if kind == "good" else 3)
         self.scene.add_None()
@@ -43,8 +45,13 @@ class Ending():
         if self.scene.imgs[self.scene.index] == None:
             self.alpha -= 2
             
+            self.scene.imgs[self.scene.index - 1].set_alpha(self.alpha)
+            
+            setting.screen.blit(self.back_img, (0, 0))
+            setting.screen.blit(self.scene.imgs[self.scene.index - 1], (0, 0))
+
             if self.alpha < -50:
-                setting.stage = 0
+                self.prototype.render()
                 if self.sound.sounds[self.sound.index] == None:
                     self.sound.sounds[self.sound.index - 1].stop()
                 else:
@@ -52,11 +59,6 @@ class Ending():
 
                 if kind == "normal":
                     self.normal_sound.stop()
-            
-            self.scene.imgs[self.scene.index - 1].set_alpha(self.alpha)
-            
-            setting.screen.blit(self.back_img, (0, 0))
-            setting.screen.blit(self.scene.imgs[self.scene.index - 1], (0, 0))
         
         else:
             if self.fadeIn < 250 and self.scene.index == 3:
@@ -76,5 +78,6 @@ class Ending():
         self.sound.play()
         
         self.next_btn.show()
-        self.prev_btn.show()
+        if not self.alpha < -50:
+            self.prev_btn.show()
 
