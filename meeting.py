@@ -10,9 +10,9 @@ import middle_scene
 
 buttons = []
 animations = []
-girlAnimator = Animator()
 
-global gamestatus, isEventAvailable, middle_scene_obj
+global gamestatus, isEventAvailable, middle_scene_obj, bgm, girlAnimator
+girlAnimator = Animator()
 
 gamestatus : GameStatus = None
 isEventAvailable = False
@@ -35,7 +35,7 @@ def render(pause_obj):
     Meeting Scene의 렌더링을 관리하는 함수
     """
     
-    global isEventAvailable, middle_scene_obj
+    global isEventAvailable, middle_scene_obj, girlAnimator
 
     # 인터페이스가 준비 완료되었고, 이벤트가 사용 불가능한 상황이라면
     # 이벤트를 활성화한다.
@@ -95,15 +95,20 @@ def init():
     """
     초기화 함수들을 관리하는 함수
     """
-    global isEventAvailable, middle_scene_obj
+    global isEventAvailable, middle_scene_obj, bgm, girlAnimator
     isEventAvailable = False
+
+    buttons.clear()
+    animations.clear()
+    girlAnimator = Animator()
+
     init_ani()
     init_btn()
     init_status()
     init_script()
 
-    meeting_bgm = pygame.mixer.Sound("sound/meeting/meeting_bgm.mp3")
-    meeting_bgm.play()
+    bgm = pygame.mixer.Sound("sound/meeting/meeting_bgm.mp3")
+    bgm.play()
 
     middle_scene_obj = middle_scene.MiddleScene()
     girlAnimator.init()
@@ -123,6 +128,7 @@ def init_ani():
     """
     애니메이션 이미지 호출 및 애니메이션 관리 객체에 등록
     """
+    global girlAnimator
     # 팔 올리기 : 부정 -> 긍정(팔 위에), 매칭 점수 없음
     girl_armup = Animation("img/meeting/Girl_ArmUp/girl_armUp_", 60)
 
@@ -189,7 +195,7 @@ def init_btn():
     btn_timecheck = TimeCheckButton(LEFT_CIRCLE_BTN_X, LEFT_CIRCLE_BTN_Y, [CIRCLE_BTN_SIZE, CIRCLE_BTN_SIZE])
     btn_propose = ProposeButton(RIGHT_CIRCLE_BTN_X, RIGHT_CIRCLE_BTN_Y, [CIRCLE_BTN_SIZE, CIRCLE_BTN_SIZE])
     # 대화 버튼들
-    btn_spch_bble_1 = SpeechBubbleButton(47, SPEECH_BUBBLE_Y, [SPEECH_BUBBLE_W, SPEECH_BUBBLE_H], 0, '폰 확인해보세요.')
+    btn_spch_bble_1 = SpeechBubbleButton(47, SPEECH_BUBBLE_Y, [SPEECH_BUBBLE_W, SPEECH_BUBBLE_H], 0, '해보세요.')
     btn_spch_bble_2 = SpeechBubbleButton(47 + SPEECH_BUBBLE_W + 25, SPEECH_BUBBLE_Y, [SPEECH_BUBBLE_W, SPEECH_BUBBLE_H], 1, '웃어보세요.')
     btn_spch_bble_3 = SpeechBubbleButton(47 + SPEECH_BUBBLE_W * 2 + 50, SPEECH_BUBBLE_Y, [SPEECH_BUBBLE_W, SPEECH_BUBBLE_H], 2, '눈썹을 위로 올려보세요.')
     btn_spch_bble_4 = SpeechBubbleButton(47 + SPEECH_BUBBLE_W * 3 + 75, SPEECH_BUBBLE_Y, [SPEECH_BUBBLE_W, SPEECH_BUBBLE_H], 3,'탁자에 팔꿈치를 올려보세요.')
@@ -203,8 +209,9 @@ def init_status():
     GameStatus 객체를 생성하고, 버튼들을 등록하는 함수
     """
     global gamestatus
-    if gamestatus == None:
-        gamestatus = GameStatus("meeting",buttons[0],buttons[1],buttons[2],buttons[3])
+    # if gamestatus == None:
+    #     gamestatus = GameStatus("meeting",buttons[0],buttons[1],buttons[2],buttons[3])
+    gamestatus = GameStatus("meeting",buttons[0],buttons[1],buttons[2],buttons[3])
 
 def init_script():
     """

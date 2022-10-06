@@ -67,6 +67,7 @@ class Pause():
             # 클릭시 
             if event.type == pygame.MOUSEBUTTONUP and event.button == setting.LEFT:
                 self.is_pausing = False
+                meeting.bgm.stop()
                 setting.game_status = 'playing'
                 setting.stage = 0
         else:

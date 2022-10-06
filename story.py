@@ -1,7 +1,5 @@
-from telnetlib import PRAGMA_HEARTBEAT
 import pygame
 import setting
-import time
 from animation import *
 import sound
 from script import *
