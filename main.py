@@ -33,6 +33,7 @@ def reset():
     global pause_obj, ending_obj
     pause_obj = pause.Pause()
     ending_obj = ending.Ending()
+    menu.init()
 
     setting.first = True
     setting.is_init_interface = False
