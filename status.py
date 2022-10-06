@@ -95,9 +95,9 @@ class GameStatus:
             self.mode = MODE_CHECK
             
             # 현재 질문분야를 갱신하고, 텍스트 또한 갱신
-            self.button1.text = "짧게 던지기"
-            self.button2.text = "깊게 들어가기"
-            self.button3.text = "다른 질문 고르기"
+            self.button1.text = "가볍게 질문하기"
+            self.button2.text = "이 주제로 대화 시작"
+            self.button3.text = "다른 주제 고르기"
             self.button4.text = ""
 
         # MODE_CHECK : 3개(자신, 자식, 형재자매) 중에 선택하는 단계
