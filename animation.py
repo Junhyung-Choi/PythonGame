@@ -145,3 +145,23 @@ class AnimatorState(Enum):
     TRANS = 2
     STOP = 3
 
+
+class StoryAnimation(Animation):
+
+    def __init__(self, path, frame_num):
+        super().__init__(path, frame_num)
+        self.imgs = []
+        for i in range(self.frame_num + 1):
+            img = pygame.image.load(self.path + str(i) + ".png")
+            img = pygame.transform.scale(img, (800, 600))
+            self.imgs.append(img)
+    
+    def update(self):
+        if self.index <= self.frame_num:
+            self.index += 1
+            self.now_img = self.imgs[self.index]
+            
+    def backward(self):
+        if self.index > 0:
+            self.index -= 1
+            self.now_img = self.imgs[self.index]
