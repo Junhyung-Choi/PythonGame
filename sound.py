@@ -89,3 +89,6 @@ class SceneSounds():
     def play(self):
         if self.sounds[self.index] != None:
             self.sounds[self.index].play()
+    
+    def stop(self):
+        self.sounds[self.index].stop()

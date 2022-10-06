@@ -1,8 +1,8 @@
 import pygame
 import setting
 from animation import *
-import sound
 from script import *
+from sound import *
 
 global story_animation, story_sounds
 
@@ -18,7 +18,7 @@ def process_event(event):
             print("스킵합니다.\n\n")
         elif setting.NEXT_STAGE_X <= event.pos[0] <= setting.NEXT_STAGE_X + setting.NEXT_STAGE_W  and setting.NEXT_STAGE_Y <= event.pos[1] <= setting.NEXT_STAGE_Y + setting.NEXT_STAGE_H:
             print("다음 스테이지로 넘어갑니다.\n\n")
-            story_sounds.now_sound.stop()
+            story_sounds.stop()
             setting.stage = 2
         elif setting.BACKWARD_SCENE_X <= event.pos[0] <= setting.BACKWARD_SCENE_X + setting.BACKWARD_SCENE_W and setting.BACKWARD_SCENE_Y <= event.pos[1] <= setting.BACKWARD_SCENE_Y + setting.BACKWARD_SCENE_H and story_animation.index > 0:
             backward()
@@ -30,7 +30,7 @@ def init_ani():
 
 def init_sound():
     global story_sounds
-    story_sounds = sound.SceneSound("sound/story/", 5)
+    story_sounds = SceneSounds("sound/story/", 5)
     story_sounds.play()
 
 def init_script():
@@ -40,13 +40,13 @@ def init_script():
 def skip():
     story_animation.update()
     if story_animation.index >= 2:
-        story_sounds.update()
+        story_sounds.update(True)
         story_sounds.play()
 
 def backward():
     story_animation.backward()
     if story_animation.index >= 1:
-        story_sounds.backward()
+        story_sounds.backward(True)
         story_sounds.play()
 
 def render():
