@@ -120,16 +120,7 @@ class ProposeButton(Button):
             print("CURRENT SCORE: ", meeting.gamestatus.score)
             print("호감 표시는 1회만 가능합니다.")
         self.is_clicked = True
-        
-
-
-class RestartButton(Button):
-    def click(self, gs: GameStatus):
-        print("Restart")
-        setting.is_init_interface = False
-        setting.stage = 0
-        setting.game_status = 'playing'
-
+    
 class NextButton(Button):
     def __init__(self, obj):
         super().__init__(setting.NEXT_SCENE_X, setting.NEXT_SCENE_Y, [setting.NEXT_SCENE_W, setting.NEXT_SCENE_H])
@@ -157,3 +148,23 @@ class PrevButton(Button):
         if self.obj.scene.index > 0:
             self.obj.scene.backward()
             self.obj.sound.backward(b)
+
+class RestartButton(Button):
+    def __init__(self):
+        super().__init__(319, 392, [161, 46])
+        self.btn_img = pygame.image.load("img/ending/prototype/ReplayGame_normal.png")
+        self.btn_img = pygame.transform.scale(self.btn_img, (self.width, self.height))
+        self.btn_hover_img = pygame.image.load("img/ending/prototype/ReplayGame_Pressed.png")
+        self.btn_hover_img = pygame.transform.scale(self.btn_hover_img, (self.width, self.height))
+
+    def show(self):
+        mouseX, mouseY = pygame.mouse.get_pos()
+
+        if self.x_pos <= mouseX <= self.x_pos + self.width and self.y_pos <= mouseY <= self.y_pos + self.height:
+            setting.screen.blit(self.btn_hover_img, (self.x_pos, self.y_pos))
+        else:
+            setting.screen.blit(self.btn_img, (self.x_pos, self.y_pos))
+
+    def click(self, gs: GameStatus):
+        setting.stage = 0
+        print('asdf')
