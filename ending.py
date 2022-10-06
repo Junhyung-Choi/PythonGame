@@ -21,7 +21,7 @@ class Ending():
         self.prototype = prototype.Prototype()
         
     def load_file(self, kind):
-        self.scene.add_scene("img/ending/Ending_" + kind + "_", 4 if kind == "good" else 3)
+        self.scene.add_scene("img/ending/Ending_" + kind + "_", 4 if kind == "good" else (3 if kind == "normal" else 2))
         self.scene.add_None()
         self.back_img = pygame.transform.scale(self.back_img, (800, 600))
         self.sound.add_sound("sound/ending/" + kind + "/", 2)
