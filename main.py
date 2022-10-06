@@ -109,7 +109,7 @@ def render():
         meeting.render(pause_obj)
 
     elif setting.stage == -1:        
-        # ending_obj.render(20)
+        # ending_obj.render(30)
         ending_obj.render(meeting.gamestatus.score)
 
     # 게임 상태 관리 (게임오버, 일시정지)
