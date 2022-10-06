@@ -29,6 +29,7 @@ def init():
     setting.is_init = True
 
 def reset():
+    global pause_obj, ending_obj
     pause_obj = pause.Pause()
     ending_obj = ending.Ending()
 
@@ -87,7 +88,7 @@ def event():
                 ending_obj.prev_btn.click_event(event=event, gs=None, b=True)
 
 def render():
-    global last_stage
+    global last_stage, pause_obj, ending_obj
 
     if(setting.stage == 0 and last_stage != setting.stage):
         reset()
